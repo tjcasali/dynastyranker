@@ -1,0 +1,149 @@
+﻿@model DynastyRanker.ViewModels.DisplayLeagueViewModel
+
+<link href="~/css/site.css" rel="stylesheet" />
+<meta charset="UTF-8">
+
+@{ 
+    int count = 1;
+    Dictionary<int, string> rankingsDict = new Dictionary<int, string>();
+
+    if (rankingsDict.Count == 0)
+    {
+        rankingsDict.Add(1, "1st");
+        rankingsDict.Add(2, "2nd");
+        rankingsDict.Add(3, "3rd");
+        rankingsDict.Add(4, "4th");
+        rankingsDict.Add(5, "5th");
+        rankingsDict.Add(6, "6th");
+        rankingsDict.Add(7, "7th");
+        rankingsDict.Add(8, "8th");
+        rankingsDict.Add(9, "9th");
+        rankingsDict.Add(10, "10th");
+        rankingsDict.Add(11, "11th");
+        rankingsDict.Add(12, "12th");
+        rankingsDict.Add(13, "13th");
+        rankingsDict.Add(14, "14th");
+        rankingsDict.Add(15, "15th");
+        rankingsDict.Add(16, "16th");
+        rankingsDict.Add(17, "17th");
+        rankingsDict.Add(18, "18th");
+        rankingsDict.Add(19, "19th");
+        rankingsDict.Add(20, "20th");
+        rankingsDict.Add(21, "21st");
+        rankingsDict.Add(22, "22nd");
+    }
+}
+
+<body class="leagueBody">
+    <div class="littleGap"></div>
+
+    <div class="infobox-container">
+        <div class="infobox2-child">
+            <p>
+                <div class="alignCenter"><text class="boldText">Team Total</text> ranks the rosters by the owners that hold the most trade value.<br /></div>
+                <div class="alignCenter"><text class="boldText">Best Starting Lineup</text> ranks the teams based on the value of the best possible starting lineup.<br /></div>
+                <div class="alignCenter">
+                    All values are based on 12 team 0.5 PPR
+                    @if (Model.UserInfo.SuperFlex == true)
+                    {
+                        <text> Superflex </text>
+                    }leagues, determined at <a href="https://keeptradecut.com/">KeepTradeCut.com</a>
+                </div>
+                <div class="alignCenter"><text class="boldText">Rankings Last Updated: </text>@Model.LastScrapeDate<br /></div>
+                <div class="legend">&#11088; : Starters<br />&#128170; : Best Flex Options</div>         
+            </p>
+        </div>
+    </div>
+
+    <div class="littleGap"></div>
+
+    <div class="rostersParent">
+        @foreach (var roster in Model.Rosters)
+        {
+        <div id="roster">
+            <div id=rosterBoldCenter>@rankingsDict[count] : @roster.DisplayName<br /></div>
+
+            <div id=rosterBoldCenter>Team Total: @roster.TeamRankingAverage</div><br />
+            <div id=rosterBoldCenter>Best Starting Lineup:<br />@rankingsDict[roster.StartingTeamRank] <text>-</text> @roster.TeamStartingTotal</div><br />
+
+            <div class="position-rankings">QB Ranking: @rankingsDict[roster.QBRank] <text> - </text>@roster.QBRankingAverage </div>
+            @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "QB").OrderByDescending(o => o.Value.PORValue))
+            {
+                if (roster.StartingPlayerList.Contains(player.Value.PORName))
+                {
+                    <span>&#11088;</span>
+                }
+                if (roster.StartingFlexList.Contains(player.Value.PORName))
+                {
+                    <span>&#128170;</span>
+                }
+                @player.Value.PORName <text>: </text>
+                @player.Value.PORValue <br />
+            }
+            <br />
+            <div class="position-rankings">RB Ranking: @rankingsDict[roster.RBRank] <text> - </text>@roster.RBRankingAverage </div>
+            @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "RB").OrderByDescending(o => o.Value.PORValue))
+            {
+                if (roster.StartingPlayerList.Contains(player.Value.PORName))
+                {
+                    <span>&#11088;</span>
+                }
+                if (roster.StartingFlexList.Contains(player.Value.PORName))
+                {
+                    <span>&#128170;</span>
+                }
+                @player.Value.PORName <text>: </text>
+                @player.Value.PORValue <br />
+            }
+            <br />
+            <div class="position-rankings">WR Ranking: @rankingsDict[roster.WRRank] <text> - </text>@roster.WRRankingAverage </div>
+            @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "WR").OrderByDescending(o => o.Value.PORValue))
+            {
+                if (roster.StartingPlayerList.Contains(player.Value.PORName))
+                {
+                    <span>&#11088;</span>
+                }
+                if (roster.StartingFlexList.Contains(player.Value.PORName))
+                {
+                    <span>&#128170;</span>
+                }
+                @player.Value.PORName <text>: </text>
+                @player.Value.PORValue <br />
+            }
+            <br />
+            <div class="position-rankings">TE Ranking: @rankingsDict[roster.TERank] <text> - </text>@roster.TERankingAverage </div>
+            @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "TE").OrderByDescending(o => o.Value.PORValue))
+            {
+                if (roster.StartingPlayerList.Contains(player.Value.PORName))
+                {
+                    <span>&#11088;</span>
+                }
+                if (roster.StartingFlexList.Contains(player.Value.PORName))
+                {
+                    <span>&#128170;</span>
+                }
+                @player.Value.PORName <text>: </text>
+                @player.Value.PORValue <br />
+            }
+            <br />
+            @if (Model.IncludeDraftCapital == true)
+            {
+                <div class="position-rankings">Draft Capital: @roster.TotalDraftCapital</div>
+                foreach (var pick in roster.DraftPicks.OrderByDescending(o => Int32.Parse(Model.DraftPickRankings[o])))
+                {
+                    if (pick.Contains("2021"))
+                    {
+                        @pick <text>: </text>
+                        @Model.DraftPickRankings[pick]<br />
+                    }
+                }
+            }
+            @{
+                count++;
+            }
+        </div>
+        }
+
+    </div>
+</body>
+

@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "RgBX9CsQmRoDv0TN/1Z3uaeBLihLGlgqxlGHOj6JIB2cM5WU1NBTEW6M4JXcE6XMD/zQ7TE4gw8ZQzKiSPZvBA==",
+  "success": true,
+  "projectFilePath": "E:\\projects\\DynastyRanker\\DynastyRanker\\DynastyRanker.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\timca\\.nuget\\packages\\htmlagilitypack\\1.11.31\\htmlagilitypack.1.11.31.nupkg.sha512",
+    "C:\\Users\\timca\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.13\\microsoft.visualstudio.azure.containers.tools.targets.1.10.13.nupkg.sha512",
+    "C:\\Users\\timca\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

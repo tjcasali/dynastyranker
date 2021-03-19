@@ -1,0 +1,132 @@
+﻿@model DynastyRanker.ViewModels.DisplayLeagueViewModel
+
+<link href="~/StyleSheet.css" rel="stylesheet" />
+<meta charset="UTF-8">
+
+@{
+    int count = 1;
+    Dictionary<int, string> rankingsDict = new Dictionary<int, string>();
+    rankingsDict.Add(1, "1st");
+    rankingsDict.Add(2, "2nd");
+    rankingsDict.Add(3, "3rd");
+    rankingsDict.Add(4, "4th");
+    rankingsDict.Add(5, "5th");
+    rankingsDict.Add(6, "6th");
+    rankingsDict.Add(7, "7th");
+    rankingsDict.Add(8, "8th");
+    rankingsDict.Add(9, "9th");
+    rankingsDict.Add(10, "10th");
+    rankingsDict.Add(11, "11th");
+    rankingsDict.Add(12, "12th");
+    rankingsDict.Add(13, "13th");
+    rankingsDict.Add(14, "14th");
+    rankingsDict.Add(15, "15th");
+    rankingsDict.Add(16, "16th");
+    rankingsDict.Add(17, "17th");
+    rankingsDict.Add(18, "18th");
+    rankingsDict.Add(19, "19th");
+    rankingsDict.Add(20, "20th");
+    rankingsDict.Add(21, "21st");
+    rankingsDict.Add(22, "22nd");
+}
+
+<body class="leagueBody">
+    <div class="infobox-container">
+
+        <div class="infobox-child">
+            <p>
+                <div class="alignCenter"><text class="boldText">Team Rankings</text> rate all of the players on the roster to determine the rosters that hold the most trade value.<br /></div>
+                <div class="alignCenter"><text class="boldText">Startable Team Rankings</text> rank all of the teams based on value of the best possible starting lineup.<br /></div>
+                <div class="alignCenter"><text class="boldText">Rankings Last Updated: </text>@Model.LastScrapeDate<br /><br /></div>
+                <div class="legend">&#11088; : Starters<br />&#128170; : Best Flex Options</div>
+            </p>
+        </div>
+    </div>
+
+    <div class="littleGap"></div>
+
+    <div class="rostersParent">
+        @foreach (var roster in Model.Rosters)
+        {
+            //IF I WANT TO DO SPECIAL CSS on X ROSTERS<div class="homepageContainer" id="roster-@rosterCounter">
+            <div id="roster">
+                <div id=rosterBold>@rankingsDict[count] : @roster.DisplayName<br /></div>
+
+                <div id=rosterBold>Team Ranking: @roster.TeamRankingAverage</div><br />
+                <div id=rosterBold>Startable Team Ranking:<br />@rankingsDict[roster.StartingTeamRank] <text>-</text> @roster.TeamStartingTotal</div><br />
+                @*@Html.ActionLink(
+                        roster.DisplayName + "'s Trade Candidates",
+                        "TeamBreakdown",                          // controller action
+                        "Sleeper",                                // controller
+                        new { leagueID = @Model.LeagueID, name = roster.DisplayName },        // action parameters aka route values
+                        new { @class = "btn btn-secondary btn-sm" })
+                    <br />*@
+
+                <div class="position-rankings">QB Ranking: @rankingsDict[roster.QBRank] <text> - </text>@roster.QBRankingAverage </div>
+                @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "QB").OrderByDescending(o => o.Value.PORValue))
+                {
+                    if (roster.StartingPlayerList.Contains(player.Value.PORName))
+                    {
+                        <span>&#11088;</span>
+                    }
+                    if (roster.StartingFlexList.Contains(player.Value.PORName))
+                    {
+                        <span>&#128170;</span>
+                    }
+                    @player.Value.PORName<text> (</text>@player.Value.PORPosition<text>) :</text>
+                    @player.Value.PORValue <br />
+                }
+                <br />
+                <div class="position-rankings">RB Ranking: @rankingsDict[roster.RBRank] <text> - </text>@roster.RBRankingAverage </div>
+                @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "RB").OrderByDescending(o => o.Value.PORValue))
+                {
+                    if (roster.StartingPlayerList.Contains(player.Value.PORName))
+                    {
+                        <span>&#11088;</span>
+                    }
+                    if (roster.StartingFlexList.Contains(player.Value.PORName))
+                    {
+                        <span>&#128170;</span>
+                    }
+                    @player.Value.PORName<text> (</text>@player.Value.PORPosition<text>) :</text>
+                    @player.Value.PORValue <br />
+                }
+                <br />
+                <div class="position-rankings">WR Ranking: @rankingsDict[roster.WRRank] <text> - </text>@roster.WRRankingAverage </div>
+                @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "WR").OrderByDescending(o => o.Value.PORValue))
+                {
+                    if (roster.StartingPlayerList.Contains(player.Value.PORName))
+                    {
+                        <span>&#11088;</span>
+                    }
+                    if (roster.StartingFlexList.Contains(player.Value.PORName))
+                    {
+                        <span>&#128170;</span>
+                    }
+                    @player.Value.PORName<text> (</text>@player.Value.PORPosition<text>) :</text>
+                    @player.Value.PORValue <br />
+                }
+                <br />
+                <div class="position-rankings">TE Ranking: @rankingsDict[roster.TERank] <text> - </text>@roster.TERankingAverage </div>
+                @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "TE").OrderByDescending(o => o.Value.PORValue))
+                {
+                    if (roster.StartingPlayerList.Contains(player.Value.PORName))
+                    {
+                        <span>&#11088;</span>
+                    }
+                    if (roster.StartingFlexList.Contains(player.Value.PORName))
+                    {
+                        <span>&#128170;</span>
+                    }
+                    @player.Value.PORName<text> (</text>@player.Value.PORPosition<text>) :</text>
+                    @player.Value.PORValue <br />
+                }
+                @{
+                    count++;
+                }
+            </div>
+        }
+
+    </div>
+</body>
+

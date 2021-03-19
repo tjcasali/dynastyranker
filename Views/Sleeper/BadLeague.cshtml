@@ -1,0 +1,47 @@
+﻿@model DynastyRanker.Models.UserInfo
+
+<link href="~/css/site.css" rel="stylesheet" />
+
+<body style="background-color:#18202F;">
+
+    <div class="homePage">
+
+        <div class="littleGap"></div>
+
+        <div class="infobox-container">
+            <div class="infobox-child">
+                <h1>Unsupported League!</h1><br />
+                <p>
+                    This league either has settings that we can't support or contains invalid teams. Try again with a different league.
+                </p>
+
+            </div>
+        </div>
+
+        <div class="littleGap"></div>
+
+        <div class="sleeperIDBiggerPadding">
+            <h1>Enter your Sleeper User Name.</h1><br />
+
+            @using (Html.BeginForm("SelectLeague", "Sleeper"))
+            {
+@Html.TextBoxFor(m => m.UserName, new { @class = "sleeperIDField" })
+                <button type="submit" class="btn btn-info">Submit</button>            }
+        </div>
+
+        <div class="tinyGap"></div>
+        <div class="alignCenter">- OR -</div>
+        <div class="tinyGap"></div>
+
+        <div class="sleeperID">
+            <h1>Enter your Sleeper League ID.</h1><br />
+
+            @using (Html.BeginForm("DisplayLeague", "Sleeper"))
+            {
+@Html.TextBoxFor(m => m.LeagueID, new { @class = "sleeperIDField" })
+                <button type="submit" class="btn btn-info">Submit</button>            }
+            <img alt="Sleeper ID" src="@Url.Content("~/Images/SleeperLeagueID.png")" class="hideIfSmol">
+        </div>
+
+    </div>
+</body>

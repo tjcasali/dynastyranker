@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>8d4b162a-0910-4b7e-8252-7056322c70e0</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\css\StyleSheet.css" />
+    <Content Remove="wwwroot\DRHomepage5.png" />
+    <Content Remove="wwwroot\DRHomepage6.png" />
+    <Content Remove="wwwroot\DRLogo1.png" />
+    <Content Remove="wwwroot\DRLogo2.png" />
+    <Content Remove="wwwroot\DRLogo3.jpg" />
+    <Content Remove="wwwroot\DRLogo4.jpg" />
+    <Content Remove="wwwroot\DRLogo5.jpg" />
+    <Content Remove="wwwroot\favicon-16x16.png" />
+    <Content Remove="wwwroot\favicon-32x32.png" />
+    <Content Remove="wwwroot\RML.jpg" />
+    <Content Remove="wwwroot\SleeperID.png" />
+    <Content Remove="wwwroot\SleeperLeagueID.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\StyleSheet.css" />
+    <None Include="wwwroot\DRHomepage5.png" />
+    <None Include="wwwroot\DRHomepage6.png" />
+    <None Include="wwwroot\DRLogo1.png" />
+    <None Include="wwwroot\DRLogo2.png" />
+    <None Include="wwwroot\DRLogo3.jpg" />
+    <None Include="wwwroot\DRLogo4.jpg" />
+    <None Include="wwwroot\DRLogo5.jpg" />
+    <None Include="wwwroot\favicon-16x16.png" />
+    <None Include="wwwroot\favicon-32x32.png" />
+    <None Include="wwwroot\RML.jpg" />
+    <None Include="wwwroot\SleeperID.png" />
+    <None Include="wwwroot\SleeperLeagueID.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.31" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+</Project>

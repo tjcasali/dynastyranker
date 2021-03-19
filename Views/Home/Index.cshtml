@@ -1,0 +1,56 @@
+﻿@model DynastyRanker.Models.UserInfo
+<!--<link href="~/StyleSheet.css" rel="stylesheet" />-->
+<link href="~/css/site.css" rel="stylesheet" />
+
+
+<body style="background-color:#18202F;">
+
+    <div class="homePage">
+
+        <div class="littleGap"></div>
+
+        <div class="infobox-container">
+
+            <div class="infobox-child">
+                @*<h1>Rank the teams in your league</h1>*@
+                <div class="subtitle">Use the trade value chart at <a class="biggerA" href="https://keeptradecut.com/">KeepTradeCut.com</a> to rank the teams in your Dynasty league. </div><br />
+                <p>
+                    KeepTradeCut created an incredible system to determine player trade values based on crowdsourced data. Here at DynastyRanker you can rank
+                    the teams in your league using the data at KeepTradeCut and browse through your leagues position rankings to find trades that can benefit
+                    both owners.
+                </p>
+            </div>
+        </div>
+
+        <div class="littleGap"></div>
+
+        <div class="sleeperIDBiggerPadding">
+            <h1>Enter your Sleeper User Name.</h1><br />
+
+            @using (Html.BeginForm("SelectLeague", "Sleeper"))
+            {
+                @Html.TextBoxFor(m => m.UserName, new { @class = "sleeperIDField" })
+                <button type="submit" class="btn btn-info">Submit</button>            
+            }
+        </div>
+
+        <div class="tinyGap"></div>
+        <div class="alignCenter">- OR -</div>
+        <div class="tinyGap"></div>
+
+        <div class="sleeperID">
+            <h1>Enter your Sleeper League ID.</h1><br />
+
+            @using (Html.BeginForm("DisplayLeague", "Sleeper"))
+            {
+                @Html.TextBoxFor(m => m.LeagueID, new { @class = "sleeperIDField" })
+                <button type="submit" class="btn btn-info">Submit</button>            
+            }
+            <img alt="Sleeper ID" src="@Url.Content("~/SleeperLeagueID.png")" class="hideIfSmol">
+        </div>
+
+        <div class="littleGap"></div>
+
+        <img alt="Dynasty Ranker" src="@Url.Content("~/DRHomepage6.png")" class="hideIfSmol">
+    </div>
+</body>
