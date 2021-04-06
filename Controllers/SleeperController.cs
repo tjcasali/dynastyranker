@@ -146,12 +146,12 @@ namespace DynastyRanker.Controllers
                 }
                 catch
                 {
-                    return RedirectToAction("InvalidLeagueID");
+                    return RedirectToAction("InvalidUsername");
                 }
             }
             else
             {
-                return RedirectToAction("InvalidLeagueID");
+                return RedirectToAction("InvalidUsername");
             }
 
             var viewModel = new SelectLeagueViewModel
@@ -163,6 +163,11 @@ namespace DynastyRanker.Controllers
         }
 
         public ActionResult InvalidLeagueID()
+        {
+            return View();
+        }
+
+        public ActionResult InvalidUsername()
         {
             return View();
         }

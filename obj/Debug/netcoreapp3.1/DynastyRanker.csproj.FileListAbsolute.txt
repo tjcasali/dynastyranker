@@ -17,7 +17,6 @@ E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\Razor\Views\Shar
 E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\Razor\Views\Sleeper\BadLeague.cshtml.g.cs
 E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\Razor\Views\Sleeper\DisplayLeague.cshtml.g.cs
-E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\Razor\Views\Sleeper\DisplayStarting.cshtml.g.cs
 E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\Razor\Views\Sleeper\InvalidLeagueID.cshtml.g.cs
 E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\Razor\Views\Sleeper\SelectLeague.cshtml.g.cs
 E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
@@ -42,3 +41,4 @@ E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\DynastyRanker.Vi
 E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\DynastyRanker.csproj.CopyComplete
 E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\DynastyRanker.genruntimeconfig.cache
 E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\DynastyRanker.csprojAssemblyReference.cache
+E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\Razor\Views\Sleeper\InvalidUsername.cshtml.g.cs
