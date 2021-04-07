@@ -24,24 +24,54 @@
 
   <ItemGroup>
     <None Include="wwwroot\css\StyleSheet.css" />
-    <None Include="wwwroot\Images\DRHomepage5.png" />
-    <None Include="wwwroot\Images\DRHomepage6.png" />
-    <None Include="wwwroot\Images\DRLogo1.png" />
-    <None Include="wwwroot\Images\DRLogo2.png" />
-    <None Include="wwwroot\Images\DRLogo3.jpg" />
-    <None Include="wwwroot\Images\DRLogo4.jpg" />
-    <None Include="wwwroot\Images\DRLogo5.jpg" />
-    <None Include="wwwroot\Images\favicon-16x16.png" />
-    <None Include="wwwroot\Images\favicon-32x32.png" />
-    <None Include="wwwroot\Images\RML.jpg" />
-    <None Include="wwwroot\Images\SleeperID.png" />
-    <None Include="wwwroot\Images\SleeperLeagueID.png" />
+    <None Include="wwwroot\Images\DRHomepage5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Images\DRHomepage6.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Images\DRLogo1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Images\DRLogo2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Images\DRLogo3.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Images\DRLogo4.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Images\DRLogo5.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Images\favicon-16x16.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Images\favicon-32x32.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Images\RML.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Images\SleeperID.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Images\SleeperLeagueID.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.31" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\Images\favicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
