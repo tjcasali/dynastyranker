@@ -379,22 +379,22 @@ namespace DynastyRanker.Controllers
                 tempPORDict = new Dictionary<string, POR>();
                 foreach (string p in ros.Bench)
                 {
-                    tempPOREntry = new POR();
-                    temp = players[p].FirstName + " " + players[p].LastName;
+                    if (players.ContainsKey(p))
+                    {
+                        tempPOREntry = new POR();
+                        temp = players[p].FirstName + " " + players[p].LastName;
 
-                    tempPlayer = GetPlayerData(p, players);
-                    tempPlayerRankingsList.Add(tempPlayer.KeepTradeCutValue);
+                        tempPlayer = GetPlayerData(p, players);
+                        tempPlayerRankingsList.Add(tempPlayer.KeepTradeCutValue);
 
-                    tempPlayersList.Add(temp);
+                        tempPlayersList.Add(temp);
 
-                    tempPOREntry.PORName = temp;
-                    tempPOREntry.PORPosition = tempPlayer.Position;
-                    tempPOREntry.PORValue = Convert.ToInt32(tempPlayer.KeepTradeCutValue);
+                        tempPOREntry.PORName = temp;
+                        tempPOREntry.PORPosition = tempPlayer.Position;
+                        tempPOREntry.PORValue = Convert.ToInt32(tempPlayer.KeepTradeCutValue);
 
-                    tempPORDict.Add(p, tempPOREntry);
-                    //ros.PlayersOnRoster.Add(p, tempPOR);
-                    
-                    
+                        tempPORDict.Add(p, tempPOREntry);
+                    }
                 }
                 ros.PlayerNames = tempPlayersList;
                 ros.PlayerTradeValues = tempPlayerRankingsList;
@@ -928,6 +928,9 @@ namespace DynastyRanker.Controllers
         public List<Rosters> RankStartingLineups(List<Rosters> rosters, UserInfo leagueInfo)
         {
             int positionCounter = 0;
+            int remainingFlex = leagueInfo.FLEXCount + leagueInfo.RECFLEXCount + leagueInfo.SUPERFLEXCount;
+            int superflexAdded = 0;
+            int recflexAdded = 0;
 
             double startingQBTotal = 0.0;
             double startingRBTotal = 0.0;
@@ -1008,9 +1011,11 @@ namespace DynastyRanker.Controllers
                         startingTETotal += player.Value.PORValue;
                     }
                 }
+
+
                 foreach (var player in ros.PlayersOnRoster.OrderByDescending(o => o.Value.PORValue))
                 {
-                    if (leagueInfo.SUPERFLEXCount != 0)
+                    if (leagueInfo.SUPERFLEXCount != 0 && leagueInfo.SUPERFLEXCount != superflexAdded)
                     {
                         if (skippedPlayerNames.Contains(player.Value.PORName))
                         {
@@ -1018,13 +1023,16 @@ namespace DynastyRanker.Controllers
                         }
                         skippedPlayerNames.Add(player.Value.PORName);
                         flexPlayerNames.Add(player.Value.PORName);
-
+                        if (player.Value.PORPosition == "QB")
+                            superflexAdded++;
                         positionCounter++;
-                        if (positionCounter == leagueInfo.FLEXCount)
+                        if (positionCounter == leagueInfo.FLEXCount + leagueInfo.RECFLEXCount + leagueInfo.SUPERFLEXCount)
                         {
                             skippedPlayerNames.Add(player.Value.PORName);
                             startingFLEXTotal += player.Value.PORValue;
                             positionCounter = 0;
+                            recflexAdded = 0;
+                            superflexAdded = 0;
                             break;
                         }
                         else
@@ -1032,20 +1040,23 @@ namespace DynastyRanker.Controllers
                             startingFLEXTotal += player.Value.PORValue;
                         }
                     }
-                    else if(leagueInfo.RECFLEXCount != 0)
+                    else if (leagueInfo.RECFLEXCount != 0)
                     {
                         if (skippedPlayerNames.Contains(player.Value.PORName) || player.Value.PORPosition == "QB" || player.Value.PORPosition == "RB")
                             continue;
-                        
+
                         skippedPlayerNames.Add(player.Value.PORName);
                         flexPlayerNames.Add(player.Value.PORName);
-
+                        if (player.Value.PORPosition == "WR" || player.Value.PORPosition == "TE")
+                            recflexAdded++;
                         positionCounter++;
-                        if (positionCounter == leagueInfo.RECFLEXCount)
+                        if (positionCounter == leagueInfo.FLEXCount + leagueInfo.RECFLEXCount + leagueInfo.SUPERFLEXCount)
                         {
                             skippedPlayerNames.Add(player.Value.PORName);
                             startingFLEXTotal += player.Value.PORValue;
                             positionCounter = 0;
+                            recflexAdded = 0;
+                            superflexAdded = 0;
                             break;
                         }
                         else
@@ -1062,11 +1073,13 @@ namespace DynastyRanker.Controllers
                         flexPlayerNames.Add(player.Value.PORName);
 
                         positionCounter++;
-                        if (positionCounter == leagueInfo.FLEXCount)
+                        if (positionCounter == leagueInfo.FLEXCount + leagueInfo.RECFLEXCount + leagueInfo.SUPERFLEXCount)
                         {
                             skippedPlayerNames.Add(player.Value.PORName);
                             startingFLEXTotal += player.Value.PORValue;
                             positionCounter = 0;
+                            recflexAdded = 0;
+                            superflexAdded = 0;
                             break;
                         }
                         else
@@ -1074,9 +1087,7 @@ namespace DynastyRanker.Controllers
                             startingFLEXTotal += player.Value.PORValue;
                         }
                     }
-
                 }
-
 
                 ros.QBStartingTotal = startingQBTotal;
                 ros.RBStartingTotal = startingRBTotal;
