@@ -61,8 +61,8 @@ namespace DynastyRanker.Controllers
                     //LoadSleeperPlayersTextFile();
 
                     //TODO Put the if condition here so we don't even have to go into the scrape functions
-                    ScrapeRankings(lastScrapeDate);
-                    ScrapeSFRankings(lastScrapeDate);
+                    //ScrapeRankings(lastScrapeDate);
+                    //ScrapeSFRankings(lastScrapeDate);
 
                     playerList = LoadRankings(playerList, keepTradeCutList, leagueInformation);
 
@@ -1158,10 +1158,37 @@ namespace DynastyRanker.Controllers
 
             foreach (Rosters ros in rosters)
             {
-                startingDraftPicks.Add("2021 1st");
-                startingDraftPicks.Add("2021 2nd");
-                startingDraftPicks.Add("2021 3rd");
-                startingDraftPicks.Add("2021 4th");
+                if(draft.Rounds >= 4)
+                {
+                    startingDraftPicks.Add("2021 1st");
+                    startingDraftPicks.Add("2021 2nd");
+                    startingDraftPicks.Add("2021 3rd");
+                    startingDraftPicks.Add("2021 4th");
+                }
+                else if (draft.Rounds == 3)
+                {
+                    startingDraftPicks.Add("2021 1st");
+                    startingDraftPicks.Add("2021 2nd");
+                    startingDraftPicks.Add("2021 3rd");
+                }
+                else if (draft.Rounds == 2)
+                {
+                    startingDraftPicks.Add("2021 1st");
+                    startingDraftPicks.Add("2021 2nd");
+                }
+                else if (draft.Rounds == 1)
+                {
+                    startingDraftPicks.Add("2021 1st");
+                }
+                else
+                {
+                    startingDraftPicks.Add("2021 1st");
+                    startingDraftPicks.Add("2021 2nd");
+                    startingDraftPicks.Add("2021 3rd");
+                    startingDraftPicks.Add("2021 4th");
+                }
+
+
                 //startingDraftPicks.Add("2022 1st");
                 //startingDraftPicks.Add("2022 2nd");
                 //startingDraftPicks.Add("2022 3rd");

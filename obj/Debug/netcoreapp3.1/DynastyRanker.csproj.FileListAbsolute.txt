@@ -55,3 +55,4 @@ E:\projects\DynastyRanker\DynastyRanker\bin\Debug\netcoreapp3.1\wwwroot\Images\R
 E:\projects\DynastyRanker\DynastyRanker\bin\Debug\netcoreapp3.1\wwwroot\Images\SleeperID.png
 E:\projects\DynastyRanker\DynastyRanker\bin\Debug\netcoreapp3.1\wwwroot\Images\SleeperLeagueID.png
 E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\DynastyRanker.csprojAssemblyReference.cache
+E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\Razor\Views\Home\About.cshtml.g.cs
