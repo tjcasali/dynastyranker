@@ -688,6 +688,7 @@ ul {
 .nav-item {
     color: white;
     font-family: Raleway;
+    width:100px;
 }
 
 .nav-link {
@@ -708,4 +709,19 @@ ul {
     height: 50px;
 }
 
+.displayIf600{
+    display:none;
+}
+@media screen and (max-width: 600px) {
 
+    .hideIf600 {
+        display: none;
+    }
+    .displayIf600{
+        display:inline-block;
+    }
+}
+
+.img-fluid{
+    display:flex;
+}

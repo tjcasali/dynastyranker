@@ -462,7 +462,10 @@ namespace DynastyRanker.Controllers
                     temp = '"' + firstNameTemp + " " + lastNameTemp + '"';
                     temp = temp.Remove(0, 1);
                     temp = temp.Remove(temp.Length - 1, 1);
-                    //temp = temp.Replace(".", string.Empty);
+                    temp = temp.Replace(".", string.Empty);
+                    temp = temp.Replace(" Jr", string.Empty);
+                    
+
 
                     if (playerNameList.Contains(temp))
                     {
