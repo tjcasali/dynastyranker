@@ -2,54 +2,59 @@
 
 <link href="~/css/site.css" rel="stylesheet" />
 
-<body style="background-color:#18202F;">
+<body class="leagueBody">
+    <div class="littleGap"></div>
 
-    <div class="homePage">
-
-        <div class="littleGap"></div>
-
-        <div class="infobox-container">
-
-            <div class="infobox-child">
-                @*<h1>Rank the teams in your league</h1>*@
-                <div class="subtitle">Use the trade value chart at <a class="biggerA" href="https://keeptradecut.com/">KeepTradeCut.com</a> to rank the teams in your Dynasty league. </div><br />
-                    <p>
-                        KeepTradeCut created an incredible system to determine player trade values based on crowdsourced data. Here at DynastyRanker you can rank
-                        the teams in your league using the data at KeepTradeCut and browse through your leagues position rankings to find trades that can benefit
-                        both owners.
-                    </p>
-            </div>
+    <div class="infobox-container">
+        <div class="about-child">
+            <h1 class="about-h1">Recent Updates</h1>
+            <ul class="navbar-nav flex-grow-1">
+                <li>
+                    <p>- Added support for My Fantasy League! If you have a league ID that isn't working properly please email me your league ID as there are so many unique settings on this site to account for.</p>
+                </li>
+                <li>
+                    <p>- Displayed the top available waiver wire players in your league.</p>
+                </li>
+                <li>
+                    <p>- Resolved the issue with Superflex / 2 Flex league.</p>
+                </li>
+            </ul>
         </div>
-
-        <div class="littleGap"></div>
-
-        <div class="sleeperIDBiggerPadding">
-            <h1>Enter your Sleeper User Name.</h1><br />
-
-            @using (Html.BeginForm("SelectLeague", "Sleeper"))
-            {
-                @Html.TextBoxFor(m => m.UserName, new { @class = "sleeperIDField" })
-                <button type="submit" class="btn btn-info">Submit</button>            
-            }
-        </div>
-
-        <div class="tinyGap"></div>
-        <div class="alignCenter">- OR -</div>
-        <div class="tinyGap"></div>
-
-        <div class="sleeperID">
-            <h1>Enter your Sleeper League ID.</h1><br />
-
-            @using (Html.BeginForm("DisplayLeague", "Sleeper"))
-            {
-                @Html.TextBoxFor(m => m.LeagueID, new { @class = "sleeperIDField" })
-                <button type="submit" class="btn btn-info">Submit</button>            
-            }
-            <img alt="Sleeper ID" src="@Url.Content("~/Images/SleeperLeagueID.png")" class="hideIfSmol">
-        </div>
-
-        <div class="littleGap"></div>
-
-        <img alt="Dynasty Ranker" src="@Url.Content("~/Images/DRHomepage6.png")" class="hideIfSmol">
     </div>
+
+    <div class="tinyGap"></div>
+
+    <div class="infobox-container">
+        <div class="about-child">
+            <h1 class="about-h1">Currently Working On</h1>
+            <ul class="navbar-nav flex-grow-1">
+                <li>
+                    <p>- Adding 2022/2023 draft capital.</p>
+                </li>
+                <li>
+                    <p>- Sort by starting lineup rankings over total team trade capital.</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="tinyGap"></div>
+
+    <div class="infobox-container">
+        <div class="about-child">
+            <h1 class="about-h1">About Me</h1>
+            <ul class="navbar-nav flex-grow-1">
+                <li>
+                    <p>
+                        Hi, my name is Tim and I spend too much time looking at unsuccessful dynasty trade proposals. I wanted a way to find potential trade candidates in your league
+                        and couldn't find it so I decided to make it, and then it gradually turned into a way to rank the teams based on total trade value (still working on the
+                        trade candidates thing). This just started as a way to buff up my resume and figured I would be the only one using it, so thanks for the support!
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="tinyGap"></div>
+
 </body>

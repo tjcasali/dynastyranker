@@ -261,7 +261,74 @@ a:hover {
     font-size: 26px;
 }
 
-.biggerA{
-    font-size:26px;
+.greenA {
+    color: #00CEB8;
+    font-size: 18px;
 }
+
+    .greenA:hover {
+        color: white;
+    }
+
+.whiteA {
+    color: white;
+    font-size: 18px;
+}
+
+    .whiteA:hover {
+        color: #00CEB8;
+    }
+
+.subtitle {
+    font-size: 26px;
+}
+
+.biggerA {
+    font-size: 26px;
+}
+
+.navbar.navbar-inverse {
+    border: none;
+}
+
+.navbar .navbar-brand {
+    padding-top: 10px;
+}
+
+    .navbar .navbar-brand img {
+        height: 135px;
+    }
+
+ul {
+    padding-top: 10px;
+    margin: 0 0 0.3rem 0;
+}
+
+.nav-item {
+    color: white;
+    font-family: Raleway;
+}
+
+.nav-link {
+    display: block;
+    padding: 0.4rem 1rem;
+}
+
+.navbar-collapse {
+    padding-top: 5px;
+}
+
+@font-face {
+    font-family: Raleway;
+    src: url("RALEWAY-REGULAR.TTF");
+}
+
+.sleeperMFLLogo {
+    height: 50px;
+}
+
+.testing{
+    height:135px;
+}
+
 

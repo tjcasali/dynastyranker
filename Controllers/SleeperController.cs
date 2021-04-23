@@ -32,6 +32,7 @@ namespace DynastyRanker.Controllers
         public Dictionary<string, string> draftPickRankings = new Dictionary<string, string>();
         public Username currentUser = new Username();
         public bool includeDraftCapital = true;
+        public List<POR> topWaiverPlayers = new List<POR>();
 
 
         public SleeperController(Microsoft.AspNetCore.Hosting.IWebHostEnvironment env)
@@ -108,6 +109,9 @@ namespace DynastyRanker.Controllers
                     sleeperRosters = RankStartingLineups(sleeperRosters, leagueInformation);
 
                     OrderStartingLineupRanking(sleeperRosters);
+
+                    topWaiverPlayers = GetHighestValuesWaivers(playerList, draftPickRankings, sleeperRosters);
+
                 }
                 catch
                 {
@@ -126,7 +130,8 @@ namespace DynastyRanker.Controllers
                 LastScrapeDate = lastScrapeDate,
                 DraftPickRankings = draftPickRankings,
                 TradedPicks = tradedPicks,
-                IncludeDraftCapital = includeDraftCapital
+                IncludeDraftCapital = includeDraftCapital,
+                TopWaiverPlayers = topWaiverPlayers
             };
 
             return View(viewModel);
@@ -383,6 +388,8 @@ namespace DynastyRanker.Controllers
                     {
                         tempPOREntry = new POR();
                         temp = players[p].FirstName + " " + players[p].LastName;
+
+                        players[p].OnRoster = true;
 
                         tempPlayer = GetPlayerData(p, players);
                         tempPlayerRankingsList.Add(tempPlayer.KeepTradeCutValue);
@@ -1147,6 +1154,25 @@ namespace DynastyRanker.Controllers
             }
 
             return rankedRosters;
+        }
+
+        public List<POR> GetHighestValuesWaivers(Dictionary<string, PlayerData> players, Dictionary<string, string> dpr, List<Rosters> rosters)
+        {
+            POR unsignedPlayer = new POR();
+            List<POR> unsignedPlayerList = new List<POR>();
+            foreach (var p in players)
+            {
+                if (!p.Value.OnRoster && (p.Value.Position == "QB" || p.Value.Position == "RB" || p.Value.Position == "WR" || p.Value.Position == "TE") && (p.Value.KeepTradeCutValue != null || p.Value.KeepTradeCutValue != "0"))
+                {
+                    unsignedPlayer.PORName = p.Value.FirstName + " " + p.Value.LastName;
+                    unsignedPlayer.PORPosition = p.Value.Position;
+                    unsignedPlayer.PORValue = Convert.ToInt32(p.Value.KeepTradeCutValue);
+                    unsignedPlayerList.Add(unsignedPlayer);
+                    unsignedPlayer = new POR();
+                }
+            }
+
+            return unsignedPlayerList;
         }
 
         #endregion

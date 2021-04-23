@@ -1,0 +1,36 @@
+﻿@model DynastyRanker.Models.UserInfo
+
+<link href="~/css/site.css" rel="stylesheet" />
+
+<body style="background-color:#18202F;">
+
+    <div class="homePage">
+
+        <div class="littleGap"></div>
+
+        <div class="infobox-container">
+            <div class="infobox-child">
+                <h1>Unsupported League!</h1><br />
+                <p>
+                    This league either has settings that we can't support or contains invalid teams. Try again with a different league.
+                </p>
+
+            </div>
+        </div>
+
+        <div class="littleGap"></div>
+
+        <div class="sleeperID">
+            <img alt="Sleeper Logo" class="sleeperMFLLogo" src="@Url.Content("~/Images/mfl-cap.png")">
+            <h1>Enter your MyFantasyLeague League ID.</h1><br />
+
+            @using (Html.BeginForm("MFLDisplayLeague", "MFL"))
+            {
+                @Html.TextBoxFor(m => m.LeagueID, new { @class = "sleeperIDField" })
+                <button type="submit" class="btn btn-info">Submit</button>
+            }
+            <img alt="Sleeper ID" src="@Url.Content("~/Images/MFLLeagueID.png")" class="hideIf600">
+        </div>
+
+    </div>
+</body>

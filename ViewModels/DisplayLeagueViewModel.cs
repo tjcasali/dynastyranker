@@ -15,5 +15,6 @@ namespace DynastyRanker.ViewModels
         public Dictionary<string, string> DraftPickRankings { get; set; }
         public List<TradedPick> TradedPicks { get; set; }
         public bool IncludeDraftCapital { get; set; }
+        public List<POR> TopWaiverPlayers { get; set; }
     }
 }

@@ -56,3 +56,6 @@ E:\projects\DynastyRanker\DynastyRanker\bin\Debug\netcoreapp3.1\wwwroot\Images\S
 E:\projects\DynastyRanker\DynastyRanker\bin\Debug\netcoreapp3.1\wwwroot\Images\SleeperLeagueID.png
 E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\DynastyRanker.csprojAssemblyReference.cache
 E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\Razor\Views\Home\About.cshtml.g.cs
+E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\Razor\Views\MFL\MFLDisplayLeague.cshtml.g.cs
+E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\Razor\Views\MFL\MFLBadLeague.cshtml.g.cs
+E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\Razor\Views\MFL\MFLInvalidLeagueID.cshtml.g.cs

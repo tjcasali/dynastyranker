@@ -14,7 +14,7 @@
         <div class="alignCenter">
             @foreach (var league in Model.LeagueList)
             {
-                <a href="@Url.Action("DisplayLeague", "Sleeper", new { LeagueID = league.LeagueID})">@league.LeagueName</a><br />
+                <a class="greenA" href="@Url.Action("DisplayLeague", "Sleeper", new { LeagueID = league.LeagueID})">@league.LeagueName</a><br />
             }
         </div>
     </div>

@@ -5,47 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] Dynasty Ranker</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="shortcut icon" href='@Url.Content("~/Images/favicon-16x16.png")'>
+    @*<link rel="shortcut icon" href='@Url.Content("~/Images/favicon-16x16.png")'>*@
+    <link rel="shortcut icon" href='@Url.Content("~/Images/MattsDRIco.png")'>
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <div class="container">
-        <div class="navbar-header" id="drLogo">
-            <a href="@Url.Action("Index", "Home")" title="Return Home" class="links">
-                <img alt="Widget View" src="@Url.Content("~/Images/DRLogo5.jpg")">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="img-fluid" id="drLogo">
+                <a href="@Url.Action("Index", "Home")" title="Return Home" class="navbar-brand">
+                    <img alt="Widget View" src="@Url.Content("~/Images/MattsDRLogo3.png")" class="testing">
+                </a>
 
-            </a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                <li>@Html.ActionLink("About", "About", "Home")</li>
-                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-            </ul>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse align-top">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link whiteA" href="@Url.Action("Index", "Home")">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link whiteA" href="@Url.Action("About", "Home")">About/FAQ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link whiteA" href="https://www.paypal.com/donate?business=X7CWHGZ5A69TU&currency_code=USD">Donate</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 
-    @*<header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="container">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebApplication3</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </header>*@
+    @**@
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -53,15 +42,13 @@
     </div>
 
     <footer>
-        <div class="paypalDono">
-            <p>Comments, Questions or Suggestions? Contact me at: <a href="mailto:DynastyRanker@gmail.com">DynastyRanker@gmail.com</a></p>
-            <form class="paypalDono" action="https://www.paypal.com/donate" method="post" target="_top">
-                <input type="hidden" name="business" value="X7CWHGZ5A69TU" />
-                <input type="hidden" name="currency_code" value="USD" />
-                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-                <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" /><br />
-            </form>
-        </div>
+        <p>Comments, Questions or Suggestions? Contact me at: <a class="greenA" href="mailto:DynastyRanker@gmail.com">DynastyRanker@gmail.com</a></p>
+        @*<form action="https://www.paypal.com/donate" method="post" target="_top">
+            <input type="hidden" name="business" value="X7CWHGZ5A69TU" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+            <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" /><br />
+        </form>*@
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -21,12 +21,13 @@
         <div class="littleGap"></div>
 
         <div class="sleeperIDBiggerPadding">
+            <img alt="Sleeper Logo" class="sleeperMFLLogo" src="@Url.Content("~/Images/sleeperlogo_without_text.png")">
             <h1>Enter your Sleeper User Name.</h1><br />
 
-            @using (Html.BeginForm("SelectLeague", "Sleeper"))
+            @using(Html.BeginForm("SelectLeague", "Sleeper"))
             {
                 @Html.TextBoxFor(m => m.UserName, new { @class = "sleeperIDField" })
-                <button type="submit" class="btn btn-info">Submit</button>            
+                <button type="submit" class="btn btn-info">Submit</button>
             }
         </div>
 
@@ -35,14 +36,16 @@
         <div class="tinyGap"></div>
 
         <div class="sleeperID">
+            <img alt="Sleeper Logo" class="sleeperMFLLogo" src="@Url.Content("~/Images/sleeperlogo_without_text.png")">
             <h1>Enter your Sleeper League ID.</h1><br />
-
-            @using (Html.BeginForm("DisplayLeague", "Sleeper"))
-            {
-                @Html.TextBoxFor(m => m.LeagueID, new { @class = "sleeperIDField" })
-                <button type="submit" class="btn btn-info">Submit</button>            
-            }
-            <img alt="Sleeper ID" src="@Url.Content("~/Images/SleeperLeagueID.png")" class="hideIfSmol">
+            <div class="container">
+                @using (Html.BeginForm("DisplayLeague", "Sleeper"))
+                {
+                    @Html.TextBoxFor(m => m.LeagueID, new { @class = "sleeperIDField" })
+                    <button type="submit" class="btn btn-info">Submit</button>            
+                }
+            </div>
+            <img alt="Sleeper ID" src="@Url.Content("~/Images/SleeperLeagueID.png")" class="hideIf600">
         </div>
 
     </div>

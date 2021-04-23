@@ -24,6 +24,13 @@ namespace DynastyRanker.Controllers
             return View();
         }
 
+        public IActionResult About()
+        {
+            ViewBag.Message = "Your application description page.";
+
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

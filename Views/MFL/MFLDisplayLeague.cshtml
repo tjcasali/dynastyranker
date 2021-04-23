@@ -1,0 +1,341 @@
+﻿@model DynastyRanker.ViewModels.DisplayLeagueViewModel
+
+<link href="~/StyleSheet.css" rel="stylesheet" />
+<meta charset="UTF-8">
+
+@{ 
+    int count = 1;
+    Dictionary<int, string> rankingsDict = new Dictionary<int, string>();
+
+    if (rankingsDict.Count == 0)
+    {
+        rankingsDict.Add(1, "1st");
+        rankingsDict.Add(2, "2nd");
+        rankingsDict.Add(3, "3rd");
+        rankingsDict.Add(4, "4th");
+        rankingsDict.Add(5, "5th");
+        rankingsDict.Add(6, "6th");
+        rankingsDict.Add(7, "7th");
+        rankingsDict.Add(8, "8th");
+        rankingsDict.Add(9, "9th");
+        rankingsDict.Add(10, "10th");
+        rankingsDict.Add(11, "11th");
+        rankingsDict.Add(12, "12th");
+        rankingsDict.Add(13, "13th");
+        rankingsDict.Add(14, "14th");
+        rankingsDict.Add(15, "15th");
+        rankingsDict.Add(16, "16th");
+        rankingsDict.Add(17, "17th");
+        rankingsDict.Add(18, "18th");
+        rankingsDict.Add(19, "19th");
+        rankingsDict.Add(20, "20th");
+        rankingsDict.Add(21, "21st");
+        rankingsDict.Add(22, "22nd");
+        rankingsDict.Add(23, "23rd");
+        rankingsDict.Add(24, "24th");
+        rankingsDict.Add(25, "25th");
+        rankingsDict.Add(26, "26th");
+        rankingsDict.Add(27, "27th");
+        rankingsDict.Add(28, "28th");
+        rankingsDict.Add(29, "29th");
+        rankingsDict.Add(30, "30th");
+        rankingsDict.Add(31, "31st");
+        rankingsDict.Add(32, "32nd");
+        rankingsDict.Add(33, "33rd");
+        rankingsDict.Add(34, "34th");
+        rankingsDict.Add(35, "35th");
+        rankingsDict.Add(36, "36th");
+        rankingsDict.Add(37, "37th");
+        rankingsDict.Add(38, "38th");
+        rankingsDict.Add(39, "39th");
+        rankingsDict.Add(40, "40th");
+        rankingsDict.Add(41, "41st");
+        rankingsDict.Add(42, "42nd");
+        rankingsDict.Add(43, "43rd");
+        rankingsDict.Add(44, "44th");
+        rankingsDict.Add(45, "45th");
+        rankingsDict.Add(46, "46th");
+        rankingsDict.Add(47, "47th");
+        rankingsDict.Add(48, "48th");
+        rankingsDict.Add(49, "49th");
+        rankingsDict.Add(50, "50th");
+        rankingsDict.Add(51, "51st");
+        rankingsDict.Add(52, "52nd");
+        rankingsDict.Add(53, "53rd");
+        rankingsDict.Add(54, "54th");
+        rankingsDict.Add(55, "55th");
+        rankingsDict.Add(56, "56th");
+        rankingsDict.Add(57, "57th");
+        rankingsDict.Add(58, "58th");
+        rankingsDict.Add(59, "59th");
+        rankingsDict.Add(60, "60th");
+        rankingsDict.Add(61, "61st");
+        rankingsDict.Add(62, "62nd");
+        rankingsDict.Add(63, "63rd");
+        rankingsDict.Add(64, "64th");
+        rankingsDict.Add(65, "65th");
+        rankingsDict.Add(66, "66th");
+        rankingsDict.Add(67, "67th");
+        rankingsDict.Add(68, "68th");
+        rankingsDict.Add(69, "69th");
+        rankingsDict.Add(70, "70th");
+        rankingsDict.Add(71, "71st");
+        rankingsDict.Add(72, "72nd");
+        rankingsDict.Add(73, "73rd");
+        rankingsDict.Add(74, "74th");
+        rankingsDict.Add(75, "75th");
+        rankingsDict.Add(76, "76th");
+        rankingsDict.Add(77, "77th");
+        rankingsDict.Add(78, "78th");
+        rankingsDict.Add(79, "79th");
+        rankingsDict.Add(80, "80th");
+        rankingsDict.Add(81, "81st");
+        rankingsDict.Add(82, "82nd");
+        rankingsDict.Add(83, "83rd");
+        rankingsDict.Add(84, "84th");
+        rankingsDict.Add(85, "85th");
+        rankingsDict.Add(86, "86th");
+        rankingsDict.Add(87, "87th");
+        rankingsDict.Add(88, "88th");
+        rankingsDict.Add(89, "89th");
+        rankingsDict.Add(90, "90th");
+        rankingsDict.Add(91, "91st");
+        rankingsDict.Add(92, "92nd");
+        rankingsDict.Add(93, "93rd");
+        rankingsDict.Add(94, "94th");
+        rankingsDict.Add(95, "95th");
+        rankingsDict.Add(96, "96th");
+        rankingsDict.Add(97, "97th");
+        rankingsDict.Add(98, "98th");
+        rankingsDict.Add(99, "99th");
+        rankingsDict.Add(100, "100th");
+    }
+}
+
+<body class="leagueBody">
+
+    <div class="littleGap"></div>
+
+    <div class="infobox-container">
+        <div class="infobox2-child">
+            <p>
+                <div class="alignCenter"><text class="boldText">Team Total</text> ranks the rosters by the owners that hold the most trade value.<br /></div>
+                <div class="alignCenter"><text class="boldText">Best Starting Lineup</text> ranks the teams based on the value of the best possible starting lineup.<br /></div>
+                <div class="alignCenter">
+                    All values are based on 12 team 0.5 PPR
+                    @if (Model.UserInfo.SuperFlex == true)
+                    {
+                        <text> Superflex </text>
+                    }leagues, determined at <a class="greenA" href="https://keeptradecut.com/">KeepTradeCut.com</a>
+                </div>
+                <div class="alignCenter"><text class="boldText">Rankings Last Updated: </text>@Model.LastScrapeDate<br /></div>
+                <div class="legend">&#11088; : Starters<br />&#128170; : Best Flex Options</div>
+            </p>
+        </div>
+    </div>
+
+    <div class="tinyGap"></div>
+    <div class="rostersParent">
+        @{
+            int topFive = 0;
+        }
+        <div id="roster">
+            <div class="position-rankings">Top Available QBs:</div>
+            @if (!Model.TopWaiverPlayers.Where(o => o.PORPosition == "QB").Any())
+            {
+                topFive = 0;
+                <text>No ranked players at this position.</text>
+            }
+            else
+            {
+                topFive = 0;
+            }
+            @foreach (var player in Model.TopWaiverPlayers.Where(o => o.PORPosition == "QB").OrderByDescending(o => o.PORValue))
+            {
+                if (topFive < 5)
+                {
+                    @player.PORName <text>:</text>
+                    @player.PORValue
+                    <br />
+                    topFive++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        </div>
+
+        <div id="roster">
+            <div class="position-rankings">Top Available RBs:</div>
+            @if (!Model.TopWaiverPlayers.Where(o => o.PORPosition == "RB").Any())
+            {
+                topFive = 0;
+                <text>No ranked players at this position.</text>
+            }
+            else
+            {
+                topFive = 0;
+            }
+            @foreach (var player in Model.TopWaiverPlayers.Where(o => o.PORPosition == "RB").OrderByDescending(o => o.PORValue))
+            {
+                if (topFive < 5)
+                {
+                    @player.PORName <text>:</text>
+                    @player.PORValue
+                    <br />
+                    topFive++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        </div>
+
+        <div id="roster">
+            <div class="position-rankings">Top Available WRs:</div>
+            @if (!Model.TopWaiverPlayers.Where(o => o.PORPosition == "WR").Any())
+            {
+                topFive = 0;
+                <text>No ranked players at this position.</text>
+            }
+            else
+            {
+                topFive = 0;
+            }
+            @foreach (var player in Model.TopWaiverPlayers.Where(o => o.PORPosition == "WR").OrderByDescending(o => o.PORValue))
+            {
+                if (topFive < 5)
+                {
+                    @player.PORName <text>:</text>
+                    @player.PORValue
+                    <br />
+                    topFive++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        </div>
+
+        <div id="roster">
+            <div class="position-rankings">Top Available TEs:</div>
+            @if (!Model.TopWaiverPlayers.Where(o => o.PORPosition == "TE").Any())
+            {
+                topFive = 0;
+                <text>No ranked players at this position.</text>
+            }
+            else
+            {
+                topFive = 0;
+            }
+            
+            @foreach (var player in Model.TopWaiverPlayers.Where(o => o.PORPosition == "TE").OrderByDescending(o => o.PORValue))
+            {
+                if (topFive < 5)
+                {
+                    @player.PORName <text>:</text>
+                    @player.PORValue
+                    <br />
+                    topFive++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        </div>
+    </div>
+    <div class="tinyGap"></div>
+
+    <div class="rostersParent">
+        @foreach (var roster in Model.Rosters)
+        {
+            <div id="roster">
+                <div id=rosterBoldCenter>@rankingsDict[count] : @roster.DisplayName<br /></div>
+
+                <div id=rosterBoldCenter>Team Total: @roster.TeamRankingAverage</div><br />
+                <div id=rosterBoldCenter>Best Starting Lineup:<br />@rankingsDict[roster.StartingTeamRank] <text>-</text> @roster.TeamStartingTotal</div><br />
+
+                <div class="position-rankings">QB Ranking: @rankingsDict[roster.QBRank] <text> - </text>@roster.QBRankingAverage </div>
+                @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "QB").OrderByDescending(o => o.Value.PORValue))
+                {
+                    if (roster.StartingPlayerList.Contains(player.Value.PORName))
+                    {
+                        <span>&#11088;</span>
+                    }
+                    if (roster.StartingFlexList.Contains(player.Value.PORName))
+                    {
+                        <span>&#128170;</span>
+                    }
+                    @player.Value.PORName <text>:</text>
+                    @player.Value.PORValue <br />
+                }
+                <br />
+                <div class="position-rankings">RB Ranking: @rankingsDict[roster.RBRank] <text> - </text>@roster.RBRankingAverage </div>
+                @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "RB").OrderByDescending(o => o.Value.PORValue))
+                {
+                    if (roster.StartingPlayerList.Contains(player.Value.PORName))
+                    {
+                        <span>&#11088;</span>
+                    }
+                    if (roster.StartingFlexList.Contains(player.Value.PORName))
+                    {
+                        <span>&#128170;</span>
+                    }
+                    @player.Value.PORName <text>:</text>
+                    @player.Value.PORValue <br />
+                }
+                <br />
+                <div class="position-rankings">WR Ranking: @rankingsDict[roster.WRRank] <text> - </text>@roster.WRRankingAverage </div>
+                @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "WR").OrderByDescending(o => o.Value.PORValue))
+                {
+                    if (roster.StartingPlayerList.Contains(player.Value.PORName))
+                    {
+                        <span>&#11088;</span>
+                    }
+                    if (roster.StartingFlexList.Contains(player.Value.PORName))
+                    {
+                        <span>&#128170;</span>
+                    }
+                    @player.Value.PORName <text>:</text>
+                    @player.Value.PORValue <br />
+                }
+                <br />
+                <div class="position-rankings">TE Ranking: @rankingsDict[roster.TERank] <text> - </text>@roster.TERankingAverage </div>
+                @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "TE").OrderByDescending(o => o.Value.PORValue))
+                {
+                    if (roster.StartingPlayerList.Contains(player.Value.PORName))
+                    {
+                        <span>&#11088;</span>
+                    }
+                    if (roster.StartingFlexList.Contains(player.Value.PORName))
+                    {
+                        <span>&#128170;</span>
+                    }
+                    @player.Value.PORName <text>:</text>
+                    @player.Value.PORValue <br />
+                }
+                <br />
+                @if (Model.IncludeDraftCapital == true)
+                {
+                    <div class="position-rankings">Draft Capital: @roster.TotalDraftCapital</div>
+                    foreach (var pick in roster.DraftPicks.OrderByDescending(o => Int32.Parse(Model.DraftPickRankings[o])))
+                    {
+                        if (pick.Contains("2021"))
+                        {
+                            @pick <text>: </text>
+                            @Model.DraftPickRankings[pick]<br />
+                        }
+                    }
+                }
+                @{
+                    count++;
+                }
+            </div>
+        }
+    </div>
+</body>
+

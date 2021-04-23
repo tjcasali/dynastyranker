@@ -76,6 +76,8 @@ namespace DynastyRanker.Models
         public List<string> DraftPicks { get; set; }
 
         public int TotalDraftCapital { get; set; }
+        public string FranchiseID { get; set; }
+        public string FranchiseName { get; set; }
     }
 
     public class POR

@@ -32,6 +32,9 @@ namespace DynastyRanker.Models
         public string KeepTradeCutValue { get; set; }
 
         public string WeekAgoValue { get; set; }
+
+        public bool OnRoster { get; set; }
+
     }
 
     public class Players

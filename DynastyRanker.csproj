@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\MFL\MFLDisplayLeague.cshtml" />
     <None Include="wwwroot\css\StyleSheet.css" />
     <None Include="wwwroot\Images\DRHomepage5.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -60,6 +61,7 @@
     <None Include="wwwroot\Images\SleeperLeagueID.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="wwwroot\MFLPlayerData.xml" />
   </ItemGroup>
 
   <ItemGroup>
