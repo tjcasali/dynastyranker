@@ -46,9 +46,12 @@ namespace DynastyRanker.Controllers
             return View();
         }
 
-        //[Route("Sleeper/DisplayLeague/{leagueId}")]
+        /// DisplayLeague(League league)
+        /// The psuedo main function of the Sleeper functionality. Called by the submit button click on the homepage
+        /// and calls all of our functions and returns the DisplayLeague View.
         public async Task<ActionResult> DisplayLeague(League league)
         {
+            //Requires the user to fill in the text field. Otherwise it returns InvalidLeagueID
             if (league.LeagueID != null)
             {
                 try
@@ -66,9 +69,9 @@ namespace DynastyRanker.Controllers
                     //ScrapeSFRankings(lastScrapeDate);
 
                     playerList = LoadRankings(playerList, keepTradeCutList, leagueInformation);
-
                     LinkUsersAndRosters(sleeperUsers, sleeperRosters);
 
+                    // Check if the inputted league and see if it has a previous league ID, meaning that there is a draft order for the rookie draft.
                     if(leagueInformation.PreviousLeagueID != "")
                     {
                         try
@@ -87,10 +90,12 @@ namespace DynastyRanker.Controllers
                         }
                         catch
                         {
+                            //If any of these functions API calls return bad data we will just ignore the Draft Capital portion.
                             includeDraftCapital = false;
                         }
                     }
 
+                    //This is in a Try Catch because this function is prone to break if the league has unique settings that I can't account for.
                     try
                     {
                         sleeperRosters = AverageTeamRanking(sleeperRosters, playerList);
@@ -101,17 +106,11 @@ namespace DynastyRanker.Controllers
                     }
 
                     AddPlayerNamesToRosters(sleeperRosters, playerList);
-
                     sleeperRosters = RankPositionGroups(sleeperRosters);
-
                     sleeperRosters = SortRostersByRanking(sleeperRosters);
-
                     sleeperRosters = RankStartingLineups(sleeperRosters, leagueInformation);
-
                     OrderStartingLineupRanking(sleeperRosters);
-
                     topWaiverPlayers = GetHighestValuesWaivers(playerList, draftPickRankings, sleeperRosters);
-
                 }
                 catch
                 {
@@ -137,10 +136,11 @@ namespace DynastyRanker.Controllers
             return View(viewModel);
         }
 
-        //[Route("Sleeper/DisplayLeague/{leagueId}")]
+        /// SelectLeague(string userName)
+        /// Calls the SelectLeague View where the user picks the league they're going to view.
+        /// Uses the SelectLeagueViewModel which contains the list of leagues returned by the API.
         public async Task<ActionResult> SelectLeague(string userName)
         {
-
             if (userName != null)
             {
                 try
@@ -171,21 +171,21 @@ namespace DynastyRanker.Controllers
         {
             return View();
         }
-
         public ActionResult InvalidUsername()
         {
             return View();
         }
-
         public ActionResult BadLeague()
         {
             return View();
         }
-
         #endregion
 
         #region Get Rosters/Users/Players
 
+        /// GetLeagueInformation(string leagueID)
+        /// Call the Sleeper API to return the league information
+        /// This is necessary as it returns the starting lineup position counts and helps us determine if it's a superflex league
         public static async Task<UserInfo> GetLeagueInformation(string leagueID)
         {
             HttpClient client = new HttpClient();
@@ -246,7 +246,7 @@ namespace DynastyRanker.Controllers
             return leagueInfo;
         }
 
-        /// Get Users
+        /// GetUsers(string leagueID)
         /// Take in user submitted league ID and put that into the Sleeper API to return the Users in the league
         public static async Task<List<SleeperUsers>> GetUsers(string leagueID)
         {
@@ -261,6 +261,8 @@ namespace DynastyRanker.Controllers
 
         }
 
+        /// GetUserIDFromUsername(string username)
+        /// Call the sleeper API to get the UserID from the Username, we'll need the ID to call other functions
         public static async Task<Username> GetUserIDFromUsername(string username)
         {
             HttpClient client = new HttpClient();
@@ -276,6 +278,8 @@ namespace DynastyRanker.Controllers
 
         }
 
+        /// GetAllLeaguesForUser(string userID)
+        /// Now that we have the UserID we can get the list of leagues that the user is in
         public static async Task<List<League>> GetAllLeaguesForUser(string userID)
         {
             HttpClient client = new HttpClient();
@@ -288,6 +292,8 @@ namespace DynastyRanker.Controllers
             return leagues;
         }
 
+        /// GetRosters(string leagueID)
+        /// Call the Sleeper API to return all of the rosters in a given league ID.
         public static async Task<List<Rosters>> GetRosters(string leagueID)
         {
 
@@ -301,6 +307,8 @@ namespace DynastyRanker.Controllers
             return rosters;
         }
 
+        /// GetTradedDraftPicks(UserInfo leagueInfo)
+        /// This function helps us properly display all of the draft capital because without it everybody would just have their picks 1-4
         public static async Task<List<TradedPick>> GetTradedDraftPicks(UserInfo leagueInfo)
         {
             HttpClient client = new HttpClient();
@@ -313,6 +321,8 @@ namespace DynastyRanker.Controllers
             return tradedPicks;
         }
 
+        /// GetDraftOrder(string leagueID)
+        /// Getting the draft order allows us to differentiate between Early/Mid/Late values on each individual pick.
         public static async Task<Draft> GetDraftOrder(string leagueID)
         {
             HttpClient client = new HttpClient();
@@ -324,6 +334,9 @@ namespace DynastyRanker.Controllers
             return draft;
         }
 
+        /// LoadSleeperPlayersTextFile()
+        /// This call is massive so instead of running this everytime somebody enters a league ID I pull it down into a text file as it doesn't change often.
+        /// The call for this is currently commented out as there is no need for this to run right now.
         public async void LoadSleeperPlayersTextFile()
         {
             var webRoot = _env.WebRootPath;
@@ -338,6 +351,8 @@ namespace DynastyRanker.Controllers
             System.IO.File.WriteAllText(file, responseBody);
         }
 
+        /// GetPlayers()
+        /// Return the list of players that we put in the local text file. 
         public Dictionary<string, PlayerData> GetPlayers()
         {
             var webRoot = _env.WebRootPath;
@@ -351,6 +366,9 @@ namespace DynastyRanker.Controllers
         #endregion
 
         #region Add Owner IDs and Player Values to Rosters
+
+        /// LinkUsersAndRosters(List<SleeperUsers> users, List<Rosters> rosters)
+        /// The Sleeper API call for rosters doesn't include the roster names in the call so this links that parameter in both Models.
         public void LinkUsersAndRosters(List<SleeperUsers> users, List<Rosters> rosters)
         {
             foreach (Rosters ros in rosters)
@@ -366,6 +384,8 @@ namespace DynastyRanker.Controllers
             }
         }
 
+        /// AddPlayerNamesToRosters(List<Rosters> rosters, Dictionary<string, PlayerData> players)
+        /// The Sleeper API call for rosters doesn't include the roster names in the call so this links that parameter in both Models.
         public void AddPlayerNamesToRosters(List<Rosters> rosters, Dictionary<string, PlayerData> players)
         {
             List<string> tempPlayersList;
@@ -382,25 +402,33 @@ namespace DynastyRanker.Controllers
                 tempPlayersList = new List<string>();
                 tempPlayerRankingsList = new List<string>();
                 tempPORDict = new Dictionary<string, POR>();
-                foreach (string p in ros.Bench)
+
+                //Ros.Bench contains all of the players on each roster
+                if(ros.Bench != null)
                 {
-                    if (players.ContainsKey(p))
+                    foreach (string p in ros.Bench)
                     {
-                        tempPOREntry = new POR();
-                        temp = players[p].FirstName + " " + players[p].LastName;
+                        if (players.ContainsKey(p))
+                        {
+                            tempPOREntry = new POR();
+                            temp = players[p].FirstName + " " + players[p].LastName;
 
-                        players[p].OnRoster = true;
+                            //OnRoster was added in 2.0 in order to determine which players are free agents as there's no call for that on the Sleeper API.
+                            //We'll need this for GetHighestValueWaivers
+                            players[p].OnRoster = true;
 
-                        tempPlayer = GetPlayerData(p, players);
-                        tempPlayerRankingsList.Add(tempPlayer.KeepTradeCutValue);
+                            //Send the player ID to GetPlayerData to return the POR data
+                            tempPlayer = GetPlayerData(p, players);
+                            tempPlayerRankingsList.Add(tempPlayer.KeepTradeCutValue);
 
-                        tempPlayersList.Add(temp);
+                            tempPlayersList.Add(temp);
 
-                        tempPOREntry.PORName = temp;
-                        tempPOREntry.PORPosition = tempPlayer.Position;
-                        tempPOREntry.PORValue = Convert.ToInt32(tempPlayer.KeepTradeCutValue);
+                            tempPOREntry.PORName = temp;
+                            tempPOREntry.PORPosition = tempPlayer.Position;
+                            tempPOREntry.PORValue = Convert.ToInt32(tempPlayer.KeepTradeCutValue);
 
-                        tempPORDict.Add(p, tempPOREntry);
+                            tempPORDict.Add(p, tempPOREntry);
+                        }
                     }
                 }
                 ros.PlayerNames = tempPlayersList;
@@ -412,11 +440,14 @@ namespace DynastyRanker.Controllers
 
         #region Ranking Functions
 
+        /// LoadRankings(Dictionary<string, PlayerData> players, List<KeepTradeCut> ktc, UserInfo leagueInfo)
+        /// Take the data from our scraped CSVs and put that into a KTC list so we can access the keeptradecut values
         public Dictionary<string, PlayerData> LoadRankings(Dictionary<string, PlayerData> players, List<KeepTradeCut> ktc, UserInfo leagueInfo)
         {
             string sr = "";
             var webRoot = _env.WebRootPath;
 
+            //Check if the league has 1 or more QBs, then pull the respective .csv
             if (leagueInfo.SuperFlex)
                 sr = System.IO.Path.Combine(webRoot, "KTCScrapeSF.csv");
             else
@@ -431,6 +462,7 @@ namespace DynastyRanker.Controllers
 
                 while (!reader.EndOfStream)
                 {
+                    //Christian McCaffrey,RB,CAR,9999
                     var line = reader.ReadLine();
                     var values = line.Split(',');
 
@@ -439,11 +471,11 @@ namespace DynastyRanker.Controllers
                     playerTeamList.Add(values[2]);
                     playerKeepTradeCutList.Add(values[3]);
 
+                    //Draft pick rankings have the position "PI"
                     if(values[1] == "PI")
                     {
                         draftPickRankings.Add(values[0], values[3]);
                     }
-
                 }
 
                 foreach (var p in players)
@@ -451,9 +483,11 @@ namespace DynastyRanker.Controllers
                     string temp = "";
                     int tempIndex = 0;
 
+                    //KeepTradeCut .csv doesn't have periods in names like DJ Moore and AJ Brown
                     string firstNameTemp = p.Value.FirstName.Replace(".", string.Empty);
                     string lastNameTemp = p.Value.LastName.Replace(".", string.Empty);
 
+                    //temp looks like "/ McCaffrey, Christian /", so we need to change it to firstname lastname
                     temp = '"' + firstNameTemp + " " + lastNameTemp + '"';
                     temp = temp.Remove(0, 1);
                     temp = temp.Remove(temp.Length - 1, 1);
@@ -463,13 +497,13 @@ namespace DynastyRanker.Controllers
                         tempIndex = playerNameList.IndexOf(temp);
                         p.Value.KeepTradeCutValue = playerKeepTradeCutList[tempIndex];
                     }
-
                 }
-
                 return players;
             }
         }
 
+        /// AverageTeamRanking(List<Rosters> rosters, Dictionary<string, PlayerData> players)
+        /// Loop through each player on each roster and sum up the positional totals and the team total
         public List<Rosters> AverageTeamRanking(List<Rosters> rosters, Dictionary<string, PlayerData> players)
         {
             double totalTemp = 0.0;
@@ -482,72 +516,72 @@ namespace DynastyRanker.Controllers
 
             foreach (Rosters ros in rosters)
             {
-                foreach (string playerID in ros.Bench)
+                if (ros.Bench != null)
                 {
-                    if (players.ContainsKey(playerID))
+                    foreach (string playerID in ros.Bench)
                     {
-                        PlayerData currentPlayer = new PlayerData();
-                        currentPlayer = GetPlayerData(playerID, players);
-                        if(currentPlayer.Position == null)
+                        if (players.ContainsKey(playerID))
                         {
-                            break;
-                        }
-                        if (currentPlayer.KeepTradeCutValue != "")
-                        {
-                            parseTemp = Convert.ToDouble(currentPlayer.KeepTradeCutValue);
-                            //System.Diagnostics.Debug.WriteLine("TESTING PLAYER: " + currentPlayer.FirstName + " " + currentPlayer.LastName + ": " + currentPlayer.KeepTradeCutValue);
-                            //totalTemp = totalTemp + Convert.ToDouble(currentPlayer.KeepTradeCutValue);
-                            totalTemp = totalTemp + Convert.ToDouble(currentPlayer.KeepTradeCutValue);
+                            PlayerData currentPlayer = new PlayerData();
+                            currentPlayer = GetPlayerData(playerID, players);
+                            if (currentPlayer.Position == null)
+                            {
+                                break;
+                            }
+                            if (currentPlayer.KeepTradeCutValue != "")
+                            {
+                                parseTemp = Convert.ToDouble(currentPlayer.KeepTradeCutValue);
+                                totalTemp = totalTemp + Convert.ToDouble(currentPlayer.KeepTradeCutValue);
 
-                            if (currentPlayer.Position.Contains("QB"))
-                            {
-                                qbTemp = qbTemp + Convert.ToDouble(currentPlayer.KeepTradeCutValue);
-                                qbCount++;
+                                if (currentPlayer.Position.Contains("QB"))
+                                {
+                                    qbTemp = qbTemp + Convert.ToDouble(currentPlayer.KeepTradeCutValue);
+                                    qbCount++;
+                                }
+                                if (currentPlayer.Position.Contains("RB"))
+                                {
+                                    rbTemp = rbTemp + Convert.ToDouble(currentPlayer.KeepTradeCutValue);
+                                    rbCount++;
+                                }
+                                if (currentPlayer.Position.Contains("WR"))
+                                {
+                                    wrTemp = wrTemp + Convert.ToDouble(currentPlayer.KeepTradeCutValue);
+                                    wrCount++;
+                                }
+                                if (currentPlayer.Position.Contains("TE"))
+                                {
+                                    teTemp = teTemp + Convert.ToDouble(currentPlayer.KeepTradeCutValue);
+                                    teCount++;
+                                }
                             }
-                            if (currentPlayer.Position.Contains("RB"))
+                            else
                             {
-                                rbTemp = rbTemp + Convert.ToDouble(currentPlayer.KeepTradeCutValue);
-                                rbCount++;
-                            }
-                            if (currentPlayer.Position.Contains("WR"))
-                            {
-                                wrTemp = wrTemp + Convert.ToDouble(currentPlayer.KeepTradeCutValue);
-                                wrCount++;
-                            }
-                            if (currentPlayer.Position.Contains("TE"))
-                            {
-                                teTemp = teTemp + Convert.ToDouble(currentPlayer.KeepTradeCutValue);
-                                teCount++;
-                            }
-                        }
-                        else
-                        {
-                            currentPlayer.KeepTradeCutValue = "1.0";
-                            //System.Diagnostics.Debug.WriteLine("TESTING PLAYER: " + currentPlayer.FirstName + " " + currentPlayer.LastName + ": " + currentPlayer.KeepTradeCutValue);
-                            totalTemp = totalTemp + Convert.ToDouble(currentPlayer.KeepTradeCutValue);
+                                currentPlayer.KeepTradeCutValue = "1.0";
+                                totalTemp = totalTemp + Convert.ToDouble(currentPlayer.KeepTradeCutValue);
 
-                            if (currentPlayer.Position.Contains("QB"))
-                            {
-                                qbTemp = qbTemp + Convert.ToDouble(currentPlayer.KeepTradeCutValue);
-                                qbCount++;
+                                if (currentPlayer.Position.Contains("QB"))
+                                {
+                                    qbTemp = qbTemp + Convert.ToDouble(currentPlayer.KeepTradeCutValue);
+                                    qbCount++;
+                                }
+                                if (currentPlayer.Position.Contains("RB"))
+                                {
+                                    rbTemp = rbTemp + Convert.ToDouble(currentPlayer.KeepTradeCutValue);
+                                    rbCount++;
+                                }
+                                if (currentPlayer.Position.Contains("WR"))
+                                {
+                                    wrTemp = wrTemp + Convert.ToDouble(currentPlayer.KeepTradeCutValue);
+                                    wrCount++;
+                                }
+                                if (currentPlayer.Position.Contains("TE"))
+                                {
+                                    teTemp = teTemp + Convert.ToDouble(currentPlayer.KeepTradeCutValue);
+                                    teCount++;
+                                }
                             }
-                            if (currentPlayer.Position.Contains("RB"))
-                            {
-                                rbTemp = rbTemp + Convert.ToDouble(currentPlayer.KeepTradeCutValue);
-                                rbCount++;
-                            }
-                            if (currentPlayer.Position.Contains("WR"))
-                            {
-                                wrTemp = wrTemp + Convert.ToDouble(currentPlayer.KeepTradeCutValue);
-                                wrCount++;
-                            }
-                            if (currentPlayer.Position.Contains("TE"))
-                            {
-                                teTemp = teTemp + Convert.ToDouble(currentPlayer.KeepTradeCutValue);
-                                teCount++;
-                            }
-                        }
 
+                        }
                     }
                 }
                 ros.TeamRankingAverage += totalTemp;
@@ -569,6 +603,8 @@ namespace DynastyRanker.Controllers
             return rosters;
         }
 
+        /// GetPlayerData(string playerID, Dictionary<string, PlayerData> playerList)
+        /// This gets called in a few functions to turn the player ID into the players actual data, mainly used to get their keeptradecut value.
         public PlayerData GetPlayerData(string playerID, Dictionary<string, PlayerData> playerList)
         {
             if (playerList.ContainsKey(playerID))
