@@ -43,6 +43,9 @@ namespace DynastyRanker.Controllers
             _env = env;
         }
 
+        /// MFLDisplayLeague(League league)
+        /// The psuedo main function of the Sleeper functionality. Called by the submit button click on the homepage
+        /// and calls all of our functions and returns the DisplayLeague View.
         public ActionResult MFLDisplayLeague(MFLLeagueInfo league)
         {
             if (league.LeagueID != null)
@@ -52,6 +55,10 @@ namespace DynastyRanker.Controllers
                     //LoadMFLPlayers(league.LeagueID);
                     playerList = GetPlayers(league.LeagueID);
                     leagueInfo = GetLeagueInfo(league.LeagueID);
+
+                    if(leagueInfo.PrivateLeague == true)
+                        return View("MFLPrivateLeague");
+
                     rosters = GetRosters(league.LeagueID);
                     lastScrapeDate = GetPreviousScrapeDate(lastScrapeDate);
 
@@ -130,6 +137,12 @@ namespace DynastyRanker.Controllers
             string temp;
             XmlDocument xdoc = new XmlDocument();
             xdoc.Load("https://www61.myfantasyleague.com/2021/export?TYPE=league&L=" + leagueID);
+
+            if(xdoc.InnerText.Contains("requires logged in user"))
+            {
+                leagueInfo.PrivateLeague = true;
+                return leagueInfo;
+            }
 
             leagueInfo.FranchiseCount = xdoc.SelectSingleNode("league/franchises/@count").Value;
             leagueInfo.StartersCount = xdoc.SelectSingleNode("league/starters/@count").Value;
@@ -226,7 +239,26 @@ namespace DynastyRanker.Controllers
                             continue;
                         }
                     }
-                    if(positionName.Value != "QB" && positionName.Value != "RB" && positionName.Value != "WR" && positionName.Value != "TE")
+                    if (positionName.Value == "WR+TE")
+                    {
+                        if (node.Attributes["limit"].Value.Contains("-"))
+                        {
+                            posLimit = node.Attributes["limit"].Value;
+                            leagueInfo.MinRECFLEXCount = posLimit.Substring(0, 1);
+                            posLimit = posLimit.Remove(0, 1);
+                            posLimit = posLimit.Replace("-", String.Empty);
+                            leagueInfo.MaxRECFLEXCount = posLimit;
+                            posLimit = "";
+                            continue;
+                        }
+                        else
+                        {
+                            leagueInfo.MinRECFLEXCount = node.Attributes["limit"].Value;
+                            leagueInfo.MaxRECFLEXCount = node.Attributes["limit"].Value;
+                            continue;
+                        }
+                    }
+                    if (positionName.Value != "QB" && positionName.Value != "RB" && positionName.Value.Contains("WR") && positionName.Value.Contains("TE"))
                     {
                         if (node.Attributes["limit"].Value.Contains("-"))
                         {
@@ -431,13 +463,15 @@ namespace DynastyRanker.Controllers
                 List<string> playerPositionList = new List<string>();
                 List<string> playerTeamList = new List<string>();
                 List<string> playerKeepTradeCutList = new List<string>();
+                string tempName = "";
 
                 while (!reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
                     var values = line.Split(',');
 
-                    playerNameList.Add(values[0]);
+                    tempName = values[0].Replace(".", String.Empty);
+                    playerNameList.Add(tempName);
                     playerPositionList.Add(values[1]);
                     playerTeamList.Add(values[2]);
                     playerKeepTradeCutList.Add(values[3]);
@@ -857,6 +891,16 @@ namespace DynastyRanker.Controllers
                         totalAdded++;
                         continue;
                     }
+
+                    if ((player.Value.PORPosition == "WR" || player.Value.PORPosition == "TE") && Convert.ToInt32(leagueInfo.MaxRECFLEXCount) != recflexAdded && Convert.ToInt32(leagueInfo.StartersCount) > totalAdded)
+                    {
+                        skippedPlayerNames.Add(player.Value.PORName);
+                        flexPlayerNames.Add(player.Value.PORName);
+                        startingFLEXTotal += player.Value.PORValue;
+                        recflexAdded++;
+                        totalAdded++;
+                        continue;
+                    }
                 }
 
                 ros.QBStartingTotal = startingQBTotal;
@@ -875,6 +919,7 @@ namespace DynastyRanker.Controllers
                 rbsAdded = 0;
                 wrsAdded = 0;
                 tesAdded = 0;
+                recflexAdded = 0;
                 totalAdded = 0;
 
                 startingQBTotal = 0.0;

@@ -46,5 +46,7 @@ namespace DynastyRanker.Models
 
         public string FranchiseCount { get; set; }
 
+        public bool PrivateLeague { get; set; }
+
     }
 }

@@ -459,6 +459,7 @@ namespace DynastyRanker.Controllers
                 List<string> playerPositionList = new List<string>();
                 List<string> playerTeamList = new List<string>();
                 List<string> playerKeepTradeCutList = new List<string>();
+                string tempName = "";
 
                 while (!reader.EndOfStream)
                 {
@@ -466,7 +467,8 @@ namespace DynastyRanker.Controllers
                     var line = reader.ReadLine();
                     var values = line.Split(',');
 
-                    playerNameList.Add(values[0]);
+                    tempName = values[0].Replace(".", String.Empty);
+                    playerNameList.Add(tempName);
                     playerPositionList.Add(values[1]);
                     playerTeamList.Add(values[2]);
                     playerKeepTradeCutList.Add(values[3]);
@@ -483,7 +485,7 @@ namespace DynastyRanker.Controllers
                     string temp = "";
                     int tempIndex = 0;
 
-                    //KeepTradeCut .csv doesn't have periods in names like DJ Moore and AJ Brown
+                    //KTCScrape.csv doesn't have periods in names like DJ Moore and AJ Brown
                     string firstNameTemp = p.Value.FirstName.Replace(".", string.Empty);
                     string lastNameTemp = p.Value.LastName.Replace(".", string.Empty);
 
@@ -652,6 +654,7 @@ namespace DynastyRanker.Controllers
                 foreach (var name in nameTable.Skip(1))
                 {
                     temp = name.InnerText;
+                    temp = temp.Replace(".", string.Empty);
                     temp = temp.Trim();
                     temp = temp.Replace("//n", "");
                     tempSize = temp.Length;
@@ -812,6 +815,7 @@ namespace DynastyRanker.Controllers
                 foreach (var name in nameTable.Skip(1))
                 {
                     temp = name.InnerText;
+                    temp = temp.Replace(".", string.Empty);
                     temp = temp.Trim();
                     temp = temp.Replace("//n", "");
                     tempSize = temp.Length;
@@ -931,7 +935,6 @@ namespace DynastyRanker.Controllers
                     count++;
                 }
 
-                //string fileName = "C:\\Users\\timca\\source\\repos\\DynastyRanker\\DynastyRanker\\Data\\KTCScrapeSF.csv";
                 string path = System.IO.Path.Combine(webRoot, "KTCScrapeSF.csv");
                 string newLine = "";
 
@@ -944,7 +947,6 @@ namespace DynastyRanker.Controllers
                 }
 
                 string data = System.IO.Path.Combine(webRoot, "LastScrapeDate.txt");
-                //string filename = "C:\\Users\\timca\\source\\repos\\DynastyRanker\\DynastyRanker\\Data\\LastScrapeDate.txt";
                 System.IO.File.WriteAllText(data, newScrapeDate);
             }
             //return newScrapeDate;
