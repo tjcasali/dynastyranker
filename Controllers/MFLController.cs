@@ -344,7 +344,7 @@ namespace DynastyRanker.Controllers
             XmlDocument xdoc = new XmlDocument();
             xdoc.Load("https://www61.myfantasyleague.com/2021/export?TYPE=players&L=" + leagueID + "&APIKEY=&DETAILS=1&SINCE=&PLAYERS=&JSON=0");
             //xdoc.Save("E:\\projects\\DynastyRanker-Main\\DynastyRanker-main\\DynastyRanker\\Data\\MFLPlayerData.xml");
-            xdoc.Save(System.IO.Path.Combine(webRoot, "Data/MFLPlayerData.xml"));
+            xdoc.Save(System.IO.Path.Combine(webRoot, "MFLPlayerData.xml"));
             //"~/Data/MFLPlayerData.xml"
 
         }

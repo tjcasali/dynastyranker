@@ -14,5 +14,8 @@ namespace DynastyRanker.Models
         [JsonProperty(PropertyName = "draft_order")]
         public Dictionary<string, int> DraftOrder { get; set; }
 
+        [JsonProperty(PropertyName = "status")]
+        public string Status { get; set; }
+
     }
 }

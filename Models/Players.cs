@@ -26,6 +26,9 @@ namespace DynastyRanker.Models
 
         [JsonProperty(PropertyName = "age")]
         public string Age { get; set; }
+        
+        [JsonProperty(PropertyName = "years_exp")]
+        public string YearsExperience { get; set; }
 
         public string TradeValueChart { get; set; }
 
@@ -34,7 +37,6 @@ namespace DynastyRanker.Models
         public string WeekAgoValue { get; set; }
 
         public bool OnRoster { get; set; }
-
     }
 
     public class Players
