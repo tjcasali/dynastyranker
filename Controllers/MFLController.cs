@@ -13,7 +13,7 @@ using System.IO;
 using System.Xml;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
-
+using System.Text.RegularExpressions;
 
 namespace DynastyRanker.Controllers
 {
@@ -70,10 +70,19 @@ namespace DynastyRanker.Controllers
 
                     try
                     {
-                        draftPicks = GetDraftPicks(leagueInfo);
-                        rosters = AddDraftPicksToRoster(rosters, draftPicks);
-                        rosters = GetTotalDraftCapital(rosters, draftPickRankings);
                         includeDraftCapital = true;
+                        leagueInfo = Include2021Capital(playerList, leagueInfo, rosters);
+
+                        if (leagueInfo.IncludeDraftCapital == false)
+                        {
+                            includeDraftCapital = false;
+                        }
+                        else
+                        {
+                            draftPicks = GetDraftPicks(leagueInfo);
+                            rosters = AddDraftPicksToRoster(rosters, draftPicks);
+                            rosters = GetTotalDraftCapital(rosters, draftPickRankings);
+                        }
                     }
                     catch
                     {
@@ -287,11 +296,30 @@ namespace DynastyRanker.Controllers
             {
                 var tempFranchiseID = node.Attributes["id"].Value;
                 var tempFranchiseName = node.Attributes["name"].Value;
+                tempFranchiseName = Regex.Replace(tempFranchiseName, "<.*?>", String.Empty);
                 tempFranchises.Add(new KeyValuePair<string, string>(tempFranchiseID, tempFranchiseName));
             }
 
             leagueInfo.Franchises = tempFranchises;
             leagueInfo.LeagueID = leagueID;
+
+            return leagueInfo;
+        }
+
+        public MFLLeagueInfo Include2021Capital(Dictionary<string, MFLPlayer> players, MFLLeagueInfo leagueInfo, List<Rosters> rosters)
+        {
+            leagueInfo.IncludeDraftCapital = true;
+            foreach(var r in rosters)
+            {
+                foreach(string p in r.Bench)
+                {
+                    if(players[p].Status == "R")
+                    {
+                        leagueInfo.IncludeDraftCapital = false;
+                        break;
+                    }
+                }
+            }
 
             return leagueInfo;
         }
@@ -498,9 +526,7 @@ namespace DynastyRanker.Controllers
                     temp = temp.Remove(temp.Length - 1, 1);
                     temp = temp.Replace(".", string.Empty);
                     temp = temp.Replace(" Jr", string.Empty);
-                    
-
-
+                   
                     if (playerNameList.Contains(temp))
                     {
                         tempIndex = playerNameList.IndexOf(temp);

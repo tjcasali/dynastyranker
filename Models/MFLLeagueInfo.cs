@@ -48,5 +48,7 @@ namespace DynastyRanker.Models
 
         public bool PrivateLeague { get; set; }
 
+        public bool IncludeDraftCapital { get; set; }
+
     }
 }

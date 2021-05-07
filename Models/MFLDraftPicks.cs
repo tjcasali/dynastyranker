@@ -10,7 +10,6 @@ namespace DynastyRanker.Models
         public string Round { get; set; }
         public string Pick { get; set; }
         public string PickOwnedBy { get; set; }
-
         public string FullPickText { get; set; }
 
     }
