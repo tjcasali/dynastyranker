@@ -495,6 +495,16 @@ namespace DynastyRanker.Controllers
                     temp = temp.Remove(0, 1);
                     temp = temp.Remove(temp.Length - 1, 1);
 
+                    if(temp.Contains("Irv Smith") && !playerNameList.Contains(temp))
+                    {
+                        temp = "Irv Smith Jr";
+                    }
+
+                    if (temp.Contains("Chris Herndon") && !playerNameList.Contains(temp))
+                    {
+                        temp = "Christopher Herndon";
+                    }
+
                     if (playerNameList.Contains(temp))
                     {
                         tempIndex = playerNameList.IndexOf(temp);
