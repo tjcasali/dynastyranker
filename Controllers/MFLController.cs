@@ -313,11 +313,19 @@ namespace DynastyRanker.Controllers
             {
                 foreach(string p in r.Bench)
                 {
-                    if(players[p].Status == "R")
+                    try
                     {
-                        leagueInfo.IncludeDraftCapital = false;
-                        break;
+                        if (players[p].Status == "R")
+                        {
+                            leagueInfo.IncludeDraftCapital = false;
+                            break;
+                        }
                     }
+                    catch
+                    {
+                        continue;
+                    }
+
                 }
             }
 
@@ -432,6 +440,10 @@ namespace DynastyRanker.Controllers
                 tempDraftPick.Round = node.Attributes["round"].Value;
                 tempDraftPick.Pick = node.Attributes["pick"].Value;
                 tempDraftPick.PickOwnedBy = node.Attributes["franchise"].Value;
+
+                if(tempDraftPick.Round == "05")
+                    continue;
+                
 
                 eml = Convert.ToDouble(tempDraftPick.Pick) / Convert.ToDouble(leagueSize);
                 tempPick = "2021";
