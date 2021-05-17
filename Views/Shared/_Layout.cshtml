@@ -45,7 +45,9 @@
     </div>
 
     <footer>
-        <p>Comments, Questions or Suggestions? Contact me at: <a class="greenA" href="mailto:DynastyRanker@gmail.com">DynastyRanker@gmail.com</a></p>
+        <div>Comments, Questions or Suggestions? Contact me at: <a class="greenA" href="mailto:DynastyRanker@gmail.com">DynastyRanker@gmail.com</a></div>
+        <div style="padding-bottom:5px;">For updates follow me on Twitter: <a class="greenA" href="https://twitter.com/DynastyRanker">@Html.Raw('@')DynastyRanker</a></div>
+        <div style="font-size:12px">If you're hiring in the New York City Metropolitan area hit me up</div>
         @*<form action="https://www.paypal.com/donate" method="post" target="_top">
             <input type="hidden" name="business" value="X7CWHGZ5A69TU" />
             <input type="hidden" name="currency_code" value="USD" />
@@ -60,44 +62,3 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
-
-
-<!--<!DOCTYPE html>
-
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynasty Ranker</title>
-
-</head>
-<body>-->
-<!--<img src="~/Images/DRLogo5.jpg" alt="DR" class="alignCenter"><br />-->
-<!--<div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header" id="drLogo">
-                <a href="@Url.Action("Index", "Home")" title="Return Home" class="links">
-                    <img alt="Widget View" src="@Url.Content("~/DRLogo5.jpg")">
-
-                </a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-    </div>
-
-
-</body>
-</html>
-<footer>
-    <p>Comments, Questions or Suggestions? Contact me at: <a href="mailto:DynastyRanker@gmail.com">DynastyRanker@gmail.com</a></p>
-</footer>-->
