@@ -78,6 +78,14 @@ namespace DynastyRanker.Models
         public int TotalDraftCapital { get; set; }
         public string FranchiseID { get; set; }
         public string FranchiseName { get; set; }
+
+        public List<string> MatchupList { get; set; }
+
+        public double StrengthOfScheduleTotal { get; set; }
+
+        public int StrengthOfScheduleRank { get; set; }
+
+        public List<string> StrengthOfScheduleRankingList { get; set; }
     }
 
     public class POR

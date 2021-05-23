@@ -40,5 +40,8 @@ namespace DynastyRanker.Models
         public string DraftID { get; set; }
 
         public string UserName { get; set; }
+
+        [JsonProperty(PropertyName = "playoff_week_start")]
+        public string PlayoffWeekStart { get; set; }
     }
 }
