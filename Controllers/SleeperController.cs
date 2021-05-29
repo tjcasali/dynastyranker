@@ -109,8 +109,8 @@ namespace DynastyRanker.Controllers
                     AddPlayerNamesToRosters(sleeperRosters, playerList);
                     sleeperRosters = RankPositionGroups(sleeperRosters);
                     sleeperRosters = RankStartingLineups(sleeperRosters, leagueInformation);
-                    sleeperRosters = GetStrengthOfSchedule(sleeperRosters, matchups);
-                    sleeperRosters = RankStrengthOfSchedule(sleeperRosters);
+                    //sleeperRosters = GetStrengthOfSchedule(sleeperRosters, matchups);
+                    //sleeperRosters = RankStrengthOfSchedule(sleeperRosters);
                     sleeperRosters = SortRostersByRanking(sleeperRosters);
                     OrderStartingLineupRanking(sleeperRosters);
                     topWaiverPlayers = GetHighestValuesWaivers(playerList, draftPickRankings, sleeperRosters, draft);
