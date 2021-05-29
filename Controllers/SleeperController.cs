@@ -62,7 +62,7 @@ namespace DynastyRanker.Controllers
                     sleeperRosters = await GetRosters(league.LeagueID);
                     playerList = GetPlayers();
                     lastScrapeDate = GetPreviousScrapeDate(lastScrapeDate);
-                    matchups = await GetMatchups(leagueInformation);
+                    //matchups = await GetMatchups(leagueInformation);
                     //LoadSleeperPlayersTextFile();
 
                     //TODO Put the if condition here so we don't even have to go into the scrape functions
@@ -241,6 +241,10 @@ namespace DynastyRanker.Controllers
                 {
                     leagueInfo.SUPERFLEXCount++;
                     continue;
+                }
+                if (position == "BN")
+                {
+                    break;
                 }
             }
 
@@ -1040,72 +1044,82 @@ namespace DynastyRanker.Controllers
 
             foreach (var ros in rosters)
             {
-                foreach (var player in ros.PlayersOnRoster.Where(o => o.Value.PORPosition == "QB").OrderByDescending(o => o.Value.PORValue))
+                if (leagueInfo.QBCount != 0)
                 {
-                    skippedPlayerNames.Add(player.Value.PORName);
-                    startingPlayerNames.Add(player.Value.PORName);
-                    positionCounter++;
-                    if (positionCounter == leagueInfo.QBCount)
+                    foreach (var player in ros.PlayersOnRoster.Where(o => o.Value.PORPosition == "QB").OrderByDescending(o => o.Value.PORValue))
                     {
-                        startingQBTotal += player.Value.PORValue;
-                        positionCounter = 0;
-                        break;
-                    }
-                    else
-                    {
-                        startingQBTotal += player.Value.PORValue;
+                        skippedPlayerNames.Add(player.Value.PORName);
+                        startingPlayerNames.Add(player.Value.PORName);
+                        positionCounter++;
+                        if (positionCounter == leagueInfo.QBCount)
+                        {
+                            startingQBTotal += player.Value.PORValue;
+                            positionCounter = 0;
+                            break;
+                        }
+                        else
+                        {
+                            startingQBTotal += player.Value.PORValue;
+                        }
                     }
                 }
-                foreach (var player in ros.PlayersOnRoster.Where(o => o.Value.PORPosition == "RB").OrderByDescending(o => o.Value.PORValue))
+                if (leagueInfo.RBCount != 0)
                 {
-                    skippedPlayerNames.Add(player.Value.PORName);
-                    startingPlayerNames.Add(player.Value.PORName);
-                    positionCounter++;
-                    if (positionCounter == leagueInfo.RBCount)
+                    foreach (var player in ros.PlayersOnRoster.Where(o => o.Value.PORPosition == "RB").OrderByDescending(o => o.Value.PORValue))
                     {
-                        startingRBTotal += player.Value.PORValue;
-                        positionCounter = 0;
-                        break;
-                    }
-                    else
-                    {
-                        startingRBTotal += player.Value.PORValue;
+                        skippedPlayerNames.Add(player.Value.PORName);
+                        startingPlayerNames.Add(player.Value.PORName);
+                        positionCounter++;
+                        if (positionCounter == leagueInfo.RBCount)
+                        {
+                            startingRBTotal += player.Value.PORValue;
+                            positionCounter = 0;
+                            break;
+                        }
+                        else
+                        {
+                            startingRBTotal += player.Value.PORValue;
+                        }
                     }
                 }
-                foreach (var player in ros.PlayersOnRoster.Where(o => o.Value.PORPosition == "WR").OrderByDescending(o => o.Value.PORValue))
+                if (leagueInfo.WRCount != 0)
                 {
-                    skippedPlayerNames.Add(player.Value.PORName);
-                    startingPlayerNames.Add(player.Value.PORName);
-                    positionCounter++;
-                    if (positionCounter == leagueInfo.WRCount)
+                    foreach (var player in ros.PlayersOnRoster.Where(o => o.Value.PORPosition == "WR").OrderByDescending(o => o.Value.PORValue))
                     {
-                        startingWRTotal += player.Value.PORValue;
-                        positionCounter = 0;
-                        break;
-                    }
-                    else
-                    {
-                        startingWRTotal += player.Value.PORValue;
+                        skippedPlayerNames.Add(player.Value.PORName);
+                        startingPlayerNames.Add(player.Value.PORName);
+                        positionCounter++;
+                        if (positionCounter == leagueInfo.WRCount)
+                        {
+                            startingWRTotal += player.Value.PORValue;
+                            positionCounter = 0;
+                            break;
+                        }
+                        else
+                        {
+                            startingWRTotal += player.Value.PORValue;
+                        }
                     }
                 }
-                foreach (var player in ros.PlayersOnRoster.Where(o => o.Value.PORPosition == "TE").OrderByDescending(o => o.Value.PORValue))
+                if (leagueInfo.TECount != 0)
                 {
-                    skippedPlayerNames.Add(player.Value.PORName);
-                    startingPlayerNames.Add(player.Value.PORName);
-                    positionCounter++;
-                    if (positionCounter == leagueInfo.TECount)
+                    foreach (var player in ros.PlayersOnRoster.Where(o => o.Value.PORPosition == "TE").OrderByDescending(o => o.Value.PORValue))
                     {
-                        startingTETotal += player.Value.PORValue;
-                        positionCounter = 0;
-                        break;
-                    }
-                    else
-                    {
-                        startingTETotal += player.Value.PORValue;
+                        skippedPlayerNames.Add(player.Value.PORName);
+                        startingPlayerNames.Add(player.Value.PORName);
+                        positionCounter++;
+                        if (positionCounter == leagueInfo.TECount)
+                        {
+                            startingTETotal += player.Value.PORValue;
+                            positionCounter = 0;
+                            break;
+                        }
+                        else
+                        {
+                            startingTETotal += player.Value.PORValue;
+                        }
                     }
                 }
-
-
                 foreach (var player in ros.PlayersOnRoster.OrderByDescending(o => o.Value.PORValue))
                 {
                     if (leagueInfo.SUPERFLEXCount != 0 && leagueInfo.SUPERFLEXCount != superflexAdded)
