@@ -825,9 +825,7 @@ namespace DynastyRanker.Controllers
 
         public List<Rosters> RankStartingLineups(List<Rosters> rosters, MFLLeagueInfo leagueInfo)
         {
-            int positionCounter = 0;
             int remainingFlex = Convert.ToInt32(leagueInfo.MaxFLEXCount) + Convert.ToInt32(leagueInfo.MaxRECFLEXCount) + leagueInfo.SUPERFLEXCount;
-            int superflexAdded = 0;
             int recflexAdded = 0;
             int qbsAdded = 0;
             int rbsAdded = 0;
@@ -845,8 +843,6 @@ namespace DynastyRanker.Controllers
             List<string> startingPlayerNames = new List<string>();
             List<string> flexPlayerNames = new List<string>();
             List<string> superflexPlayerNames = new List<string>();
-
-
 
             foreach (var ros in rosters)
             {
@@ -961,7 +957,6 @@ namespace DynastyRanker.Controllers
                 ros.StartingPlayerList = startingPlayerNames;
                 ros.StartingFlexList = flexPlayerNames;
                 
-                positionCounter = 0;
                 totalAdded = 0;
                 qbsAdded = 0;
                 rbsAdded = 0;

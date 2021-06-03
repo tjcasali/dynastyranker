@@ -328,8 +328,11 @@
                 <div class="position-rankings">Draft Capital: @roster.TotalDraftCapital</div>
                 foreach (var pick in roster.DraftPicks.OrderByDescending(o => Int32.Parse(Model.DraftPickRankings[o])))
                 {
-                    //if (pick.Contains("2021") || pick.Contains("2022") || pick.Contains("2023"))
-                    if(pick.Contains("2021"))
+                    if (Model.DraftInfo.Status == "complete" && pick.Contains("2021"))
+                    {
+                        continue;
+                    }
+                    if (pick.Contains("2021") || pick.Contains("2022") || pick.Contains("2023"))
                     {
                         @pick <text>: </text>
                         @Model.DraftPickRankings[pick]<br />
