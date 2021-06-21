@@ -50,16 +50,16 @@ namespace DynastyRanker.Controllers
         /// DisplayLeague(League league)
         /// The psuedo main function of the Sleeper functionality. Called by the submit button click on the homepage
         /// and calls all of our functions and returns the DisplayLeague View.
-        public async Task<ActionResult> DisplayLeague(League league)
+        public async Task<ActionResult> DisplayLeague(string leagueID)
         {
             //Requires the user to fill in the text field. Otherwise it returns InvalidLeagueID
-            if (league.LeagueID != null)
+            if (leagueID != null)
             {
                 try
                 {
-                    leagueInformation = await GetLeagueInformation(league.LeagueID);
-                    sleeperUsers = await GetUsers(league.LeagueID);
-                    sleeperRosters = await GetRosters(league.LeagueID);
+                    leagueInformation = await GetLeagueInformation(leagueID);
+                    sleeperUsers = await GetUsers(leagueID);
+                    sleeperRosters = await GetRosters(leagueID);
                     playerList = GetPlayers();
                     lastScrapeDate = GetPreviousScrapeDate(lastScrapeDate);
                     //matchups = await GetMatchups(leagueInformation);
@@ -68,7 +68,6 @@ namespace DynastyRanker.Controllers
                     //TODO Put the if condition here so we don't even have to go into the scrape functions
                     //ScrapeRankings(lastScrapeDate);
                     //ScrapeSFRankings(lastScrapeDate);
-
                     playerList = LoadRankings(playerList, keepTradeCutList, leagueInformation);
                     LinkUsersAndRosters(sleeperUsers, sleeperRosters);
 
@@ -77,7 +76,7 @@ namespace DynastyRanker.Controllers
                     {
                         try
                         {
-                            draft = await GetDraftOrder(league.LeagueID);
+                            draft = await GetDraftOrder(leagueID);
                             if (draft.DraftOrder != null)
                             {
                                 tradedPicks = await GetTradedDraftPicks(leagueInformation);
@@ -113,6 +112,7 @@ namespace DynastyRanker.Controllers
                     //sleeperRosters = RankStrengthOfSchedule(sleeperRosters);
                     sleeperRosters = SortRostersByRanking(sleeperRosters);
                     OrderStartingLineupRanking(sleeperRosters);
+                    OrderTotalTeamRanking(sleeperRosters);
                     topWaiverPlayers = GetHighestValuesWaivers(playerList, draftPickRankings, sleeperRosters, draft);
 
                 }
@@ -126,9 +126,91 @@ namespace DynastyRanker.Controllers
                 return RedirectToAction("InvalidLeagueID");
             }
 
-            foreach(var r in sleeperRosters)
+            var viewModel = new DisplayLeagueViewModel
             {
-                System.Diagnostics.Debug.WriteLine(r.StrengthOfScheduleRank);
+                Rosters = sleeperRosters,
+                UserInfo = leagueInformation,
+                LastScrapeDate = lastScrapeDate,
+                DraftPickRankings = draftPickRankings,
+                TradedPicks = tradedPicks,
+                IncludeDraftCapital = includeDraftCapital,
+                TopWaiverPlayers = topWaiverPlayers,
+                DraftInfo = draft,
+                LeagueID = leagueInformation.LeagueID
+            };
+
+            return View(viewModel);
+        }
+
+        public async Task<ActionResult> DisplayLeagueByStarting(string leagueID)
+        {
+            //Requires the user to fill in the text field. Otherwise it returns InvalidLeagueID
+            if (leagueID != null)
+            {
+                try
+                {
+                    leagueInformation = await GetLeagueInformation(leagueID);
+                    sleeperUsers = await GetUsers(leagueID);
+                    sleeperRosters = await GetRosters(leagueID);
+                    playerList = GetPlayers();
+                    lastScrapeDate = GetPreviousScrapeDate(lastScrapeDate);
+
+                    playerList = LoadRankings(playerList, keepTradeCutList, leagueInformation);
+                    LinkUsersAndRosters(sleeperUsers, sleeperRosters);
+
+                    // Check if the inputted league and see if it has a previous league ID, meaning that there is a draft order for the rookie draft.
+                    if (leagueInformation.PreviousLeagueID != "")
+                    {
+                        try
+                        {
+                            draft = await GetDraftOrder(leagueID);
+                            if (draft.DraftOrder != null)
+                            {
+                                tradedPicks = await GetTradedDraftPicks(leagueInformation);
+                                AddDraftPositionToRoster(draft, sleeperRosters);
+                                sleeperRosters = AssignDraftPositionToPicks(sleeperRosters);
+                                sleeperRosters = TradedDraftPicks(sleeperRosters, tradedPicks, draft);
+                                sleeperRosters = GetTotalDraftCapital(sleeperRosters, draftPickRankings);
+                            }
+                            else
+                                includeDraftCapital = false;
+                        }
+                        catch
+                        {
+                            //If any of these functions API calls return bad data we will just ignore the Draft Capital portion.
+                            includeDraftCapital = false;
+                        }
+                    }
+
+                    //This is in a Try Catch because this function is prone to break if the league has unique settings that I can't account for.
+                    try
+                    {
+                        sleeperRosters = AverageTeamRanking(sleeperRosters, playerList);
+                    }
+                    catch
+                    {
+                        return RedirectToAction("BadLeague");
+                    }
+
+                    AddPlayerNamesToRosters(sleeperRosters, playerList);
+                    sleeperRosters = RankPositionGroups(sleeperRosters);
+                    sleeperRosters = RankStartingLineups(sleeperRosters, leagueInformation);
+                    //sleeperRosters = GetStrengthOfSchedule(sleeperRosters, matchups);
+                    //sleeperRosters = RankStrengthOfSchedule(sleeperRosters);
+                    sleeperRosters = SortRostersByStarting(sleeperRosters);
+                    OrderStartingLineupRanking(sleeperRosters);
+                    OrderTotalTeamRanking(sleeperRosters);
+                    topWaiverPlayers = GetHighestValuesWaivers(playerList, draftPickRankings, sleeperRosters, draft);
+
+                }
+                catch
+                {
+                    return RedirectToAction("InvalidLeagueID");
+                }
+            }
+            else
+            {
+                return RedirectToAction("InvalidLeagueID");
             }
 
             var viewModel = new DisplayLeagueViewModel
@@ -140,7 +222,8 @@ namespace DynastyRanker.Controllers
                 TradedPicks = tradedPicks,
                 IncludeDraftCapital = includeDraftCapital,
                 TopWaiverPlayers = topWaiverPlayers,
-                DraftInfo = draft
+                DraftInfo = draft,
+                LeagueID = leagueInformation.LeagueID
             };
 
             return View(viewModel);
@@ -1230,6 +1313,11 @@ namespace DynastyRanker.Controllers
             List<Rosters> sortedRosters = rosters.OrderByDescending(o => o.TeamRankingAverage).ToList();
             return sortedRosters;
         }
+        public List<Rosters> SortRostersByStarting(List<Rosters> rosters)
+        {
+            List<Rosters> sortedRosters = rosters.OrderByDescending(o => o.TeamStartingTotal).ToList();
+            return sortedRosters;
+        }
 
         public void OrderStartingLineupRanking(List<Rosters> rosters)
         {
@@ -1239,6 +1327,18 @@ namespace DynastyRanker.Controllers
             {
                 count++;
                 ros.StartingTeamRank = count;
+            }
+
+        }
+
+        public void OrderTotalTeamRanking(List<Rosters> rosters)
+        {
+            List<Rosters> sortedRosters = rosters.OrderByDescending(o => o.TeamRankingAverage).ToList();
+            int count = 0;
+            foreach (var ros in sortedRosters)
+            {
+                count++;
+                ros.TeamTotalRank = count;
             }
 
         }

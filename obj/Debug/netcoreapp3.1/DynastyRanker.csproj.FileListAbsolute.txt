@@ -60,3 +60,4 @@ E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\Razor\Views\MFL\
 E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\Razor\Views\MFL\MFLBadLeague.cshtml.g.cs
 E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\Razor\Views\MFL\MFLInvalidLeagueID.cshtml.g.cs
 E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\Razor\Views\MFL\MFLPrivateLeague.cshtml.g.cs
+E:\projects\DynastyRanker\DynastyRanker\obj\Debug\netcoreapp3.1\Razor\Views\Sleeper\DisplayLeagueByStarting.cshtml.g.cs

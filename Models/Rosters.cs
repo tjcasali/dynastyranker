@@ -52,6 +52,8 @@ namespace DynastyRanker.Models
         public double WeekAgoTeamTotal { get; set; }
 
         public int StartingTeamRank { get; set; }
+        public int TeamTotalRank { get; set; }
+
 
         public int SelectedRoster { get; set; }
 

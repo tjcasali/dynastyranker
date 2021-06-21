@@ -41,8 +41,9 @@
 
             @using (Html.BeginForm("SelectLeague", "Sleeper"))
             {
-    @Html.TextBoxFor(m => m.UserName, new { @class = "sleeperIDField" })
-                    <button type="submit" class="btn btn-info">Submit</button>            }
+                @Html.TextBoxFor(m => m.UserName, new { @class = "sleeperIDField" })
+                <button type="submit" class="btn btn-info">Submit</button>            
+            }
         </div>
 
         <div class="tinyGap"></div>
@@ -55,8 +56,9 @@
             <div class="container">
                 @using (Html.BeginForm("DisplayLeague", "Sleeper"))
                 {
-    @Html.TextBoxFor(m => m.LeagueID, new { @class = "sleeperIDField" })
-                    <button type="submit" class="btn btn-info">Submit</button>}
+                    @Html.TextBoxFor(m => m.LeagueID, new { @class = "sleeperIDField" })
+                    <button type="submit" class="btn btn-info">Submit</button>
+                }
             </div>
             <img alt="Sleeper ID" src="@Url.Content("~/Images/SleeperLeagueID.png")" class="hideIf600">
         </div>
@@ -71,8 +73,9 @@
 
             @using (Html.BeginForm("MFLDisplayLeague", "MFL"))
             {
-    @Html.TextBoxFor(m => m.LeagueID, new { @class = "sleeperIDField" })
-                    <button type="submit" class="btn btn-info">Submit</button>            }
+                @Html.TextBoxFor(m => m.LeagueID, new { @class = "sleeperIDField" })
+                <button type="submit" class="btn btn-info">Submit</button>            
+            }
             <img alt="Sleeper ID" src="@Url.Content("~/Images/MFLLeagueID.png")" class="hideIf600">
         </div>
 
