@@ -471,6 +471,56 @@ namespace DynastyRanker.Controllers
             }
             return draftPicks;
         }
+
+        public List<MFLDraftPicks> GetFutureDraftPicks(MFLLeagueInfo leagueInfo)
+        {
+            XmlDocument xdoc = new XmlDocument();
+            xdoc.Load("https://www61.myfantasyleague.com/2021/export?TYPE=futureDraftPicks&L=" + leagueInfo.LeagueID + "&APIKEY=&JSON=0");
+
+            List<MFLDraftPicks> draftPicks = new List<MFLDraftPicks>();
+            MFLDraftPicks tempDraftPick = new MFLDraftPicks();
+
+            string leagueSize = leagueInfo.FranchiseCount; //12
+            double eml = 0.00D;
+            string tempPick = "";
+
+            var draftPicksList = xdoc.SelectNodes("draftResults/draftUnit/draftPick");
+            foreach (XmlNode node in draftPicksList)
+            {
+                tempDraftPick.Round = node.Attributes["round"].Value;
+                tempDraftPick.Pick = node.Attributes["pick"].Value;
+                tempDraftPick.PickOwnedBy = node.Attributes["franchise"].Value;
+
+                if (tempDraftPick.Round == "05")
+                    continue;
+
+
+                eml = Convert.ToDouble(tempDraftPick.Pick) / Convert.ToDouble(leagueSize);
+                tempPick = "2021";
+                if (eml <= 0.34)
+                    tempPick = tempPick.Insert(4, " Early");
+                if (eml >= 0.34 && eml <= 0.67)
+                    tempPick = tempPick.Insert(4, " Mid");
+                if (eml >= 0.67)
+                    tempPick = tempPick.Insert(4, " Late");
+
+                if (tempDraftPick.Round == "01")
+                    tempPick = tempPick + " 1st";
+                if (tempDraftPick.Round == "02")
+                    tempPick = tempPick + " 2nd";
+                if (tempDraftPick.Round == "03")
+                    tempPick = tempPick + " 3rd";
+                if (tempDraftPick.Round == "04")
+                    tempPick = tempPick + " 4th";
+
+                tempDraftPick.FullPickText = tempPick;
+                draftPicks.Add(tempDraftPick);
+
+                tempDraftPick = new MFLDraftPicks();
+                tempPick = "";
+            }
+            return draftPicks;
+        }
         #endregion
 
         public void LinkUsersAndRosters(List<Rosters> rosters, MFLLeagueInfo users)
