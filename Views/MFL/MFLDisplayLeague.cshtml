@@ -322,18 +322,18 @@
                 @if (Model.IncludeDraftCapital == true)
             {
                 <div class="position-rankings">Draft Capital: @roster.TotalDraftCapital</div>
-                if (Model.DraftInfo.Status != "complete")
+                    //if (Model.DraftInfo.Status != "complete")
+                    //{
+                foreach (var pick in roster.DraftPicks.OrderByDescending(o => Int32.Parse(Model.DraftPickRankings[o])))
                 {
-                    foreach (var pick in roster.DraftPicks.OrderByDescending(o => Int32.Parse(Model.DraftPickRankings[o])))
+                    if (pick.Contains("2021"))
                     {
-                        if (pick.Contains("2021"))
-                        {
-                            @pick <text>: </text>
-                            @Model.DraftPickRankings[pick]<br />
-                        }
+                        @pick <text>: </text>
+                        @Model.DraftPickRankings[pick]<br />
                     }
-                    <br />
                 }
+                <br />
+                    //}
                 
                 foreach (var pick in roster.DraftPicks.OrderByDescending(o => Int32.Parse(Model.DraftPickRankings[o])))
                 {

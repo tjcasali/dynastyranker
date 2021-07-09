@@ -123,7 +123,7 @@ namespace DynastyRanker.Controllers
                 LastScrapeDate = lastScrapeDate,
                 DraftPickRankings = draftPickRankings,
                 IncludeDraftCapital = includeDraftCapital,
-                TopWaiverPlayers = topWaiverPlayers
+                TopWaiverPlayers = topWaiverPlayers,
             };
 
             return View(viewModel);
