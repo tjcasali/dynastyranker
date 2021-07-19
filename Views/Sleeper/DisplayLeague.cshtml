@@ -128,8 +128,8 @@
                     }leagues, determined at <a class="greenA" href="https://keeptradecut.com/">KeepTradeCut.com</a>
                 </div>
                 <div class="alignCenter"><text class="boldText">Rankings Last Updated: </text>@Model.LastScrapeDate<br /></div>
-                <div class="legend">&#11088; : Starters<br />&#128170; : Best Flex Options</div>         
-                <div class="alignCenter"><a class="greenA" href="@Url.Action("DisplayLeagueByStarting", "Sleeper", new { leagueID = Model.LeagueID })">Sort by Starting Lineup Ranking</a><br /></div>
+                <div class="legend">&#11088; : Starters<br />&#128170; : Best Flex Options</div><br />
+                <div class="alignCenter"><a class="btn btn-info btn-sm" href="@Url.Action("DisplayLeagueByStarting", "Sleeper", new { leagueID = Model.LeagueID })">Sort by Starting Lineup Ranking</a><br /></div>
             </p>
         </div>
     </div>

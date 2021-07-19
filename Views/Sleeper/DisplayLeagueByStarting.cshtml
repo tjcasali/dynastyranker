@@ -128,8 +128,8 @@
                     }leagues, determined at <a class="greenA" href="https://keeptradecut.com/">KeepTradeCut.com</a>
                 </div>
                 <div class="alignCenter"><text class="boldText">Rankings Last Updated: </text>@Model.LastScrapeDate<br /></div>
-                <div class="legend">&#11088; : Starters<br />&#128170; : Best Flex Options</div>         
-                <div class="alignCenter"><a class="greenA" href="@Url.Action("DisplayLeague", "Sleeper", new { leagueID = Model.LeagueID })">Sort by Total Roster Ranking</a><br /></div>
+                <div class="legend">&#11088; : Starters<br />&#128170; : Best Flex Options</div><br />         
+                <div class="alignCenter"><a class="btn btn-info btn-sm" href="@Url.Action("DisplayLeague", "Sleeper", new { leagueID = Model.LeagueID })">Sort by Total Roster Ranking</a><br /></div>
 
             </p>
         </div>
@@ -155,6 +155,9 @@
             {
                 if (topFive < 5)
                 {
+                    if (player.PORValue == 0)
+                        continue;
+
                     @player.PORName <text>: </text>
                     @player.PORValue
                     <br />
@@ -183,6 +186,9 @@
             {
                 if (topFive < 5)
                 {
+                    if (player.PORValue == 0)
+                        continue;
+
                     @player.PORName <text>: </text>
                     @player.PORValue
                     <br />
@@ -211,6 +217,9 @@
             {
                 if (topFive < 5)
                 {
+                    if (player.PORValue == 0)
+                        continue;
+
                     @player.PORName <text>: </text>
                     @player.PORValue
                     <br />
@@ -239,6 +248,9 @@
             {
                 if (topFive < 5)
                 {
+                    if (player.PORValue == 0)
+                        continue;
+
                     @player.PORName <text>: </text>
                     @player.PORValue
                     <br />
