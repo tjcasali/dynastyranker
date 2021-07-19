@@ -129,7 +129,7 @@
                 </div>
                 <div class="alignCenter"><text class="boldText">Rankings Last Updated: </text>@Model.LastScrapeDate<br /></div>
                 <div class="legend">&#11088; : Starters<br />&#128170; : Best Flex Options</div>         
-                @*<div class="alignCenter"><a class="greenA" href="@Url.Action("DisplayLeagueByStarting", "Sleeper", new { leagueID = Model.LeagueID })">Sort by Starting Lineup Ranking</a><br /></div>*@
+                <div class="alignCenter"><a class="greenA" href="@Url.Action("DisplayLeagueByStarting", "Sleeper", new { leagueID = Model.LeagueID })">Sort by Starting Lineup Ranking</a><br /></div>
             </p>
         </div>
     </div>
@@ -154,6 +154,9 @@
             {
                 if (topFive < 5)
                 {
+                    if(player.PORValue == 0)
+                        continue;
+
                     @player.PORName <text>: </text>
                     @player.PORValue
                     <br />
@@ -182,6 +185,9 @@
             {
                 if (topFive < 5)
                 {
+                    if (player.PORValue == 0)
+                        continue;
+
                     @player.PORName <text>: </text>
                     @player.PORValue
                     <br />
@@ -210,6 +216,9 @@
             {
                 if (topFive < 5)
                 {
+                    if (player.PORValue == 0)
+                        continue;
+
                     @player.PORName <text>: </text>
                     @player.PORValue
                     <br />
@@ -238,6 +247,9 @@
             {
                 if (topFive < 5)
                 {
+                    if (player.PORValue == 0)
+                        continue;
+
                     @player.PORName <text>: </text>
                     @player.PORValue
                     <br />
