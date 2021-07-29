@@ -37,6 +37,10 @@ namespace DynastyRanker.Models
         public string WeekAgoValue { get; set; }
 
         public bool OnRoster { get; set; }
+
+        public string FantasyProsProjection { get; set; }
+
+        public string FullName { get; set; }
     }
 
     public class Players

@@ -34,7 +34,7 @@ namespace DynastyRanker.Controllers
         public bool includeDraftCapital = true;
         public List<POR> topWaiverPlayers = new List<POR>();
         public List<SleeperMatchups> matchups = new List<SleeperMatchups>();
-
+        public RankingLists rankingLists = new RankingLists();
 
         public SleeperController(Microsoft.AspNetCore.Hosting.IWebHostEnvironment env)
         {
@@ -62,13 +62,14 @@ namespace DynastyRanker.Controllers
                     sleeperRosters = await GetRosters(leagueID);
                     playerList = GetPlayers();
                     lastScrapeDate = GetPreviousScrapeDate(lastScrapeDate);
-                    //matchups = await GetMatchups(leagueInformation);
+                    //matchups = await GetMatchups(leagueInformatio6n);
                     //LoadSleeperPlayersTextFile();
 
                     //TODO Put the if condition here so we don't even have to go into the scrape functions
                     //ScrapeRankings(lastScrapeDate);
                     //ScrapeSFRankings(lastScrapeDate);
                     playerList = LoadRankings(playerList, keepTradeCutList, leagueInformation);
+                    playerList = LoadFantasyProsProjections(playerList);
                     LinkUsersAndRosters(sleeperUsers, sleeperRosters);
 
                     // Check if the inputted league and see if it has a previous league ID, meaning that there is a draft order for the rookie draft.
@@ -114,7 +115,7 @@ namespace DynastyRanker.Controllers
                     OrderStartingLineupRanking(sleeperRosters);
                     OrderTotalTeamRanking(sleeperRosters);
                     topWaiverPlayers = GetHighestValuesWaivers(playerList, draftPickRankings, sleeperRosters, draft);
-
+                    rankingLists = SetRankings(sleeperRosters);
                 }
                 catch
                 {
@@ -136,7 +137,8 @@ namespace DynastyRanker.Controllers
                 IncludeDraftCapital = includeDraftCapital,
                 TopWaiverPlayers = topWaiverPlayers,
                 DraftInfo = draft,
-                LeagueID = leagueInformation.LeagueID
+                LeagueID = leagueInformation.LeagueID,
+                RankingLists = rankingLists
             };
 
             return View(viewModel);
@@ -156,6 +158,7 @@ namespace DynastyRanker.Controllers
                     lastScrapeDate = GetPreviousScrapeDate(lastScrapeDate);
 
                     playerList = LoadRankings(playerList, keepTradeCutList, leagueInformation);
+                    playerList = LoadFantasyProsProjections(playerList);
                     LinkUsersAndRosters(sleeperUsers, sleeperRosters);
 
                     // Check if the inputted league and see if it has a previous league ID, meaning that there is a draft order for the rookie draft.
@@ -201,6 +204,7 @@ namespace DynastyRanker.Controllers
                     OrderStartingLineupRanking(sleeperRosters);
                     OrderTotalTeamRanking(sleeperRosters);
                     topWaiverPlayers = GetHighestValuesWaivers(playerList, draftPickRankings, sleeperRosters, draft);
+                    rankingLists = SetRankings(sleeperRosters);
 
                 }
                 catch
@@ -223,7 +227,8 @@ namespace DynastyRanker.Controllers
                 IncludeDraftCapital = includeDraftCapital,
                 TopWaiverPlayers = topWaiverPlayers,
                 DraftInfo = draft,
-                LeagueID = leagueInformation.LeagueID
+                LeagueID = leagueInformation.LeagueID,
+                RankingLists = rankingLists
             };
 
             return View(viewModel);
@@ -484,7 +489,22 @@ namespace DynastyRanker.Controllers
 
             Dictionary<string, PlayerData> playerList = JsonConvert.DeserializeObject<Dictionary<string, PlayerData>>(json);
 
+            playerList = GetPlayersConcatenateName(playerList);
+
             return playerList;
+        }
+
+        public Dictionary<string,PlayerData> GetPlayersConcatenateName(Dictionary<string, PlayerData> players)
+        {
+            string tempName = "";
+
+            foreach(var player in players)
+            {
+                tempName = player.Value.FirstName + " " + player.Value.LastName;
+                player.Value.FullName = tempName;
+                tempName = "";
+            }
+            return players;
         }
         #endregion
 
@@ -517,7 +537,6 @@ namespace DynastyRanker.Controllers
             POR tempPOREntry;
             string temp = "";
 
-
             PlayerData tempPlayer = new PlayerData();
 
             foreach (Rosters ros in rosters)
@@ -549,6 +568,7 @@ namespace DynastyRanker.Controllers
                             tempPOREntry.PORName = temp;
                             tempPOREntry.PORPosition = tempPlayer.Position;
                             tempPOREntry.PORValue = Convert.ToInt32(tempPlayer.KeepTradeCutValue);
+                            tempPOREntry.PORProjection = Convert.ToDouble(tempPlayer.FantasyProsProjection);
 
                             tempPORDict.Add(p, tempPOREntry);
                         }
@@ -642,6 +662,106 @@ namespace DynastyRanker.Controllers
                 return players;
             }
         }
+
+        public Dictionary<string, PlayerData> LoadFantasyProsProjections(Dictionary<string, PlayerData> players)
+        {
+            string sr = "";
+            var webRoot = _env.WebRootPath;
+
+            string tempName = "";
+            string tempValue = "";
+            PlayerData tempPlayer = new PlayerData();
+            string tempPlayerID = "";
+            double tempDouble;
+            List<string> seenPlayers = new List<string>();
+
+            sr = System.IO.Path.Combine(webRoot, "projections.csv");
+            
+            using (var reader = new StreamReader(sr))
+            {
+                while (!reader.EndOfStream)
+                {
+                    //ex. Josh Allen,378.7
+                    var line = reader.ReadLine();
+                    var values = line.Split(',');
+
+                    //ex. Josh Allen
+                    tempName = values[0];
+                    //ex. 378.7
+                    tempDouble = Math.Round(Convert.ToDouble(values[1]));
+                    tempValue = tempDouble.ToString();
+
+                    if(tempName == "AJ Dillon")
+                        tempName = "A.J. Dillon";
+                    if (tempName == "KJ Hamler")
+                        tempName = "K.J. Hamler";
+                    if (tempName == "Scotty Miller")
+                        tempName = "Scott Miller";
+                    if (tempName == "Will Fuller V")
+                        tempName = "Will Fuller";
+                    if (tempName == "Jeff Wilson Jr.")
+                        tempName = "Jeffery Wilson";
+
+                    if (tempName.EndsWith("I"))
+                    {
+                        while (tempName.EndsWith("I"))
+                        {
+                            tempName = tempName.Remove(tempName.Length - 1);
+                        }
+                        tempName = tempName.Trim();
+                    }
+                    
+
+                    //Get the player ID where the name from the projections csv matches in the players list
+                    tempPlayerID = players.FirstOrDefault(x => x.Value.FullName == tempName).Key;
+
+                    //Return PlayerData using that player ID
+                    if (tempPlayerID != "" && tempPlayerID != null)
+                    {
+                        tempPlayer = GetPlayerData(tempPlayerID, players);
+                        //Assign the new FantasyPros Projection
+                        tempPlayer.FantasyProsProjection = tempValue;
+                        seenPlayers.Add(tempName);
+                        continue;
+                    }
+                    else if(tempName.Contains("Jr.") || tempName.Contains("Sr."))
+                    {
+                        tempName = tempName.Replace("Jr.", String.Empty);
+                        tempName = tempName.Trim();
+                        tempName = tempName.Replace("Sr.", String.Empty);
+                        tempName = tempName.Trim();
+
+                        tempPlayerID = players.FirstOrDefault(x => x.Value.FullName == tempName).Key;
+
+                        if (tempPlayerID != "" && tempPlayerID != null)
+                        {
+                            tempPlayer = GetPlayerData(tempPlayerID, players);
+                            //Assign the new FantasyPros Projection
+                            tempPlayer.FantasyProsProjection = tempValue;
+                            seenPlayers.Add(tempName);
+                            continue;
+                        }
+                    }
+                    else if(tempName.Contains("."))
+                    {
+                        tempName = tempName.Replace(".", String.Empty);
+
+                        tempPlayerID = players.FirstOrDefault(x => x.Value.FullName == tempName).Key;
+
+                        if (tempPlayerID != "" && tempPlayerID != null)
+                        {
+                            tempPlayer = GetPlayerData(tempPlayerID, players);
+                            //Assign the new FantasyPros Projection
+                            tempPlayer.FantasyProsProjection = tempValue;
+                            seenPlayers.Add(tempName);
+                            continue;
+                        }
+                    }
+                }
+            }
+            return players;
+        }
+
 
         /// AverageTeamRanking(List<Rosters> rosters, Dictionary<string, PlayerData> players)
         /// Loop through each player on each roster and sum up the positional totals and the team total
@@ -1361,89 +1481,87 @@ namespace DynastyRanker.Controllers
             List<string> flexPlayerNames = new List<string>();
             List<string> superflexPlayerNames = new List<string>();
 
-
-
             foreach (var ros in rosters)
             {
                 if (leagueInfo.QBCount != 0)
                 {
-                    foreach (var player in ros.PlayersOnRoster.Where(o => o.Value.PORPosition == "QB").OrderByDescending(o => o.Value.PORValue))
+                    foreach (var player in ros.PlayersOnRoster.Where(o => o.Value.PORPosition == "QB").OrderByDescending(o => o.Value.PORProjection))
                     {
                         skippedPlayerNames.Add(player.Value.PORName);
                         startingPlayerNames.Add(player.Value.PORName);
                         positionCounter++;
                         if (positionCounter == leagueInfo.QBCount)
                         {
-                            startingQBTotal += player.Value.PORValue;
+                            startingQBTotal += player.Value.PORProjection;
                             positionCounter = 0;
                             break;
                         }
                         else
                         {
-                            startingQBTotal += player.Value.PORValue;
+                            startingQBTotal += player.Value.PORProjection;
                         }
                     }
                 }
                 if (leagueInfo.RBCount != 0)
                 {
-                    foreach (var player in ros.PlayersOnRoster.Where(o => o.Value.PORPosition == "RB").OrderByDescending(o => o.Value.PORValue))
+                    foreach (var player in ros.PlayersOnRoster.Where(o => o.Value.PORPosition == "RB").OrderByDescending(o => o.Value.PORProjection))
                     {
                         skippedPlayerNames.Add(player.Value.PORName);
                         startingPlayerNames.Add(player.Value.PORName);
                         positionCounter++;
                         if (positionCounter == leagueInfo.RBCount)
                         {
-                            startingRBTotal += player.Value.PORValue;
+                            startingRBTotal += player.Value.PORProjection;
                             positionCounter = 0;
                             break;
                         }
                         else
                         {
-                            startingRBTotal += player.Value.PORValue;
+                            startingRBTotal += player.Value.PORProjection;
                         }
                     }
                 }
                 if (leagueInfo.WRCount != 0)
                 {
-                    foreach (var player in ros.PlayersOnRoster.Where(o => o.Value.PORPosition == "WR").OrderByDescending(o => o.Value.PORValue))
+                    foreach (var player in ros.PlayersOnRoster.Where(o => o.Value.PORPosition == "WR").OrderByDescending(o => o.Value.PORProjection))
                     {
                         skippedPlayerNames.Add(player.Value.PORName);
                         startingPlayerNames.Add(player.Value.PORName);
                         positionCounter++;
                         if (positionCounter == leagueInfo.WRCount)
                         {
-                            startingWRTotal += player.Value.PORValue;
+                            startingWRTotal += player.Value.PORProjection;
                             positionCounter = 0;
                             break;
                         }
                         else
                         {
-                            startingWRTotal += player.Value.PORValue;
+                            startingWRTotal += player.Value.PORProjection;
                         }
                     }
                 }
                 if (leagueInfo.TECount != 0)
                 {
-                    foreach (var player in ros.PlayersOnRoster.Where(o => o.Value.PORPosition == "TE").OrderByDescending(o => o.Value.PORValue))
+                    foreach (var player in ros.PlayersOnRoster.Where(o => o.Value.PORPosition == "TE").OrderByDescending(o => o.Value.PORProjection))
                     {
                         skippedPlayerNames.Add(player.Value.PORName);
                         startingPlayerNames.Add(player.Value.PORName);
                         positionCounter++;
                         if (positionCounter == leagueInfo.TECount)
                         {
-                            startingTETotal += player.Value.PORValue;
+                            startingTETotal += player.Value.PORProjection;
                             positionCounter = 0;
                             break;
                         }
                         else
                         {
-                            startingTETotal += player.Value.PORValue;
+                            startingTETotal += player.Value.PORProjection;
                         }
                     }
                 }
 
 
-                foreach (var player in ros.PlayersOnRoster.OrderByDescending(o => o.Value.PORValue))
+                foreach (var player in ros.PlayersOnRoster.OrderByDescending(o => o.Value.PORProjection))
                 {
                     if (leagueInfo.SUPERFLEXCount != 0 && leagueInfo.SUPERFLEXCount != superflexAdded)
                     {
@@ -1459,7 +1577,7 @@ namespace DynastyRanker.Controllers
                         if (positionCounter == leagueInfo.FLEXCount + leagueInfo.RECFLEXCount + leagueInfo.SUPERFLEXCount)
                         {
                             skippedPlayerNames.Add(player.Value.PORName);
-                            startingFLEXTotal += player.Value.PORValue;
+                            startingFLEXTotal += player.Value.PORProjection;
                             positionCounter = 0;
                             recflexAdded = 0;
                             superflexAdded = 0;
@@ -1467,7 +1585,7 @@ namespace DynastyRanker.Controllers
                         }
                         else
                         {
-                            startingFLEXTotal += player.Value.PORValue;
+                            startingFLEXTotal += player.Value.PORProjection;
                         }
                     }
                     else if (leagueInfo.RECFLEXCount != 0)
@@ -1483,7 +1601,7 @@ namespace DynastyRanker.Controllers
                         if (positionCounter == leagueInfo.FLEXCount + leagueInfo.RECFLEXCount + leagueInfo.SUPERFLEXCount)
                         {
                             skippedPlayerNames.Add(player.Value.PORName);
-                            startingFLEXTotal += player.Value.PORValue;
+                            startingFLEXTotal += player.Value.PORProjection;
                             positionCounter = 0;
                             recflexAdded = 0;
                             superflexAdded = 0;
@@ -1491,7 +1609,7 @@ namespace DynastyRanker.Controllers
                         }
                         else
                         {
-                            startingFLEXTotal += player.Value.PORValue;
+                            startingFLEXTotal += player.Value.PORProjection;
                         }
                     }
                     else if (leagueInfo.FLEXCount != 0)
@@ -1506,7 +1624,7 @@ namespace DynastyRanker.Controllers
                         if (positionCounter == leagueInfo.FLEXCount + leagueInfo.RECFLEXCount + leagueInfo.SUPERFLEXCount)
                         {
                             skippedPlayerNames.Add(player.Value.PORName);
-                            startingFLEXTotal += player.Value.PORValue;
+                            startingFLEXTotal += player.Value.PORProjection;
                             positionCounter = 0;
                             recflexAdded = 0;
                             superflexAdded = 0;
@@ -1514,7 +1632,7 @@ namespace DynastyRanker.Controllers
                         }
                         else
                         {
-                            startingFLEXTotal += player.Value.PORValue;
+                            startingFLEXTotal += player.Value.PORProjection;
                         }
                     }
                 }
@@ -1882,203 +2000,272 @@ namespace DynastyRanker.Controllers
             }
             return rankedRosters;
         }
-    #endregion
 
-    #region COMMENTED OUT FUNCTIONS
+        public RankingLists SetRankings(List<Rosters> rosters)
+        {
+            RankingLists rl = new RankingLists();
+            List<Rosters> rankedRosters = new List<Rosters>();
+            List<string> teamNames = new List<string>();
 
-    //public ActionResult TeamBreakdown(string leagueID, string name)
-    //{
-    //    foreach (var ros in sleeperRosters)
-    //    {
-    //        if (ros.DisplayName == name)
-    //        {
-    //            ros.SelectedRoster = 1;
-    //            continue;
-    //        }
-    //    }
+            //OrderBy for parameters that I've already ranked 1-12, OrderByDescending for summed values
+            //QB Ranking
+            foreach(var ros in rosters.OrderBy(o=> o.QBRank))
+            {
+                teamNames.Add(ros.DisplayName);
+            }
+            rl.QBRankingList = teamNames;
+            teamNames = new List<string>();
 
-    //    //sleeperRosters = FindTradeTargets(sleeperRosters);
+            //RB Ranking
+            foreach (var ros in rosters.OrderBy(o => o.RBRank))
+            {
+                teamNames.Add(ros.DisplayName);
+            }
+            rl.RBRankingList = teamNames;
+            teamNames = new List<string>();
 
-    //    var viewModel = new TeamBreakdownViewModel
-    //    {
-    //        Rosters = sleeperRosters,
-    //        SelectedRosterVM = sleeperRosters.Find(x => x.SelectedRoster == 1),
-    //        LeagueID = leagueID
-    //    };
+            //WR Ranking
+            foreach (var ros in rosters.OrderBy(o => o.WRRank))
+            {
+                teamNames.Add(ros.DisplayName);
+            }
+            rl.WRRankingList = teamNames;
+            teamNames = new List<string>();
 
-    //    return View(viewModel);
-    //}
-    //public List<Rosters> FindTradeTargets(List<Rosters> rosters)
-    //{
-    //    var tempRoster = rosters.Find(x => x.SelectedRoster == 1);
+            //TE Ranking
+            foreach (var ros in rosters.OrderBy(o => o.TERank))
+            {
+                teamNames.Add(ros.DisplayName);
+            }
+            rl.TERankingList = teamNames;
+            teamNames = new List<string>();
 
-    //    List<string> tempTradeCandidates = new List<string>();
+            //Total Draft Capital
+            rankedRosters = rosters.OrderByDescending(o => o.TotalDraftCapital).ToList();
+            foreach (var ros in rankedRosters)
+            {
+                teamNames.Add(ros.DisplayName);
+            }
+            rl.DraftCapitalRankingList = teamNames;
+            teamNames = new List<string>();
 
-    //    bool qbAdv;
-    //    bool rbAdv;
-    //    bool wrAdv;
-    //    bool teAdv;
+            //Total Team Ranking
+            rankedRosters = rosters.OrderBy(o => o.TeamTotalRank).ToList();
+            foreach (var ros in rankedRosters)
+            {
+                teamNames.Add(ros.DisplayName);
+            }
+            rl.TeamTotalRankingList = teamNames;
+            teamNames = new List<string>();
 
-    //    foreach (var ros in rosters)
-    //    {
+            //Starting Lineup Ranking
+            rankedRosters = rosters.OrderBy(o => o.StartingTeamRank).ToList();
+            foreach (var ros in rankedRosters)
+            {
+                teamNames.Add(ros.DisplayName);
+            }
+            rl.StaringLineupRankingList = teamNames;
+            teamNames = new List<string>();
 
-    //        if (ros.RosterID != tempRoster.RosterID)
-    //        {
-    //            qbAdv = false;
-    //            rbAdv = false;
-    //            wrAdv = false;
-    //            teAdv = false;
+            return rl;
+        }
+        #endregion
 
-    //            //if(ros.QBRankingAverage > tempRoster.QBRankingAverage || ros.RBRankingAverage > tempRoster.RBRankingAverage || ros.WRRankingAverage > tempRoster.WRRankingAverage || ros.TERankingAverage > tempRoster.TERankingAverage)
-    //            if (ros.QBRankingAverage > tempRoster.QBRankingAverage)
-    //                qbAdv = true;
-    //            if (ros.RBRankingAverage > tempRoster.RBRankingAverage)
-    //                rbAdv = true;
-    //            if (ros.WRRankingAverage > tempRoster.WRRankingAverage)
-    //                wrAdv = true;
-    //            if (ros.TERankingAverage > tempRoster.TERankingAverage)
-    //                teAdv = true;
+        #region COMMENTED OUT FUNCTIONS
 
-    //            if (qbAdv && rbAdv && wrAdv && teAdv || !qbAdv && !rbAdv && !wrAdv && !teAdv)
-    //            {
-    //                continue;
-    //            }
+        //public ActionResult TeamBreakdown(string leagueID, string name)
+        //{
+        //    foreach (var ros in sleeperRosters)
+        //    {
+        //        if (ros.DisplayName == name)
+        //        {
+        //            ros.SelectedRoster = 1;
+        //            continue;
+        //        }
+        //    }
 
-    //            if (qbAdv || rbAdv || wrAdv || teAdv)
-    //            {
-    //                tempTradeCandidates.Add(ros.DisplayName);
-    //            }
-    //        }
-    //    }
-    //    tempRoster.TradeCandidates = tempTradeCandidates;
+        //    //sleeperRosters = FindTradeTargets(sleeperRosters);
 
-    //    return rosters;
-    //}
+        //    var viewModel = new TeamBreakdownViewModel
+        //    {
+        //        Rosters = sleeperRosters,
+        //        SelectedRosterVM = sleeperRosters.Find(x => x.SelectedRoster == 1),
+        //        LeagueID = leagueID
+        //    };
 
-    //public Dictionary<string, PlayerData> LoadRankings(Dictionary<string, PlayerData> players, List<KeepTradeCut> ktc)
-    //{
+        //    return View(viewModel);
+        //}
+        //public List<Rosters> FindTradeTargets(List<Rosters> rosters)
+        //{
+        //    var tempRoster = rosters.Find(x => x.SelectedRoster == 1);
 
-    //    using (var reader = new StreamReader("C:\\Users\\timca\\source\\repos\\DynastyRanker\\DynastyRanker\\Data\\Value_Scores_Full_Data_data.csv"))
-    //    {
-    //        List<string> playerNameList = new List<string>();
-    //        List<string> playerPositionList = new List<string>();
-    //        List<string> playerKeepTradeCutList = new List<string>();
+        //    List<string> tempTradeCandidates = new List<string>();
 
-    //        while (!reader.EndOfStream)
-    //        {
-    //            var line = reader.ReadLine();
-    //            var values = line.Split(',');
+        //    bool qbAdv;
+        //    bool rbAdv;
+        //    bool wrAdv;
+        //    bool teAdv;
 
-    //            playerNameList.Add(values[0]);
-    //            playerPositionList.Add(values[1]);
-    //        }
+        //    foreach (var ros in rosters)
+        //    {
 
-    //        foreach (var p in players)
-    //        {
-    //            string temp = "";
-    //            string tempKTCValue = "";
-    //            KeepTradeCut tempKTC = new KeepTradeCut();
-    //            string firstNameTemp = p.Value.FirstName.Replace(".", string.Empty);
-    //            string lastNameTemp = p.Value.LastName.Replace(".", string.Empty);
-    //            temp = '"' + firstNameTemp + " " + lastNameTemp + '"';
-    //            temp = temp.Remove(0, 1);
-    //            temp = temp.Remove(temp.Length - 1, 1);
+        //        if (ros.RosterID != tempRoster.RosterID)
+        //        {
+        //            qbAdv = false;
+        //            rbAdv = false;
+        //            wrAdv = false;
+        //            teAdv = false;
 
-    //            if (playerNameList.Contains(temp))
-    //            {
-    //                if (ktc.Any(a => a.PlayerName == temp))
-    //                {
-    //                    tempKTC = ktc.Find(a => a.PlayerName == temp);
-    //                    tempKTCValue = tempKTC.Value;
-    //                    p.Value.KeepTradeCutValue = tempKTCValue;
+        //            //if(ros.QBRankingAverage > tempRoster.QBRankingAverage || ros.RBRankingAverage > tempRoster.RBRankingAverage || ros.WRRankingAverage > tempRoster.WRRankingAverage || ros.TERankingAverage > tempRoster.TERankingAverage)
+        //            if (ros.QBRankingAverage > tempRoster.QBRankingAverage)
+        //                qbAdv = true;
+        //            if (ros.RBRankingAverage > tempRoster.RBRankingAverage)
+        //                rbAdv = true;
+        //            if (ros.WRRankingAverage > tempRoster.WRRankingAverage)
+        //                wrAdv = true;
+        //            if (ros.TERankingAverage > tempRoster.TERankingAverage)
+        //                teAdv = true;
 
-    //                }
-    //            }
+        //            if (qbAdv && rbAdv && wrAdv && teAdv || !qbAdv && !rbAdv && !wrAdv && !teAdv)
+        //            {
+        //                continue;
+        //            }
 
-    //        }
+        //            if (qbAdv || rbAdv || wrAdv || teAdv)
+        //            {
+        //                tempTradeCandidates.Add(ros.DisplayName);
+        //            }
+        //        }
+        //    }
+        //    tempRoster.TradeCandidates = tempTradeCandidates;
 
-    //        return players;
-    //    }
-    //}
+        //    return rosters;
+        //}
 
-    //public List<KeepTradeCut> ScrapeRankings(Dictionary<string, PlayerData> players)
-    //{
-    //    string url = "https://keeptradecut.com/dynasty-rankings?page=0&filters=QB|WR|RB|TE|RDP&format=1";
+        //public Dictionary<string, PlayerData> LoadRankings(Dictionary<string, PlayerData> players, List<KeepTradeCut> ktc)
+        //{
 
-    //    HtmlAgilityPack.HtmlWeb web = new HtmlAgilityPack.HtmlWeb();
-    //    HtmlAgilityPack.HtmlDocument doc = web.Load(url);
+        //    using (var reader = new StreamReader("C:\\Users\\timca\\source\\repos\\DynastyRanker\\DynastyRanker\\Data\\Value_Scores_Full_Data_data.csv"))
+        //    {
+        //        List<string> playerNameList = new List<string>();
+        //        List<string> playerPositionList = new List<string>();
+        //        List<string> playerKeepTradeCutList = new List<string>();
 
-    //    var nameTable = doc.DocumentNode.SelectNodes("//div[@class='player-name']");
-    //    var valueTable = doc.DocumentNode.SelectNodes("//div[@class='value']");
+        //        while (!reader.EndOfStream)
+        //        {
+        //            var line = reader.ReadLine();
+        //            var values = line.Split(',');
 
-    //    List<string> nameList = new List<string>();
-    //    List<string> valueList = new List<string>();
-    //    string temp = "";
-    //    int tempSize = 0;
-    //    foreach (var name in nameTable)
-    //    {
-    //        temp = name.InnerText;
-    //        temp = temp.Trim();
-    //        temp = temp.Replace("//n", "");
-    //        tempSize = temp.Length;
-    //        System.Diagnostics.Debug.WriteLine(temp);
-    //        if (temp.EndsWith("R"))
-    //        {
-    //            temp = temp.Substring(0, tempSize - 1);
-    //            temp = temp.Trim();
-    //            temp = temp.Replace("\\n", "");
-    //        }
-    //        if (temp.Contains("."))
-    //        {
-    //            temp = temp.Replace(".", String.Empty);
-    //        }
-    //        if (temp.Contains("&#x27;"))
-    //        {
-    //            temp = temp.Replace("&#x27;", "'");
-    //        }
-    //        nameList.Add(temp);
-    //    }
-    //    foreach (var value in valueTable)
-    //    {
-    //        temp = value.InnerText;
-    //        temp = temp.Trim();
-    //        temp = temp.Replace("//n", "");
-    //        valueList.Add(temp);
-    //    }
+        //            playerNameList.Add(values[0]);
+        //            playerPositionList.Add(values[1]);
+        //        }
 
-    //    string tempName, tempValue;
-    //    int count = 0;
-    //    List<KeepTradeCut> ktcList = new List<KeepTradeCut>();
-    //    KeepTradeCut newKtc = new KeepTradeCut();
+        //        foreach (var p in players)
+        //        {
+        //            string temp = "";
+        //            string tempKTCValue = "";
+        //            KeepTradeCut tempKTC = new KeepTradeCut();
+        //            string firstNameTemp = p.Value.FirstName.Replace(".", string.Empty);
+        //            string lastNameTemp = p.Value.LastName.Replace(".", string.Empty);
+        //            temp = '"' + firstNameTemp + " " + lastNameTemp + '"';
+        //            temp = temp.Remove(0, 1);
+        //            temp = temp.Remove(temp.Length - 1, 1);
 
-    //    foreach (var p in nameList)
-    //    {
-    //        newKtc = new KeepTradeCut();
-    //        tempName = p;
-    //        tempValue = valueList.ElementAt(count);
-    //        count++;
+        //            if (playerNameList.Contains(temp))
+        //            {
+        //                if (ktc.Any(a => a.PlayerName == temp))
+        //                {
+        //                    tempKTC = ktc.Find(a => a.PlayerName == temp);
+        //                    tempKTCValue = tempKTC.Value;
+        //                    p.Value.KeepTradeCutValue = tempKTCValue;
 
-    //        newKtc.PlayerName = tempName;
-    //        newKtc.Value = tempValue;
+        //                }
+        //            }
 
-    //        ktcList.Add(newKtc);
-    //    }
+        //        }
 
-    //    return ktcList;
-    //}
+        //        return players;
+        //    }
+        //}
+
+        //public List<KeepTradeCut> ScrapeRankings(Dictionary<string, PlayerData> players)
+        //{
+        //    string url = "https://keeptradecut.com/dynasty-rankings?page=0&filters=QB|WR|RB|TE|RDP&format=1";
+
+        //    HtmlAgilityPack.HtmlWeb web = new HtmlAgilityPack.HtmlWeb();
+        //    HtmlAgilityPack.HtmlDocument doc = web.Load(url);
+
+        //    var nameTable = doc.DocumentNode.SelectNodes("//div[@class='player-name']");
+        //    var valueTable = doc.DocumentNode.SelectNodes("//div[@class='value']");
+
+        //    List<string> nameList = new List<string>();
+        //    List<string> valueList = new List<string>();
+        //    string temp = "";
+        //    int tempSize = 0;
+        //    foreach (var name in nameTable)
+        //    {
+        //        temp = name.InnerText;
+        //        temp = temp.Trim();
+        //        temp = temp.Replace("//n", "");
+        //        tempSize = temp.Length;
+        //        System.Diagnostics.Debug.WriteLine(temp);
+        //        if (temp.EndsWith("R"))
+        //        {
+        //            temp = temp.Substring(0, tempSize - 1);
+        //            temp = temp.Trim();
+        //            temp = temp.Replace("\\n", "");
+        //        }
+        //        if (temp.Contains("."))
+        //        {
+        //            temp = temp.Replace(".", String.Empty);
+        //        }
+        //        if (temp.Contains("&#x27;"))
+        //        {
+        //            temp = temp.Replace("&#x27;", "'");
+        //        }
+        //        nameList.Add(temp);
+        //    }
+        //    foreach (var value in valueTable)
+        //    {
+        //        temp = value.InnerText;
+        //        temp = temp.Trim();
+        //        temp = temp.Replace("//n", "");
+        //        valueList.Add(temp);
+        //    }
+
+        //    string tempName, tempValue;
+        //    int count = 0;
+        //    List<KeepTradeCut> ktcList = new List<KeepTradeCut>();
+        //    KeepTradeCut newKtc = new KeepTradeCut();
+
+        //    foreach (var p in nameList)
+        //    {
+        //        newKtc = new KeepTradeCut();
+        //        tempName = p;
+        //        tempValue = valueList.ElementAt(count);
+        //        count++;
+
+        //        newKtc.PlayerName = tempName;
+        //        newKtc.Value = tempValue;
+
+        //        ktcList.Add(newKtc);
+        //    }
+
+        //    return ktcList;
+        //}
 
 
-    //public List<Rosters> SortPlayersOnRosterByValue(List<Rosters> rosters)
-    //{
-    //    List<Rosters> sortedRosters = new List<Rosters>();
+        //public List<Rosters> SortPlayersOnRosterByValue(List<Rosters> rosters)
+        //{
+        //    List<Rosters> sortedRosters = new List<Rosters>();
 
-    //    foreach(var ros in sortedRosters)
-    //    {
-    //        ros.PlayersOnRoster = ros.PlayersOnRoster.OrderByDescending(o => o.Value.PORValue);
-    //    }
-    //    return sortedRosters;
-    //}
-    #endregion
-}
+        //    foreach(var ros in sortedRosters)
+        //    {
+        //        ros.PlayersOnRoster = ros.PlayersOnRoster.OrderByDescending(o => o.Value.PORValue);
+        //    }
+        //    return sortedRosters;
+        //}
+        #endregion
+    }
 }
 

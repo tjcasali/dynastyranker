@@ -1,382 +1,4 @@
-﻿/*
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
-}
-
-
-a {
-  color: #0366d6;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-html {
-  font-size: 14px;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
-}
-
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
-}
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; 
-}
-*/
-
-/*.infobox-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    background-color: #3A465B;
-    border-radius: 10px;
-}
-
-.infobox-child {
-    color: white;
-    font-family: Arial;
-    font-size: 18px;
-    padding: 40px 30px 20px 30px;
-    border-radius: 10px;
-    align-content: center;
-    text-align: center;
-    width: 100%;
-}
-
-.infobox2-child {
-    color: white;
-    width: 95%;
-    font-family: Arial;
-    font-size: 18px;
-    padding: 10px 20px 10px 20px;
-    border-radius: 10px;
-}
-
-.rostersParent {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    width: 100%;
-    left: 0;
-}
-
-#roster {
-    color: #FFFFFF;
-    float: left;
-    padding: 10px 10px 20px 10px;
-    background-color: #283245;
-    width: 272px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    font-family: Arial;
-    font-size: 15px;
-}
-
-#rosterBold {
-    color: #FFFFFF;
-    font-family: Arial;
-    font-weight: bold;
-    font-size: 20px;
-}
-
-#rosterBoldCenter {
-    color: #FFFFFF;
-    font-family: Arial;
-    font-weight: bold;
-    font-size: 20px;
-    text-align: center;
-}
-
-#bold {
-    font-weight: bold;
-}
-
-.homePage {
-    color: white;
-    align-content: center;
-    text-align: center;
-}
-
-.whiteText {
-    color: white;
-}
-
-.form-group {
-    align-content: center;
-}
-
-.darkBackground {
-    margin: 0;
-    height: 100%;
-    width: 100%;
-    background-color: #18202F;
-}
-
-.position-rankings {
-    font-weight: bold;
-    align-content: center;
-    font-family: Arial;
-    font-size: 18px;
-}
-
-.greenPlayerText {
-    color: lightgreen;
-}
-
-.redPlayerText {
-    color: red;
-}
-
-.leagueBody {
-    background-color: #18202F;
-    width: 100%;
-    display: block;
-}
-
-.noScrollRoster {
-    overflow-x: hidden;
-    overflow-y: hidden;
-    color: #FFFFFF;
-    float: left;
-    padding: 15px;
-    background-color: #283245;
-    width: 275px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    font-family: Arial;
-}
-
-.tradebreakdownParent {
-}
-
-.tradebreakdownRoster {
-    color: #FFFFFF;
-    float: left;
-    padding: 15px;
-    background-color: #283245;
-    width: 275px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    font-family: Arial;
-}
-
-.bigGap {
-    padding: 150px;
-}
-
-.littleGap {
-    padding: 15px;
-}
-
-.tinyGap {
-    padding: 5px;
-}
-
-.alignCenter {
-    align-content: center;
-    text-align: center;
-}
-
-.homePageP {
-    align-content: center;
-    word-wrap: normal;
-    font-size: 18px;
-    width: 300px;
-}
-
-h6 {
-    color: #00CEB8;
-    font-size: 36px;
-}
-
-.sleeperID {
-    background-color: #3A465B;
-    padding-top: 50px;
-    padding-bottom: 15px;
-    left: 0;
-    right: 0;
-    border-radius: 10px;
-    text-align: center;
-    color: white;
-    font-family: Arial;
-}
-
-.sleeperIDBiggerPadding {
-    background-color: #3A465B;
-    padding-top: 50px;
-    padding-bottom: 35px;
-    left: 0;
-    right: 0;
-    border-radius: 10px;
-}
-
-.btn btn-info {
-    background-color: #00CEB8;
-}
-
-.sleeperIDField {
-    font-size: 20px;
-    font-family: Arial;
-    position: relative;
-}
-
-a {
-    color: #00CEB8;
-}
-
-.legend {
-    align-content: center;
-    font-size: 18px;
-    color: white;
-    padding-top: 10px;
-    width: 200px;
-    margin: 0 auto;
-}
-
-@media screen and (max-width: 600px) {
-
-    .hideIfSmol {
-        display: none;
-    }
-}
-
-footer {
-    color: white;
-    padding: 25px 0 2px 0;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.boldText {
-    font-size: 20px;
-    color: #00CEB8;
-}
-
-.darkGray {
-    color: darkgray;
-    display: inline;
-}
-
-h1 {
-    font-family: Arial;
-}
-
-h4 {
-    font-size: 32px;
-}
-
-body {
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-}
-
-a {
-    font-size: 18px;
-}
-
-    a:hover {
-        color: white;
-    }
-
-.subtitle {
-    font-size: 26px;
-}
-
-.biggerA {
-    font-size: 26px;
-}
-
-.navbar.navbar-inverse {
-    border: none;
-}
-
-.navbar .navbar-brand {
-    padding-top: 10px;
-}
-
-    .navbar .navbar-brand img {
-        height: 135px;
-    }
-
-ul {
-    padding-top: 10px;
-    margin: 0 0 0.3rem 0;
-}
-
-.nav-item {
-    color: white;
-    font-family: Raleway;
-}
-
-.nav-link {
-    display: block;
-    padding: 0.4rem 1rem;
-}
-
-.navbar-collapse {
-    padding-top: 5px;
-}
-
-@font-face {
-    font-family: Raleway;
-    src: url("RALEWAY-REGULAR.TTF");
-}
-
-.sleeperMFLLogo {
-    height: 50px;
-}
-
-.testing {
-    height: 135px;
-}*/
-
+﻿
 .infobox-container {
     display: flex;
     flex-direction: row;
@@ -401,6 +23,14 @@ ul {
     width: 95%;
     font-size: 18px;
     padding: 10px 20px 10px 20px;
+    border-radius: 10px;
+}
+
+.league-name {
+    color: white;
+    width: 95%;
+    font-size: 25px;
+    padding: 0px 20px 0px 20px;
     border-radius: 10px;
 }
 
@@ -433,13 +63,13 @@ ul {
 #roster {
     color: #FFFFFF;
     float: left;
-    padding: 10px 10px 20px 10px;
+    padding: 10px 7px 20px 10px;
     background-color: #283245;
     width: 272px;
     margin-bottom: 10px;
     border-radius: 10px;
     font-family: Arial;
-    font-size: 15px;
+    font-size: 14.5px;
 }
 
 #rosterBold {
@@ -486,7 +116,34 @@ ul {
     font-weight: bold;
     align-content: center;
     font-family: Arial;
+    font-size: 17.8px;
+}
+
+.group-rank {
+    font-weight: bold;
+    align-content: center;
+    font-family: Arial;
     font-size: 18px;
+    text-align:center;
+}
+
+#rosters-ranked {
+    color: #FFFFFF;
+    float: left;
+    padding: 10px 10px 10px 10px;
+    background-color: #283245;
+    width: 150px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    font-family: Arial;
+    font-size: 15px;
+}
+
+#ranking-text {
+    color: #FFFFFF;
+    float: left;
+    font-family: Arial;
+    font-size: 13.5px;
 }
 
 .greenPlayerText {
@@ -593,9 +250,10 @@ h6 {
     align-content: center;
     font-size: 18px;
     color: white;
-    padding-top: 10px;
-    width: 200px;
+    width: 300px;
     margin: 0 auto;
+    padding: 5px 0px 8px 0px;
+    text-align: center;
 }
 
 @media screen and (max-width: 600px) {
@@ -724,4 +382,13 @@ ul {
 
 .img-fluid{
     display:flex;
+}
+
+.right-align {
+    text-align: center;
+    display: inline;
+    float: right;
+    width: 40px;
+    border-radius: 5px;
+    background-color: #3A465B;
 }

@@ -23,12 +23,6 @@ namespace DynastyRanker.Models
         [JsonProperty(PropertyName = "owner_id")]
         public string OwnerID { get; set; }
 
-        //[JsonProperty(PropertyName = "wins")]
-        public string Wins { get; set; }
-
-        //[JsonProperty(PropertyName = "losses")]
-        public string Losses { get; set; }
-
         public string DisplayName { get; set; }
 
         public List<string> PlayerNames { get; set; }
@@ -64,12 +58,6 @@ namespace DynastyRanker.Models
         public int WRRank { get; set; }
         public int TERank { get; set; }
 
-
-        public List<string> TradeCandidates { get; set; }
-        public int TotalCandidateAdvantage { get; set; }
-        public int TotalCandidateDisadvantage { get; set; }
-        public int TotalDisparity { get; set; }
-
         public List<string> StartingPlayerList { get; set; }
 
         public List<string> StartingFlexList { get; set; }
@@ -95,5 +83,6 @@ namespace DynastyRanker.Models
         public string PORName { get; set; }
         public string PORPosition { get; set; }
         public int PORValue { get; set; }
+        public double PORProjection { get; set; }
     }
 }
