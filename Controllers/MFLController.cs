@@ -140,6 +140,10 @@ namespace DynastyRanker.Controllers
         }
 
         #region Get MFL Data
+
+        /// GetLeagueInfo(string leagueID)
+        /// Call the MFL API to return the league information
+        /// This is necessary as it returns the starting lineup position counts and helps us determine if it's a superflex league
         public MFLLeagueInfo GetLeagueInfo(string leagueID)
         {
             MFLLeagueInfo leagueInfo = new MFLLeagueInfo();
@@ -306,6 +310,8 @@ namespace DynastyRanker.Controllers
             return leagueInfo;
         }
 
+        /// Include2021Capital(Dictionary<string, MFLPlayer> players, MFLLeagueInfo leagueInfo, List<Rosters> rosters)
+        /// MFL has a status field and rookies have a status of 'R'. If we find anyone with 'R' we remove draft capital.
         public MFLLeagueInfo Include2021Capital(Dictionary<string, MFLPlayer> players, MFLLeagueInfo leagueInfo, List<Rosters> rosters)
         {
             leagueInfo.IncludeDraftCapital = true;
@@ -332,6 +338,8 @@ namespace DynastyRanker.Controllers
             return leagueInfo;
         }
 
+        /// GetRosters(string leagueID)
+        /// Call the MFL API to return all of the rosters in a given league ID.
         public List<Rosters> GetRosters(string leagueID)
         {
             List<Rosters> rosters = new List<Rosters>();
@@ -359,6 +367,10 @@ namespace DynastyRanker.Controllers
             return rosters;
         }
 
+        /// GetPreviousScrapeDate(string date)
+        /// TODO: Not being used
+        /// This was supposed to be used to check is ScrapeRankings had been ran in that day, and if it had we wait to run it again till the next day.
+        /// However the way that docker images work won't allow us to modify KTCScrape csvs after the image has been created so this is essentially obselete 
         public string GetPreviousScrapeDate(string date)
         {
             var webRoot = _env.WebRootPath;
@@ -369,6 +381,8 @@ namespace DynastyRanker.Controllers
             return date;
         }
 
+        /// LoadMFLPlayers(string leagueID)
+        /// This gets called in a few functions to turn the player ID into the players actual data, mainly used to get their keeptradecut value.
         public void LoadMFLPlayers(string leagueID)
         {
             var webRoot = _env.WebRootPath;
@@ -702,7 +716,7 @@ namespace DynastyRanker.Controllers
                 {
                     tempTotal += Int32.Parse(dpr[pick]);
                 }
-                ros.TeamRankingAverage = ros.TeamRankingAverage + tempTotal;
+                ros.TeamRankingTotal = ros.TeamRankingTotal + tempTotal;
                 ros.TotalDraftCapital = tempTotal;
                 tempTotal = 0;
             }
@@ -797,11 +811,11 @@ namespace DynastyRanker.Controllers
 
                     }
                 }
-                ros.TeamRankingAverage += totalTemp;
-                ros.QBRankingAverage = qbTemp;
-                ros.RBRankingAverage = rbTemp;
-                ros.WRRankingAverage = wrTemp;
-                ros.TERankingAverage = teTemp;
+                ros.TeamRankingTotal += totalTemp;
+                ros.QBRankingTotal = qbTemp;
+                ros.RBRankingTotal = rbTemp;
+                ros.WRRankingTotal = wrTemp;
+                ros.TERankingTotal = teTemp;
 
                 totalTemp = 0;
                 qbTemp = 0;
@@ -820,7 +834,7 @@ namespace DynastyRanker.Controllers
         {
             List<Rosters> rankedRosters = new List<Rosters>();
 
-            rankedRosters = rosters.OrderByDescending(o => o.QBRankingAverage).ToList();
+            rankedRosters = rosters.OrderByDescending(o => o.QBRankingTotal).ToList();
             int count = 1;
             foreach (var ros in rankedRosters)
             {
@@ -828,7 +842,7 @@ namespace DynastyRanker.Controllers
                 count++;
             }
 
-            rankedRosters = rosters.OrderByDescending(o => o.RBRankingAverage).ToList();
+            rankedRosters = rosters.OrderByDescending(o => o.RBRankingTotal).ToList();
             count = 1;
             foreach (var ros in rankedRosters)
             {
@@ -836,7 +850,7 @@ namespace DynastyRanker.Controllers
                 count++;
             }
 
-            rankedRosters = rosters.OrderByDescending(o => o.WRRankingAverage).ToList();
+            rankedRosters = rosters.OrderByDescending(o => o.WRRankingTotal).ToList();
             count = 1;
             foreach (var ros in rankedRosters)
             {
@@ -844,7 +858,7 @@ namespace DynastyRanker.Controllers
                 count++;
             }
 
-            rankedRosters = rosters.OrderByDescending(o => o.TERankingAverage).ToList();
+            rankedRosters = rosters.OrderByDescending(o => o.TERankingTotal).ToList();
             count = 1;
             foreach (var ros in rankedRosters)
             {
@@ -857,7 +871,7 @@ namespace DynastyRanker.Controllers
 
         public List<Rosters> SortRostersByRanking(List<Rosters> rosters)
         {
-            List<Rosters> sortedRosters = rosters.OrderByDescending(o => o.TeamRankingAverage).ToList();
+            List<Rosters> sortedRosters = rosters.OrderByDescending(o => o.TeamRankingTotal).ToList();
             return sortedRosters;
         }
 

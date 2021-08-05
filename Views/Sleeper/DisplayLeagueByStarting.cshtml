@@ -288,12 +288,12 @@
             <div id=rosterBoldCenter>@rankingsDict[count] : @roster.DisplayName<br /></div>
 
             <div id=rosterBoldCenter>Best Starting Lineup: @Math.Floor(roster.TeamStartingTotal)</div><br />
-            <div id=rosterBoldCenter>Total Team Rank:<br />@rankingsDict[roster.TeamTotalRank] <text>-</text> @roster.TeamRankingAverage</div><br />
+            <div id=rosterBoldCenter>Total Team Rank:<br />@rankingsDict[roster.TeamTotalRank] <text>-</text> @roster.TeamRankingTotal</div><br />
 
             @*<div id=rosterBoldCenter>Strength of Schedule: @rankingsDict[roster.StrengthOfScheduleRank]</div><br />*@
 
             <div class="right-align" style="">KTC</div>
-            <div class="position-rankings">QB Ranking: @rankingsDict[roster.QBRank] <text> - </text>@roster.QBRankingAverage </div>
+            <div class="position-rankings">QB Ranking: @rankingsDict[roster.QBRank] <text> - </text>@roster.QBRankingTotal </div>
             @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "QB").OrderByDescending(o => o.Value.PORProjection))
             {
                 if (roster.StartingPlayerList.Contains(player.Value.PORName))
@@ -309,7 +309,7 @@
                 <br />
             }
             <br />
-            <div class="position-rankings">RB Ranking: @rankingsDict[roster.RBRank] <text> - </text>@roster.RBRankingAverage </div>
+            <div class="position-rankings">RB Ranking: @rankingsDict[roster.RBRank] <text> - </text>@roster.RBRankingTotal </div>
             @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "RB").OrderByDescending(o => o.Value.PORProjection))
             {
                 if (roster.StartingPlayerList.Contains(player.Value.PORName))
@@ -325,7 +325,7 @@
                 <br />
             }
             <br />
-            <div class="position-rankings">WR Ranking: @rankingsDict[roster.WRRank] <text> - </text>@roster.WRRankingAverage </div>
+            <div class="position-rankings">WR Ranking: @rankingsDict[roster.WRRank] <text> - </text>@roster.WRRankingTotal </div>
             @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "WR").OrderByDescending(o => o.Value.PORProjection))
             {
                 if (roster.StartingPlayerList.Contains(player.Value.PORName))
@@ -341,7 +341,7 @@
                 <br />
             }
             <br />
-            <div class="position-rankings">TE Ranking: @rankingsDict[roster.TERank] <text> - </text>@roster.TERankingAverage </div>
+            <div class="position-rankings">TE Ranking: @rankingsDict[roster.TERank] <text> - </text>@roster.TERankingTotal </div>
             @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "TE").OrderByDescending(o => o.Value.PORProjection))
             {
                 if (roster.StartingPlayerList.Contains(player.Value.PORName))
@@ -396,6 +396,87 @@
             }
         </div>
         }
+    </div>
+
+        <div class="rostersParent">
+        <div id="rosters-ranked">
+            <div class="group-rank">Total Roster</div>
+            @{
+                int rankCount = 1;
+            }
+            @foreach (var ros in Model.RankingLists.TeamTotalRankingList)
+            {
+                <div id=ranking-text>@rankingsDict[rankCount]: @ros</div><br />
+                rankCount++;
+            }
+        </div>
+        <div id="rosters-ranked">
+            <div class="group-rank">This Season</div>
+            @{
+                rankCount = 1;
+            }
+            @foreach (var ros in Model.RankingLists.StaringLineupRankingList)
+            {
+                <div id=ranking-text>@rankingsDict[rankCount]: @ros</div><br />
+                rankCount++;
+            }
+        </div>
+        <div id="rosters-ranked">
+            <div class="group-rank">QB Rank</div>
+            @{
+                rankCount = 1;
+            }
+            @foreach (var ros in Model.RankingLists.QBRankingList)
+            {
+                <div id=ranking-text>@rankingsDict[rankCount]: @ros</div><br />
+                rankCount++;
+            }
+        </div>
+        <div id="rosters-ranked">
+            <div class="group-rank">RB Rank</div>
+            @{
+                rankCount = 1;
+            }
+            @foreach (var ros in Model.RankingLists.RBRankingList)
+            {
+                <div id=ranking-text>@rankingsDict[rankCount]: @ros</div><br />
+                rankCount++;
+            }
+        </div>
+        <div id="rosters-ranked">
+            <div class="group-rank">WR Rank</div>
+            @{
+                rankCount = 1;
+            }
+            @foreach (var ros in Model.RankingLists.WRRankingList)
+            {
+                <div id=ranking-text>@rankingsDict[rankCount]: @ros</div><br />
+                rankCount++;
+            }
+        </div>
+        <div id="rosters-ranked">
+            <div class="group-rank">TE Rank</div>
+            @{
+                rankCount = 1;
+            }
+            @foreach (var ros in Model.RankingLists.TERankingList)
+            {
+                <div id=ranking-text>@rankingsDict[rankCount]: @ros</div><br />
+                rankCount++;
+            }
+        </div>
+        <div id="rosters-ranked">
+            <div class="group-rank">Draft Capital</div>
+            @{
+                rankCount = 1;
+            }
+            @foreach (var ros in Model.RankingLists.DraftCapitalRankingList)
+            {
+                <div id=ranking-text>@rankingsDict[rankCount]: @ros</div><br />
+                rankCount++;
+            }
+        </div>
+
     </div>
         
 </body>

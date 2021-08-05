@@ -29,11 +29,11 @@ namespace DynastyRanker.Models
 
         public List<string> PlayerTradeValues { get; set; }
 
-        public double TeamRankingAverage { get; set; }
-        public double QBRankingAverage { get; set; }
-        public double RBRankingAverage { get; set; }
-        public double WRRankingAverage { get; set; }
-        public double TERankingAverage { get; set; }
+        public double TeamRankingTotal { get; set; }
+        public double QBRankingTotal { get; set; }
+        public double RBRankingTotal { get; set; }
+        public double WRRankingTotal{ get; set; }
+        public double TERankingTotal{ get; set; }
 
         public double TeamStartingTotal { get; set; }
         public double QBStartingTotal { get; set; }
@@ -42,14 +42,9 @@ namespace DynastyRanker.Models
         public double TEStartingTotal { get; set; }
         public double FLEXStartingTotal { get; set; }
 
-        public double WeekAgoTeamStarting { get; set; }
-        public double WeekAgoTeamTotal { get; set; }
-
         public int StartingTeamRank { get; set; }
         public int TeamTotalRank { get; set; }
 
-
-        public int SelectedRoster { get; set; }
 
         public Dictionary<string, POR> PlayersOnRoster { get; set; }
 
@@ -58,8 +53,19 @@ namespace DynastyRanker.Models
         public int WRRank { get; set; }
         public int TERank { get; set; }
 
-        public List<string> StartingPlayerList { get; set; }
+        //TODO: Add total and rank values for FantasyPros projections
+        public double ProjTeamStartingTotal { get; set; }
+        public double ProjQBStartingTotal { get; set; }
+        public double ProjRBStartingTotal { get; set; }
+        public double ProjWRStartingTotal { get; set; }
+        public double ProjTEStartingTotal { get; set; }
+        public double ProjFLEXStartingTotal { get; set; }
+        public int ProjQBRank { get; set; }
+        public int ProjRBRank { get; set; }
+        public int ProjWRRank { get; set; }
+        public int ProjTERank { get; set; }
 
+        public List<string> StartingPlayerList { get; set; }
         public List<string> StartingFlexList { get; set; }
 
         public double DraftPosition { get; set; }
