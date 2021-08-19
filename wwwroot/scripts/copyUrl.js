@@ -1,0 +1,1 @@
+﻿copyUrl(leagueID);

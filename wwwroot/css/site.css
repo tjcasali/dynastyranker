@@ -26,15 +26,6 @@
     border-radius: 10px;
 }
 
-.league-name {
-    color: white;
-    width: 95%;
-    font-size: 25px;
-    padding: 0px 20px 0px 20px;
-    border-radius: 10px;
-}
-
-
 .about-child {
     color: white;
     font-size: 18px;
@@ -391,4 +382,27 @@ ul {
     width: 40px;
     border-radius: 5px;
     background-color: #3A465B;
+}
+
+.shareButton {
+    border-radius: 5px;
+    background-color: #17a2b8;
+    font-size: 14px;
+    color: white;
+}
+
+.league-name {
+    color: white;
+    font-size: 25px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.league-name-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #3A465B;
+    border-radius: 10px;
+    padding: 15px 20px 15px 20px;
 }

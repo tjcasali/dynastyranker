@@ -17,7 +17,7 @@ namespace DynastyRanker.ViewModels
         public bool IncludeDraftCapital { get; set; }
         public List<POR> TopWaiverPlayers { get; set; }
         public Draft DraftInfo { get; set; }
-
         public RankingLists RankingLists { get; set; }
+        public MFLLeagueInfo LeagueInfo { get; set; }
     }
 }

@@ -50,5 +50,7 @@ namespace DynastyRanker.Models
 
         public bool IncludeDraftCapital { get; set; }
 
+        public string LeagueName { get; set; }
+
     }
 }

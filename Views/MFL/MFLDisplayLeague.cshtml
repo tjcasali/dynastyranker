@@ -2,6 +2,7 @@
 
 <link href="~/StyleSheet.css" rel="stylesheet" />
 <meta charset="UTF-8">
+<script type="text/javascript" src="~/scripts/JavaScript.js"></script>
 
 @{ 
     int count = 1;
@@ -115,6 +116,14 @@
 <body class="leagueBody">
 
     <div class="littleGap"></div>
+
+    <div class="league-name-container">
+        <div class="league-name"></div>
+        <div class="league-name">@Model.LeagueInfo.LeagueName</div>
+        <input type="button" class="shareButton" onclick="copyUrl(@Model.LeagueID)" value="Share" />
+    </div>
+
+    <div class="tinyGap"></div>
 
     <div class="infobox-container">
         <div class="infobox2-child">

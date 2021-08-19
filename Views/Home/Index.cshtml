@@ -2,6 +2,22 @@
 
 <link href="~/css/site.css" rel="stylesheet" />
 
+@*<script type="text/javascript">
+    function copyUrl() {
+        var dummy = document.createElement('input'),
+            text = window.location.href;
+
+        document.body.appendChild(dummy);
+        dummy.value = text;
+        console.log(text);
+        dummy.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummy);
+    }
+</script>*@
+
+<script type="text/javascript" src="~/scripts/JavaScript.js"></script>
+
 <body style="background-color:#18202F;">
 
     <div class="homePage">
@@ -83,3 +99,4 @@
         <img alt="Dynasty Ranker" src="@Url.Content("~/Images/DRHomepage6.png")" class="hideIf1200">
     </div>
 </body>
+

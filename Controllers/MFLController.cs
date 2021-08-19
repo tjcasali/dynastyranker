@@ -124,6 +124,8 @@ namespace DynastyRanker.Controllers
                 DraftPickRankings = draftPickRankings,
                 IncludeDraftCapital = includeDraftCapital,
                 TopWaiverPlayers = topWaiverPlayers,
+                LeagueID = league.LeagueID,
+                LeagueInfo = leagueInfo
             };
 
             return View(viewModel);
@@ -157,6 +159,7 @@ namespace DynastyRanker.Controllers
                 return leagueInfo;
             }
 
+            leagueInfo.LeagueName= xdoc.SelectSingleNode("league/@name").Value;
             leagueInfo.FranchiseCount = xdoc.SelectSingleNode("league/franchises/@count").Value;
             leagueInfo.StartersCount = xdoc.SelectSingleNode("league/starters/@count").Value;
 

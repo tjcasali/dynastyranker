@@ -2,6 +2,7 @@
 
 <link href="~/css/site.css" rel="stylesheet" />
 <meta charset="UTF-8">
+<script type="text/javascript" src="~/scripts/JavaScript.js"></script>
 
 @{ 
     int count = 1;
@@ -118,12 +119,10 @@
 
     @if (Model.UserInfo.LeagueName != "" || Model.UserInfo.LeagueName != null)
     {
-        <div class="infobox-container">
-            <div class="league-name">
-                <p>
-                    <div class="alignCenter">@Model.UserInfo.LeagueName</div>
-                </p>
-            </div>
+        <div class="league-name-container">
+            <div class="league-name"></div>
+            <div class="league-name">@Model.UserInfo.LeagueName</div>
+            <input type="button" class="shareButton" onclick="copyUrl(@Model.LeagueID)" value="Share" />
         </div>
     }
 
