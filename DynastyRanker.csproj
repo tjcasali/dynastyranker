@@ -23,6 +23,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Views\Home\wickedbackground.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Views\Home\wickedbackground.svg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Views\MFL\MFLDisplayLeague.cshtml" />
     <None Include="wwwroot\css\StyleSheet.css" />
     <None Include="wwwroot\Images\DRHomepage5.png">
