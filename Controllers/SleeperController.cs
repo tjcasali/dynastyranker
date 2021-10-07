@@ -1781,6 +1781,9 @@ namespace DynastyRanker.Controllers
             {
                 foreach (var p in players)
                 {
+                    if (p.Value.FullName == "Tony Jones")
+                        continue;
+
                     //If the player isn't on a roster, is one of the eligible positions, has a value, and isn't a rookie
                     if (!p.Value.OnRoster && (p.Value.Position == "QB" || p.Value.Position == "RB" || p.Value.Position == "WR" || p.Value.Position == "TE") && (p.Value.KeepTradeCutValue != null || p.Value.KeepTradeCutValue != "0") && p.Value.YearsExperience != "0")
                     {
@@ -1797,6 +1800,9 @@ namespace DynastyRanker.Controllers
             {
                 foreach (var p in players)
                 {
+                    if (p.Value.FullName == "Tony Jones")
+                        continue;
+
                     //If the player isn't on a roster, is one of the eligible positions, and has a value
                     if (!p.Value.OnRoster && (p.Value.Position == "QB" || p.Value.Position == "RB" || p.Value.Position == "WR" || p.Value.Position == "TE") && (p.Value.KeepTradeCutValue != null || p.Value.KeepTradeCutValue != "0"))
                     {
