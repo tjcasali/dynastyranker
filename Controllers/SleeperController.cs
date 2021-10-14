@@ -67,8 +67,8 @@ namespace DynastyRanker.Controllers
                     //LoadSleeperPlayersTextFile();
 
                     //TODO Put the if condition here so we don't even have to go into the scrape functions
-                    ScrapeRankings(lastScrapeDate);
-                    ScrapeSFRankings(lastScrapeDate);
+                    //ScrapeRankings(lastScrapeDate);
+                    //ScrapeSFRankings(lastScrapeDate);
                     playerList = LoadRankings(playerList, keepTradeCutList, leagueInformation);
                     playerList = LoadFantasyProsProjections(playerList);
                     LinkUsersAndRosters(sleeperUsers, sleeperRosters);
