@@ -246,7 +246,7 @@ namespace DynastyRanker.Controllers
         /// Uses the SelectLeagueViewModel which contains the list of leagues returned by the API.
         public async Task<ActionResult> SelectLeague(string userName)
         {
-            if (userName != null && userName != "ivolution")
+            if (userName != null && userName.ToLower() != "ivolution")
             {
                 try
                 {
