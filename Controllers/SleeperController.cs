@@ -66,6 +66,8 @@ namespace DynastyRanker.Controllers
                     //matchups = await GetMatchups(leagueInformatio6n);
                     //LoadSleeperPlayersTextFile();
 
+                    //test
+
                     //TODO Put the if condition here so we don't even have to go into the scrape functions
                     //ScrapeRankings(lastScrapeDate);
                     //ScrapeSFRankings(lastScrapeDate);
