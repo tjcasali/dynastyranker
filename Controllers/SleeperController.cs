@@ -62,7 +62,8 @@ namespace DynastyRanker.Controllers
                     sleeperUsers = await GetUsers(leagueID);
                     sleeperRosters = await GetRosters(leagueID);
                     playerList = GetPlayers();
-                    lastScrapeDate = GetPreviousScrapeDate(lastScrapeDate);
+                    //lastScrapeDate = GetPreviousScrapeDate(lastScrapeDate);
+                    lastScrapeDate = "12-28-2021";
                     //matchups = await GetMatchups(leagueInformatio6n);
                     //LoadSleeperPlayersTextFile();
 
@@ -162,6 +163,7 @@ namespace DynastyRanker.Controllers
                     sleeperUsers = await GetUsers(leagueID);
                     sleeperRosters = await GetRosters(leagueID);
                     playerList = GetPlayers();
+                    //lastScrapeDate = GetPreviousScrapeDate(lastScrapeDate);
                     lastScrapeDate = "12-28-2021";
 
                     playerList = LoadRankings(playerList, keepTradeCutList, leagueInformation);
