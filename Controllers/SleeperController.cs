@@ -62,12 +62,9 @@ namespace DynastyRanker.Controllers
                     sleeperUsers = await GetUsers(leagueID);
                     sleeperRosters = await GetRosters(leagueID);
                     playerList = GetPlayers();
-                    //lastScrapeDate = GetPreviousScrapeDate(lastScrapeDate);
-                    lastScrapeDate = "12-28-2021";
+                    lastScrapeDate = GetPreviousScrapeDate(lastScrapeDate);
                     //matchups = await GetMatchups(leagueInformatio6n);
                     //LoadSleeperPlayersTextFile();
-
-                    //test
 
                     //TODO Put the if condition here so we don't even have to go into the scrape functions
                     //ScrapeRankings(lastScrapeDate);
@@ -117,7 +114,7 @@ namespace DynastyRanker.Controllers
                     //sleeperRosters = RankStrengthOfSchedule(sleeperRosters);
 
                     //We want the roster sorted by Total Team Ranking in DisplayLeague, so SortRostersByRanking must go second
-                    sleeperRosters = SortRostersByStarting(sleeperRosters);
+                    //sleeperRosters = SortRostersByStarting(sleeperRosters);
                     sleeperRosters = SortRostersByRanking(sleeperRosters);
 
                     topWaiverPlayers = GetHighestValuesWaivers(playerList, draftPickRankings, sleeperRosters, draft);
@@ -163,9 +160,7 @@ namespace DynastyRanker.Controllers
                     sleeperUsers = await GetUsers(leagueID);
                     sleeperRosters = await GetRosters(leagueID);
                     playerList = GetPlayers();
-                    //lastScrapeDate = GetPreviousScrapeDate(lastScrapeDate);
-                    lastScrapeDate = "12-28-2021";
-
+                    lastScrapeDate = GetPreviousScrapeDate(lastScrapeDate);
                     playerList = LoadRankings(playerList, keepTradeCutList, leagueInformation);
                     playerList = LoadFantasyProsProjections(playerList);
                     LinkUsersAndRosters(sleeperUsers, sleeperRosters);
@@ -398,7 +393,7 @@ namespace DynastyRanker.Controllers
         public static async Task<List<League>> GetAllLeaguesForUser(string userID)
         {
             HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync("https://api.sleeper.app/v1/user/" + userID + "/leagues/nfl/2021");
+            HttpResponseMessage response = await client.GetAsync("https://api.sleeper.app/v1/user/" + userID + "/leagues/nfl/2022");
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
 
@@ -1855,13 +1850,13 @@ namespace DynastyRanker.Controllers
                 if(draft.Rounds >= 4)
                 {
                     //If the draft isn't complete then this years picks are still eligible
-                    if(draft.Status != "complete")
-                    {
-                        startingDraftPicks.Add("2021 1st");
-                        startingDraftPicks.Add("2021 2nd");
-                        startingDraftPicks.Add("2021 3rd");
-                        startingDraftPicks.Add("2021 4th");
-                    }
+                    //if(draft.Status != "complete")
+                    //{
+                    //    startingDraftPicks.Add("2021 1st");
+                    //    startingDraftPicks.Add("2021 2nd");
+                    //    startingDraftPicks.Add("2021 3rd");
+                    //    startingDraftPicks.Add("2021 4th");
+                    //}
                     startingDraftPicks.Add("2022 1st");
                     startingDraftPicks.Add("2022 2nd");
                     startingDraftPicks.Add("2022 3rd");
@@ -1873,12 +1868,12 @@ namespace DynastyRanker.Controllers
                 }
                 else if (draft.Rounds == 3)
                 {
-                    if (draft.Status != "complete")
-                    {
-                        startingDraftPicks.Add("2021 1st");
-                        startingDraftPicks.Add("2021 2nd");
-                        startingDraftPicks.Add("2021 3rd");
-                    }
+                    //if (draft.Status != "complete")
+                    //{
+                    //    startingDraftPicks.Add("2021 1st");
+                    //    startingDraftPicks.Add("2021 2nd");
+                    //    startingDraftPicks.Add("2021 3rd");
+                    //}
                     startingDraftPicks.Add("2022 1st");
                     startingDraftPicks.Add("2022 2nd");
                     startingDraftPicks.Add("2022 3rd");
@@ -1888,13 +1883,11 @@ namespace DynastyRanker.Controllers
                 }
                 else if (draft.Rounds == 2)
                 {
-                    if (draft.Status != "complete")
-                    {
-                        startingDraftPicks.Add("2021 1st");
-                        startingDraftPicks.Add("2021 2nd");
-                    }
-                    startingDraftPicks.Add("2021 1st");
-                    startingDraftPicks.Add("2021 2nd");
+                    //if (draft.Status != "complete")
+                    //{
+                    //    startingDraftPicks.Add("2021 1st");
+                    //    startingDraftPicks.Add("2021 2nd");
+                    //}
                     startingDraftPicks.Add("2022 1st");
                     startingDraftPicks.Add("2022 2nd");
                     startingDraftPicks.Add("2023 1st");
@@ -1902,22 +1895,22 @@ namespace DynastyRanker.Controllers
                 }
                 else if (draft.Rounds == 1)
                 {
-                    if (draft.Status != "complete")
-                    {
-                        startingDraftPicks.Add("2021 1st");
-                    }
+                    //if (draft.Status != "complete")
+                    //{
+                    //    startingDraftPicks.Add("2021 1st");
+                    //}
                     startingDraftPicks.Add("2022 1st");
                     startingDraftPicks.Add("2023 1st");
                 }
                 else
                 {
-                    if (draft.Status != "complete")
-                    {
-                        startingDraftPicks.Add("2021 1st");
-                        startingDraftPicks.Add("2021 2nd");
-                        startingDraftPicks.Add("2021 3rd");
-                        startingDraftPicks.Add("2021 4th");
-                    }
+                    //if (draft.Status != "complete")
+                    //{
+                    //    startingDraftPicks.Add("2021 1st");
+                    //    startingDraftPicks.Add("2021 2nd");
+                    //    startingDraftPicks.Add("2021 3rd");
+                    //    startingDraftPicks.Add("2021 4th");
+                    //}
                     startingDraftPicks.Add("2022 1st");
                     startingDraftPicks.Add("2022 2nd");
                     startingDraftPicks.Add("2022 3rd");
@@ -1955,7 +1948,7 @@ namespace DynastyRanker.Controllers
                     tempPick = ros.DraftPicks[i];
 
                     //We only want to assign these values to 2021 picks as it's too far away to predict positioning of 2022/2023 picks
-                    if(tempPick.Contains("2021"))
+                    if(tempPick.Contains("2022"))
                     {
                         if (eml <= 0.34)
                         {
@@ -1994,11 +1987,11 @@ namespace DynastyRanker.Controllers
             foreach (var trade in tp)
             {
                 //We don't care about trades beyond 2023. TODO set variables so this isn't hard coded
-                if (trade.Season == "2021" || trade.Season == "2022" || trade.Season =="2023")
+                if (trade.Season == "2022" || trade.Season =="2023")
                 {
                     //If the draft is finished and the trade is from 2021 the pick has already been used so it's irrelevant
-                    if (draft.Status == "complete" && trade.Season == "2021")
-                        continue;
+                    //if (draft.Status == "complete" && trade.Season == "2021")
+                    //    continue;
 
                     string tempPick = "";
                     
@@ -2018,7 +2011,7 @@ namespace DynastyRanker.Controllers
                         tempPick = tempPick + "th";
 
                     //If the draft hasn't been completed
-                    if (trade.Season == "2021")
+                    if (trade.Season == "2022")
                     {
                         double leagueSize = rosters.Count(); //12
                         double eml = 0.00D;

@@ -132,7 +132,7 @@
         <div class="infobox2-child">
             <p>
                 <div class="alignCenter"><text class="boldText">Team Total</text> ranks the rosters by the owners that hold the most trade value using KeepTradeCut.<br /></div>
-                <div class="alignCenter"><text class="boldText">Best Starting Lineup</text> ranks the rosters based on the team's best starting lineup using 2021 projections from FantasyPros.<br /></div>
+                @*<div class="alignCenter"><text class="boldText">Best Starting Lineup</text> ranks the rosters based on the team's best starting lineup using 2021 projections from FantasyPros.<br /></div>*@
                 <div class="alignCenter">
                     All values are based on 12 team 0.5 PPR
                     @if (Model.UserInfo.SuperFlex == true)
@@ -141,8 +141,8 @@
                     }leagues.
                 </div><br />
                 <div class="alignCenter"><text class="boldText">Rankings Last Updated: </text>@Model.LastScrapeDate<br /></div>
-                <div class="legend">&#11088; : Starters  &#128170; : Best Flex Options <br /> Proj : FantasyPros 2021 Projection </div>
-                <div class="alignCenter"><a class="btn btn-info btn-sm" href="@Url.Action("DisplayLeagueByStarting", "Sleeper", new { leagueID = Model.LeagueID })">Sort by Starting Lineup Ranking</a><br /></div>
+                <div class="legend">&#11088; : Starters  &#128170; : Best Flex Options @*<br /> Proj : FantasyPros 2021 Projection*@ </div>
+                @*<div class="alignCenter"><a class="btn btn-info btn-sm" href="@Url.Action("DisplayLeagueByStarting", "Sleeper", new { leagueID = Model.LeagueID })">Sort by Starting Lineup Ranking</a><br /></div>*@
             </p>
         </div>
     </div>
@@ -287,11 +287,11 @@
             <div id=rosterBoldCenter>@rankingsDict[count] : @roster.DisplayName<br /></div>
 
             <div id=rosterBoldCenter>Team Total: @roster.TeamRankingTotal</div><br />
-            <div id=rosterBoldCenter>Best Starting Lineup:<br />@rankingsDict[roster.StartingTeamRank] <text>-</text> @Math.Floor(roster.TeamStartingTotal)</div><br />
+            @*<div id=rosterBoldCenter>Best Starting Lineup:<br />@rankingsDict[roster.StartingTeamRank] <text>-</text> @Math.Floor(roster.TeamStartingTotal)</div><br />*@
 
             @*<div id=rosterBoldCenter>Strength of Schedule: @rankingsDict[roster.StrengthOfScheduleRank]</div><br />*@
 
-            <div class="right-align">Proj</div>
+            @*<div class="right-align">Proj</div>*@
             <div class="position-rankings">QB Ranking: @rankingsDict[roster.QBRank] <text> - </text>@roster.QBRankingTotal</div>
             @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "QB").OrderByDescending(o => o.Value.PORValue))
             {
@@ -304,7 +304,7 @@
                     <span>&#128170;</span>
                 }
                 @player.Value.PORName <text>: </text>
-                @player.Value.PORValue <div class="right-align">@player.Value.PORProjection</div>
+                @player.Value.PORValue @*<div class="right-align">@player.Value.PORProjection</div>*@
                 <br />
             }
             <br />
@@ -321,7 +321,7 @@
                     <span>&#128170;</span>
                 }
                 @player.Value.PORName <text>: </text>
-                @player.Value.PORValue <div class="right-align">@player.Value.PORProjection</div>
+                @player.Value.PORValue @*<div class="right-align">@player.Value.PORProjection</div>*@
                 <br />
 
             }
@@ -339,7 +339,7 @@
                     <span>&#128170;</span>
                 }
                 @player.Value.PORName <text>: </text>
-                @player.Value.PORValue <div class="right-align">@player.Value.PORProjection</div>
+                @player.Value.PORValue @*<div class="right-align">@player.Value.PORProjection</div>*@
                 <br />
             }
             <br />
@@ -356,7 +356,7 @@
                     <span>&#128170;</span>
                 }
                 @player.Value.PORName <text>: </text>
-                @player.Value.PORValue <div class="right-align">@player.Value.PORProjection</div>
+                @player.Value.PORValue @*<div class="right-align">@player.Value.PORProjection</div>*@
                 <br />
             }
             <br />
@@ -367,7 +367,7 @@
                 {
                     foreach (var pick in roster.DraftPicks.OrderByDescending(o => Int32.Parse(Model.DraftPickRankings[o])))
                     {
-                        if (pick.Contains("2021"))
+                        if (pick.Contains("2022"))
                         {
                             @pick <text>: </text>
                             @Model.DraftPickRankings[pick]<br />
@@ -378,7 +378,7 @@
 
                 foreach (var pick in roster.DraftPicks.OrderByDescending(o => Int32.Parse(Model.DraftPickRankings[o])))
                 {
-                    if (pick.Contains("2022"))
+                    if (pick.Contains("2023"))
                     {
                         @pick <text>: </text>
                         @Model.DraftPickRankings[pick]<br />
@@ -387,7 +387,7 @@
                 <br />
                 foreach (var pick in roster.DraftPicks.OrderByDescending(o => Int32.Parse(Model.DraftPickRankings[o])))
                 {
-                    if (pick.Contains("2023"))
+                    if (pick.Contains("2024"))
                     {
                         @pick <text>: </text>
                         @Model.DraftPickRankings[pick]<br />
@@ -413,7 +413,7 @@
                 rankCount++;
             }
         </div>
-        <div id="rosters-ranked">
+        @*<div id="rosters-ranked">
             <div class="group-rank">This Season</div>
             @{
                 rankCount = 1;
@@ -423,7 +423,7 @@
                 <div id=ranking-text>@rankingsDict[rankCount]: @ros</div><br />
                 rankCount++;
             }
-        </div>
+        </div>*@
         <div id="rosters-ranked">
             <div class="group-rank">QB Rank</div>
             @{
