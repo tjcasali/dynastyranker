@@ -1268,6 +1268,10 @@ namespace DynastyRanker.Controllers
                 int avg2023Second = 0;
                 int avg2023Third = 0;
                 int avg2023Fourth = 0;
+                int avg2024First = 0;
+                int avg2024Second = 0;
+                int avg2024Third = 0;
+                int avg2024Fourth = 0;
 
                 string temp, positionTemp, teamTemp = "";
                 int tempSize = 0;
@@ -1401,6 +1405,14 @@ namespace DynastyRanker.Controllers
                         avg2023Third += Convert.ToInt32(tempValue);
                     if (tempName.Contains("2023") && tempName.Contains("4th"))
                         avg2023Fourth += Convert.ToInt32(tempValue);
+                    if (tempName.Contains("2024") && tempName.Contains("1st"))
+                        avg2024First += Convert.ToInt32(tempValue);
+                    if (tempName.Contains("2024") && tempName.Contains("2nd"))
+                        avg2024Second += Convert.ToInt32(tempValue);
+                    if (tempName.Contains("2024") && tempName.Contains("3rd"))
+                        avg2024Third += Convert.ToInt32(tempValue);
+                    if (tempName.Contains("2024") && tempName.Contains("4th"))
+                        avg2024Fourth += Convert.ToInt32(tempValue);
 
                     newKtc.Name = tempName;
                     newKtc.Value = tempValue;
@@ -1487,6 +1499,46 @@ namespace DynastyRanker.Controllers
                 //avg2023Fourth = Math.Truncate(avg2023Fourth);
                 newKtc.Name = "2023 4th";
                 newKtc.Value = Convert.ToString(avg2023Fourth);
+                newKtc.Position = "PI";
+                newKtc.Team = "NA";
+                newKtc.IsRookie = "NA";
+                ktcList.Add(newKtc);
+
+                newKtc = new Player();
+                avg2024First = avg2024First / 3;
+                //avg2024First = Math.Truncate(avg2024First);
+                newKtc.Name = "2024 1st";
+                newKtc.Value = Convert.ToString(avg2024First);
+                newKtc.Position = "PI";
+                newKtc.Team = "NA";
+                newKtc.IsRookie = "NA";
+                ktcList.Add(newKtc);
+
+                newKtc = new Player();
+                avg2024Second = avg2024Second / 3;
+                //avg2024Second = Math.Truncate(avg2024Second);
+                newKtc.Name = "2024 2nd";
+                newKtc.Value = Convert.ToString(avg2024Second);
+                newKtc.Position = "PI";
+                newKtc.Team = "NA";
+                newKtc.IsRookie = "NA";
+                ktcList.Add(newKtc);
+
+                newKtc = new Player();
+                avg2024Third = avg2024Third / 3;
+                //avg2024Third = Math.Truncate(avg2024Third);
+                newKtc.Name = "2024 3rd";
+                newKtc.Value = Convert.ToString(avg2024Third);
+                newKtc.Position = "PI";
+                newKtc.Team = "NA";
+                newKtc.IsRookie = "NA";
+                ktcList.Add(newKtc);
+
+                newKtc = new Player();
+                avg2024Fourth = avg2024Fourth / 3;
+                //avg2024Fourth = Math.Truncate(avg2024Fourth);
+                newKtc.Name = "2024 4th";
+                newKtc.Value = Convert.ToString(avg2024Fourth);
                 newKtc.Position = "PI";
                 newKtc.Team = "NA";
                 newKtc.IsRookie = "NA";
