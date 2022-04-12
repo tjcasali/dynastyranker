@@ -51,7 +51,6 @@ namespace DynastyRanker.Controllers
         /// DisplayLeague(League league)
         /// The psuedo main function of the Sleeper functionality. Called by the submit button click on the homepage
         /// and calls all of our functions and returns the DisplayLeague View.
-        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<ActionResult> DisplayLeague(string leagueID)
         {
             //Requires the user to fill in the text field. Otherwise it returns InvalidLeagueID
@@ -244,7 +243,6 @@ namespace DynastyRanker.Controllers
         /// SelectLeague(string userName)
         /// Calls the SelectLeague View where the user picks the league they're going to view.
         /// Uses the SelectLeagueViewModel which contains the list of leagues returned by the API.
-        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<ActionResult> SelectLeague(string userName)
         {
             if (userName != null && userName.ToLower() != "ivolution")
