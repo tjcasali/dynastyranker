@@ -71,7 +71,7 @@ namespace DynastyRanker.Controllers
                     try
                     {
                         includeDraftCapital = true;
-                        leagueInfo = Include2021Capital(playerList, leagueInfo, rosters);
+                        leagueInfo = Include2022Capital(playerList, leagueInfo, rosters);
 
                         if (leagueInfo.IncludeDraftCapital == false)
                         {
@@ -151,7 +151,7 @@ namespace DynastyRanker.Controllers
             MFLLeagueInfo leagueInfo = new MFLLeagueInfo();
             string temp;
             XmlDocument xdoc = new XmlDocument();
-            xdoc.Load("https://www61.myfantasyleague.com/2021/export?TYPE=league&L=" + leagueID);
+            xdoc.Load("https://www61.myfantasyleague.com/2022/export?TYPE=league&L=" + leagueID);
 
             if(xdoc.InnerText.Contains("requires logged in user"))
             {
@@ -313,9 +313,9 @@ namespace DynastyRanker.Controllers
             return leagueInfo;
         }
 
-        /// Include2021Capital(Dictionary<string, MFLPlayer> players, MFLLeagueInfo leagueInfo, List<Rosters> rosters)
+        /// Include2022Capital(Dictionary<string, MFLPlayer> players, MFLLeagueInfo leagueInfo, List<Rosters> rosters)
         /// MFL has a status field and rookies have a status of 'R'. If we find anyone with 'R' we remove draft capital.
-        public MFLLeagueInfo Include2021Capital(Dictionary<string, MFLPlayer> players, MFLLeagueInfo leagueInfo, List<Rosters> rosters)
+        public MFLLeagueInfo Include2022Capital(Dictionary<string, MFLPlayer> players, MFLLeagueInfo leagueInfo, List<Rosters> rosters)
         {
             leagueInfo.IncludeDraftCapital = true;
             foreach(var r in rosters)
@@ -350,7 +350,7 @@ namespace DynastyRanker.Controllers
             List<string> playerList = new List<string>();
 
             XmlDocument xdoc = new XmlDocument();
-            xdoc.Load("https://www61.myfantasyleague.com/2021/export?TYPE=rosters&L=" + leagueID);
+            xdoc.Load("https://www61.myfantasyleague.com/2022/export?TYPE=rosters&L=" + leagueID);
 
             var result = xdoc.SelectNodes("rosters/franchise");
 
@@ -395,7 +395,7 @@ namespace DynastyRanker.Controllers
             Dictionary<string, MFLPlayer> playerDict = new Dictionary<string, MFLPlayer>();
 
             XmlDocument xdoc = new XmlDocument();
-            xdoc.Load("https://www61.myfantasyleague.com/2021/export?TYPE=players&L=" + leagueID + "&APIKEY=&DETAILS=1&SINCE=&PLAYERS=&JSON=0");
+            xdoc.Load("https://www61.myfantasyleague.com/2022/export?TYPE=players&L=" + leagueID + "&APIKEY=&DETAILS=1&SINCE=&PLAYERS=&JSON=0");
             //xdoc.Save("E:\\projects\\DynastyRanker-Main\\DynastyRanker-main\\DynastyRanker\\Data\\MFLPlayerData.xml");
             xdoc.Save(System.IO.Path.Combine(webRoot, "MFLPlayerData.xml"));
             //"~/Data/MFLPlayerData.xml"
@@ -442,7 +442,7 @@ namespace DynastyRanker.Controllers
         public List<MFLDraftPicks> GetDraftPicks(MFLLeagueInfo leagueInfo)
         {
             XmlDocument xdoc = new XmlDocument();
-            xdoc.Load("https://www69.myfantasyleague.com/2021/export?TYPE=draftResults&L=" + leagueInfo.LeagueID + "&APIKEY=&JSON=0");
+            xdoc.Load("https://www69.myfantasyleague.com/2022/export?TYPE=draftResults&L=" + leagueInfo.LeagueID + "&APIKEY=&JSON=0");
 
             List<MFLDraftPicks> draftPicks = new List<MFLDraftPicks>();
             MFLDraftPicks tempDraftPick = new MFLDraftPicks();
@@ -463,7 +463,7 @@ namespace DynastyRanker.Controllers
                 
 
                 eml = Convert.ToDouble(tempDraftPick.Pick) / Convert.ToDouble(leagueSize);
-                tempPick = "2021";
+                tempPick = "2022";
                 if (eml <= 0.34)
                     tempPick = tempPick.Insert(4, " Early");
                 if (eml >= 0.34 && eml <= 0.67)
@@ -492,7 +492,7 @@ namespace DynastyRanker.Controllers
         public List<MFLDraftPicks> GetFutureDraftPicks(MFLLeagueInfo leagueInfo)
         {
             XmlDocument xdoc = new XmlDocument();
-            xdoc.Load("https://www61.myfantasyleague.com/2021/export?TYPE=futureDraftPicks&L=" + leagueInfo.LeagueID + "&APIKEY=&JSON=0");
+            xdoc.Load("https://www61.myfantasyleague.com/2022/export?TYPE=futureDraftPicks&L=" + leagueInfo.LeagueID + "&APIKEY=&JSON=0");
 
             List<MFLDraftPicks> draftPicks = new List<MFLDraftPicks>();
             MFLDraftPicks tempDraftPick = new MFLDraftPicks();
@@ -513,7 +513,7 @@ namespace DynastyRanker.Controllers
 
 
                 eml = Convert.ToDouble(tempDraftPick.Pick) / Convert.ToDouble(leagueSize);
-                tempPick = "2021";
+                tempPick = "2022";
                 if (eml <= 0.34)
                     tempPick = tempPick.Insert(4, " Early");
                 if (eml >= 0.34 && eml <= 0.67)
