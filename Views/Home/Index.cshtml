@@ -41,7 +41,7 @@
         <div class="sleeperIDBiggerPadding">
             <img alt="Sleeper Logo" class="sleeperMFLLogo" src="@Url.Content("~/Images/sleeperlogo_without_text.png")">
             <h1>Enter your Sleeper User Name.</h1><br />
-
+            <div class="warningMessage">THIS FEATURE MAY SHOW OLD DATA, PLEASE USE THE LEAGUE ID OPTION BELOW.</div><br />
             @using (Html.BeginForm("SelectLeague", "Sleeper"))
             {
                 @Html.TextBoxFor(m => m.UserName, new { @class = "sleeperIDField" })

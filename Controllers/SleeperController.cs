@@ -669,6 +669,12 @@ namespace DynastyRanker.Controllers
                         temp = "Irv Smith Jr";
                     if (temp.Contains("Chris Herndon") && !playerNameList.Contains(temp))
                         temp = "Christopher Herndon";
+                    if (temp.Contains("Kenneth Walker") && !playerNameList.Contains(temp))
+                        temp = "Kenneth Walker III";
+                    if (temp.Contains("Pierre Strong") && !playerNameList.Contains(temp))
+                        temp = "Pierre Strong Jr";
+                    if (temp.Contains("William Fuller") && !playerNameList.Contains(temp))
+                        temp = "Will Fuller";
 
                     //If the player is in the Sleeper GetPlayerList add the KTC value to the player
                     if (playerNameList.Contains(temp))
@@ -1903,6 +1909,9 @@ namespace DynastyRanker.Controllers
                 foreach (var p in players)
                 {
                     if (p.Value.FullName == "Tony Jones")
+                        continue;
+
+                    if (p.Value.FullName == "Kenneth Walker")
                         continue;
 
                     //If the player isn't on a roster, is one of the eligible positions, and has a value
