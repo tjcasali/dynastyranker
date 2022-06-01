@@ -20,6 +20,7 @@
     <Content Remove="wwwroot\Images\RML.jpg" />
     <Content Remove="wwwroot\Images\SleeperID.png" />
     <Content Remove="wwwroot\Images\SleeperLeagueID.png" />
+    <Content Remove="wwwroot\MFLPlayerData_2021.xml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -72,6 +73,7 @@
     <None Include="wwwroot\Images\SleeperLeagueID.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="wwwroot\MFLPlayerData_2021.xml" />
     <None Include="wwwroot\MFLPlayerData.xml" />
   </ItemGroup>
 

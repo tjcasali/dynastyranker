@@ -151,9 +151,9 @@ namespace DynastyRanker.Controllers
             MFLLeagueInfo leagueInfo = new MFLLeagueInfo();
             string temp;
             XmlDocument xdoc = new XmlDocument();
-            xdoc.Load("https://www61.myfantasyleague.com/2022/export?TYPE=league&L=" + leagueID);
+            xdoc.Load("https://www77.myfantasyleague.com/2022/export?TYPE=league&L=" + leagueID + "&APIKEY=&JSON=0");
 
-            if(xdoc.InnerText.Contains("requires logged in user"))
+            if (xdoc.InnerText.Contains("requires logged in user"))
             {
                 leagueInfo.PrivateLeague = true;
                 return leagueInfo;
@@ -350,7 +350,7 @@ namespace DynastyRanker.Controllers
             List<string> playerList = new List<string>();
 
             XmlDocument xdoc = new XmlDocument();
-            xdoc.Load("https://www61.myfantasyleague.com/2022/export?TYPE=rosters&L=" + leagueID);
+            xdoc.Load("https://www77.myfantasyleague.com/2022/export?TYPE=rosters&L=" + leagueID);
 
             var result = xdoc.SelectNodes("rosters/franchise");
 
@@ -395,7 +395,7 @@ namespace DynastyRanker.Controllers
             Dictionary<string, MFLPlayer> playerDict = new Dictionary<string, MFLPlayer>();
 
             XmlDocument xdoc = new XmlDocument();
-            xdoc.Load("https://www61.myfantasyleague.com/2022/export?TYPE=players&L=" + leagueID + "&APIKEY=&DETAILS=1&SINCE=&PLAYERS=&JSON=0");
+            xdoc.Load("https://www77.myfantasyleague.com/2022/export?TYPE=players&L=" + leagueID + "&APIKEY=&DETAILS=1&SINCE=&PLAYERS=&JSON=0");
             //xdoc.Save("E:\\projects\\DynastyRanker-Main\\DynastyRanker-main\\DynastyRanker\\Data\\MFLPlayerData.xml");
             xdoc.Save(System.IO.Path.Combine(webRoot, "MFLPlayerData.xml"));
             //"~/Data/MFLPlayerData.xml"
@@ -492,7 +492,7 @@ namespace DynastyRanker.Controllers
         public List<MFLDraftPicks> GetFutureDraftPicks(MFLLeagueInfo leagueInfo)
         {
             XmlDocument xdoc = new XmlDocument();
-            xdoc.Load("https://www61.myfantasyleague.com/2022/export?TYPE=futureDraftPicks&L=" + leagueInfo.LeagueID + "&APIKEY=&JSON=0");
+            xdoc.Load("https://www77.myfantasyleague.com/2022/export?TYPE=futureDraftPicks&L=" + leagueInfo.LeagueID + "&APIKEY=&JSON=0");
 
             List<MFLDraftPicks> draftPicks = new List<MFLDraftPicks>();
             MFLDraftPicks tempDraftPick = new MFLDraftPicks();

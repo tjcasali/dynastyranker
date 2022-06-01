@@ -2114,7 +2114,7 @@ namespace DynastyRanker.Controllers
             foreach (var trade in tp)
             {
                 //We don't care about trades beyond 2023. TODO set variables so this isn't hard coded
-                if (trade.Season == "2022" || trade.Season =="2023")
+                if (trade.Season == "2022" || trade.Season =="2023" || trade.Season == "2024")
                 {
                     //If the draft is finished and the trade is from 2021 the pick has already been used so it's irrelevant
                     //if (draft.Status == "complete" && trade.Season == "2021")
