@@ -2204,8 +2204,12 @@ namespace DynastyRanker.Controllers
 
             foreach (var ros in rosters)
             {
-                foreach(var pick in ros.DraftPicks)
+                 foreach(var pick in ros.DraftPicks)
                 {
+                    if(pick.Contains("2022"))
+                    {
+                        continue;
+                    }
                     tempTotal += Int32.Parse(dpr[pick]);
                 }
                 ros.TeamRankingTotal = ros.TeamRankingTotal + tempTotal;
