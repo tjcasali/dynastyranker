@@ -114,7 +114,7 @@ namespace DynastyRanker.Controllers
                     //sleeperRosters = RankStrengthOfSchedule(sleeperRosters);
 
                     //We want the roster sorted by Total Team Ranking in DisplayLeague, so SortRostersByRanking must go second
-                    //sleeperRosters = SortRostersByStarting(sleeperRosters);
+                    sleeperRosters = SortRostersByStarting(sleeperRosters);
                     sleeperRosters = SortRostersByRanking(sleeperRosters);
 
                     topWaiverPlayers = GetHighestValuesWaivers(playerList, draftPickRankings, sleeperRosters, draft);
@@ -723,12 +723,24 @@ namespace DynastyRanker.Controllers
                         tempName = "A.J. Dillon";
                     if (tempName == "KJ Hamler")
                         tempName = "K.J. Hamler";
+                    if (tempName == "DJ Moore")
+                        tempName = "D.J. Moore";
                     if (tempName == "Scotty Miller")
                         tempName = "Scott Miller";
-                    if (tempName == "Will Fuller V")
+                    if (tempName == "William Fuller")
                         tempName = "Will Fuller";
                     if (tempName == "Jeff Wilson Jr.")
                         tempName = "Jeffery Wilson";
+                    if (tempName == "Ken Walker III")
+                        tempName = "Kenneth Walker";
+                    if (tempName == "Robbie Anderson")
+                        tempName = "Robby Anderson";
+                    if (tempName == "Dee Eskridge")
+                        tempName = "D'Wayne Eskridge";
+                    if (tempName == "DK Metcalf")
+                        tempName = "D.K. Metcalf";
+                    if (tempName == "DJ Chark Jr.")
+                        tempName = "D.J. Chark";
 
                     //FantasyPros stores Jr.'s as II, III, IV, V and this is not the case in Sleeper/KTC 
                     if (tempName.EndsWith("I") || tempName.EndsWith("V"))
@@ -1432,7 +1444,6 @@ namespace DynastyRanker.Controllers
 
                 newKtc = new Player();
                 avg2022First = avg2022First / 3;
-                //avg2022First = Math.Truncate(avg2022First);
                 newKtc.Name = "2022 1st";
                 newKtc.Value = Convert.ToString(avg2022First);
                 newKtc.Position = "PI";
@@ -1442,7 +1453,6 @@ namespace DynastyRanker.Controllers
 
                 newKtc = new Player();
                 avg2022Second = avg2022Second / 3;
-                //avg2022Second = Math.Truncate(avg2022Second);
                 newKtc.Name = "2022 2nd";
                 newKtc.Value = Convert.ToString(avg2022Second);
                 newKtc.Position = "PI";
@@ -1452,7 +1462,6 @@ namespace DynastyRanker.Controllers
 
                 newKtc = new Player();
                 avg2022Third = avg2022Third / 3;
-                //avg2022Third = Math.Truncate(avg2022Third);
                 newKtc.Name = "2022 3rd";
                 newKtc.Value = Convert.ToString(avg2022Third);
                 newKtc.Position = "PI";
@@ -1462,7 +1471,6 @@ namespace DynastyRanker.Controllers
 
                 newKtc = new Player();
                 avg2022Fourth = avg2022Fourth / 3;
-                //avg2022Fourth = Math.Truncate(avg2022Fourth);
                 newKtc.Name = "2022 4th";
                 newKtc.Value = Convert.ToString(avg2022Fourth);
                 newKtc.Position = "PI";
@@ -1472,7 +1480,6 @@ namespace DynastyRanker.Controllers
 
                 newKtc = new Player();
                 avg2023First = avg2023First / 3;
-                //avg2023First = Math.Truncate(avg2023First);
                 newKtc.Name = "2023 1st";
                 newKtc.Value = Convert.ToString(avg2023First);
                 newKtc.Position = "PI";
@@ -1482,7 +1489,6 @@ namespace DynastyRanker.Controllers
 
                 newKtc = new Player();
                 avg2023Second = avg2023Second / 3;
-                //avg2023Second = Math.Truncate(avg2023Second);
                 newKtc.Name = "2023 2nd";
                 newKtc.Value = Convert.ToString(avg2023Second);
                 newKtc.Position = "PI";
@@ -1492,7 +1498,6 @@ namespace DynastyRanker.Controllers
 
                 newKtc = new Player();
                 avg2023Third = avg2023Third / 3;
-                //avg2023Third = Math.Truncate(avg2023Third);
                 newKtc.Name = "2023 3rd";
                 newKtc.Value = Convert.ToString(avg2023Third);
                 newKtc.Position = "PI";
@@ -1502,7 +1507,6 @@ namespace DynastyRanker.Controllers
 
                 newKtc = new Player();
                 avg2023Fourth = avg2023Fourth / 3;
-                //avg2023Fourth = Math.Truncate(avg2023Fourth);
                 newKtc.Name = "2023 4th";
                 newKtc.Value = Convert.ToString(avg2023Fourth);
                 newKtc.Position = "PI";
@@ -1512,7 +1516,6 @@ namespace DynastyRanker.Controllers
 
                 newKtc = new Player();
                 avg2024First = avg2024First / 3;
-                //avg2024First = Math.Truncate(avg2024First);
                 newKtc.Name = "2024 1st";
                 newKtc.Value = Convert.ToString(avg2024First);
                 newKtc.Position = "PI";
@@ -1522,7 +1525,6 @@ namespace DynastyRanker.Controllers
 
                 newKtc = new Player();
                 avg2024Second = avg2024Second / 3;
-                //avg2024Second = Math.Truncate(avg2024Second);
                 newKtc.Name = "2024 2nd";
                 newKtc.Value = Convert.ToString(avg2024Second);
                 newKtc.Position = "PI";
@@ -1532,7 +1534,6 @@ namespace DynastyRanker.Controllers
 
                 newKtc = new Player();
                 avg2024Third = avg2024Third / 3;
-                //avg2024Third = Math.Truncate(avg2024Third);
                 newKtc.Name = "2024 3rd";
                 newKtc.Value = Convert.ToString(avg2024Third);
                 newKtc.Position = "PI";
@@ -1542,7 +1543,6 @@ namespace DynastyRanker.Controllers
 
                 newKtc = new Player();
                 avg2024Fourth = avg2024Fourth / 3;
-                //avg2024Fourth = Math.Truncate(avg2024Fourth);
                 newKtc.Name = "2024 4th";
                 newKtc.Value = Convert.ToString(avg2024Fourth);
                 newKtc.Position = "PI";
@@ -1620,7 +1620,7 @@ namespace DynastyRanker.Controllers
                 if (leagueInfo.QBCount != 0)
                 {
                     //Order the Quarterbacks on the given roster by FantasyProsProjection
-                    foreach (var player in ros.PlayersOnRoster.Where(o => o.Value.PORPosition == "QB").OrderByDescending(o => o.Value.PORValue))
+                    foreach (var player in ros.PlayersOnRoster.Where(o => o.Value.PORPosition == "QB").OrderByDescending(o => o.Value.PORProjection))
                     {
                         //For the FLEX players we need to be able to skip the players that have already been chosen for Starting Lineup total
                         skippedPlayerNames.Add(player.Value.PORName);
@@ -1631,20 +1631,20 @@ namespace DynastyRanker.Controllers
                         //Once we reach the QBCount we set the positionCounter back to 0 and break into the RB foreach
                         if (positionCounter == leagueInfo.QBCount)
                         {
-                            startingQBTotal += player.Value.PORValue;
+                            startingQBTotal += player.Value.PORProjection;
                             positionCounter = 0;
                             break;
                         }
                         else
                         {
-                            startingQBTotal += player.Value.PORValue;
+                            startingQBTotal += player.Value.PORProjection;
                         }
                     }
                 }
                 if (leagueInfo.RBCount != 0)
                 {
                     //Order the Runningbacks on the given roster by FantasyProsProjection
-                    foreach (var player in ros.PlayersOnRoster.Where(o => o.Value.PORPosition == "RB").OrderByDescending(o => o.Value.PORValue))
+                    foreach (var player in ros.PlayersOnRoster.Where(o => o.Value.PORPosition == "RB").OrderByDescending(o => o.Value.PORProjection))
                     {
                         //For the FLEX players we need to be able to skip the players that have already been chosen for Starting Lineup total
                         skippedPlayerNames.Add(player.Value.PORName);
@@ -1655,20 +1655,20 @@ namespace DynastyRanker.Controllers
                         //Once we reach the RBCount we set the positionCounter back to 0 and break into the WR foreach
                         if (positionCounter == leagueInfo.RBCount)
                         {
-                            startingRBTotal += player.Value.PORValue;
+                            startingRBTotal += player.Value.PORProjection;
                             positionCounter = 0;
                             break;
                         }
                         else
                         {
-                            startingRBTotal += player.Value.PORValue;
+                            startingRBTotal += player.Value.PORProjection;
                         }
                     }
                 }
                 if (leagueInfo.WRCount != 0)
                 {
                     //Order the Wide Receivers on the given roster by FantasyProsProjection
-                    foreach (var player in ros.PlayersOnRoster.Where(o => o.Value.PORPosition == "WR").OrderByDescending(o => o.Value.PORValue))
+                    foreach (var player in ros.PlayersOnRoster.Where(o => o.Value.PORPosition == "WR").OrderByDescending(o => o.Value.PORProjection))
                     {
                         //For the FLEX players we need to be able to skip the players that have already been chosen for Starting Lineup total
                         skippedPlayerNames.Add(player.Value.PORName);
@@ -1679,20 +1679,20 @@ namespace DynastyRanker.Controllers
                         //Once we reach the WRCount we set the positionCounter back to 0 and break into the TE foreach
                         if (positionCounter == leagueInfo.WRCount)
                         {
-                            startingWRTotal += player.Value.PORValue;
+                            startingWRTotal += player.Value.PORProjection;
                             positionCounter = 0;
                             break;
                         }
                         else
                         {
-                            startingWRTotal += player.Value.PORValue;
+                            startingWRTotal += player.Value.PORProjection;
                         }
                     }
                 }
                 if (leagueInfo.TECount != 0)
                 {
                     //Order the Tight Ends on the given roster by FantasyProsProjection
-                    foreach (var player in ros.PlayersOnRoster.Where(o => o.Value.PORPosition == "TE").OrderByDescending(o => o.Value.PORValue))
+                    foreach (var player in ros.PlayersOnRoster.Where(o => o.Value.PORPosition == "TE").OrderByDescending(o => o.Value.PORProjection))
                     {
                         //For the FLEX players we need to be able to skip the players that have already been chosen for Starting Lineup total
                         skippedPlayerNames.Add(player.Value.PORName);
@@ -1703,19 +1703,19 @@ namespace DynastyRanker.Controllers
                         //Once we reach the TECount we set the positionCounter back to 0 and break into the FLEX foreach
                         if (positionCounter == leagueInfo.TECount)
                         {
-                            startingTETotal += player.Value.PORValue;
+                            startingTETotal += player.Value.PORProjection;
                             positionCounter = 0;
                             break;
                         }
                         else
                         {
-                            startingTETotal += player.Value.PORValue;
+                            startingTETotal += player.Value.PORProjection;
                         }
                     }
                 }
 
                 //Now we go back to the top of the roster projections and ignore player position to find the best FLEX options
-                foreach (var player in ros.PlayersOnRoster.OrderByDescending(o => o.Value.PORValue))
+                foreach (var player in ros.PlayersOnRoster.OrderByDescending(o => o.Value.PORProjection))
                 {
                     //SUPERFLEX leagues mean we will need check the Quarterback position as one more will be allowed. Once the SuperFlex has been added we break out
                     if (leagueInfo.SUPERFLEXCount != 0 && leagueInfo.SUPERFLEXCount != superflexAdded)
@@ -1737,7 +1737,7 @@ namespace DynastyRanker.Controllers
                         if (positionCounter == leagueInfo.FLEXCount + leagueInfo.RECFLEXCount + leagueInfo.SUPERFLEXCount)
                         {
                             skippedPlayerNames.Add(player.Value.PORName);
-                            startingFLEXTotal += player.Value.PORValue;
+                            startingFLEXTotal += player.Value.PORProjection;
                             positionCounter = 0;
                             recflexAdded = 0;
                             superflexAdded = 0;
@@ -1745,7 +1745,7 @@ namespace DynastyRanker.Controllers
                         }
                         else
                         {
-                            startingFLEXTotal += player.Value.PORValue;
+                            startingFLEXTotal += player.Value.PORProjection;
                         }
                     }
 
@@ -1769,7 +1769,7 @@ namespace DynastyRanker.Controllers
                         if (positionCounter == leagueInfo.FLEXCount + leagueInfo.RECFLEXCount + leagueInfo.SUPERFLEXCount)
                         {
                             skippedPlayerNames.Add(player.Value.PORName);
-                            startingFLEXTotal += player.Value.PORValue;
+                            startingFLEXTotal += player.Value.PORProjection;
                             positionCounter = 0;
                             recflexAdded = 0;
                             superflexAdded = 0;
@@ -1777,7 +1777,7 @@ namespace DynastyRanker.Controllers
                         }
                         else
                         {
-                            startingFLEXTotal += player.Value.PORValue;
+                            startingFLEXTotal += player.Value.PORProjection;
                         }
                     }
 
@@ -1796,7 +1796,7 @@ namespace DynastyRanker.Controllers
                         if (positionCounter == leagueInfo.FLEXCount + leagueInfo.RECFLEXCount + leagueInfo.SUPERFLEXCount)
                         {
                             skippedPlayerNames.Add(player.Value.PORName);
-                            startingFLEXTotal += player.Value.PORValue;
+                            startingFLEXTotal += player.Value.PORProjection;
                             positionCounter = 0;
                             recflexAdded = 0;
                             superflexAdded = 0;
@@ -1804,7 +1804,7 @@ namespace DynastyRanker.Controllers
                         }
                         else
                         {
-                            startingFLEXTotal += player.Value.PORValue;
+                            startingFLEXTotal += player.Value.PORProjection;
                         }
                     }
                 }
@@ -1889,7 +1889,7 @@ namespace DynastyRanker.Controllers
             {
                 foreach (var p in players)
                 {
-                    if (p.Value.FullName == "Tony Jones")
+                    if (p.Value.FullName == "Tony Jones" || p.Value.FullName == "Kenneth Walker")
                         continue;
 
                     //If the player isn't on a roster, is one of the eligible positions, has a value, and isn't a rookie
