@@ -33,7 +33,7 @@ namespace DynastyRanker.Controllers
         public Dictionary<string, string> draftPickRankings = new Dictionary<string, string>();
         public Username currentUser = new Username();
         public bool includeDraftCapital = true;
-        public List<POR> topWaiverPlayers = new List<POR>();
+        public List<POR> topWaiverPlayers = new List<POR>(); 
         public List<SleeperMatchups> matchups = new List<SleeperMatchups>();
         public RankingLists rankingLists = new RankingLists();
 
@@ -740,7 +740,9 @@ namespace DynastyRanker.Controllers
                     if (tempName == "DK Metcalf")
                         tempName = "D.K. Metcalf";
                     if (tempName == "DJ Chark Jr.")
-                        tempName = "D.J. Chark";
+                        tempName = "D.J. Chark"; 
+                    if (tempName == "Mitch Trubisky")
+                        tempName = "Mitchell Trubisky";
 
                     //FantasyPros stores Jr.'s as II, III, IV, V and this is not the case in Sleeper/KTC 
                     if (tempName.EndsWith("I") || tempName.EndsWith("V"))
