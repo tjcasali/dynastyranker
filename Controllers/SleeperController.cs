@@ -67,8 +67,8 @@ namespace DynastyRanker.Controllers
                     //LoadSleeperPlayersTextFile();
 
                     //TODO Put the if condition here so we don't even have to go into the scrape functions
-                    //ScrapeRankings(lastScrapeDate);
-                    //ScrapeSFRankings(lastScrapeDate);
+                    ScrapeRankings(lastScrapeDate);
+                    ScrapeSFRankings(lastScrapeDate);
                     playerList = LoadRankings(playerList, keepTradeCutList, leagueInformation);
                     playerList = LoadFantasyProsProjections(playerList);
                     LinkUsersAndRosters(sleeperUsers, sleeperRosters);
@@ -83,7 +83,7 @@ namespace DynastyRanker.Controllers
                             {
                                 tradedPicks = await GetTradedDraftPicks(leagueInformation);
                                 AddDraftPositionToRoster(draft, sleeperRosters);
-                                sleeperRosters = AssignDraftPositionToPicks(sleeperRosters);
+                                //sleeperRosters = AssignDraftPositionToPicks(sleeperRosters);
                                 sleeperRosters = TradedDraftPicks(sleeperRosters, tradedPicks, draft);
                                 sleeperRosters = GetTotalDraftCapital(sleeperRosters, draftPickRankings);
                             }
@@ -1120,45 +1120,45 @@ namespace DynastyRanker.Controllers
                     count++;
                 }
 
-                newKtc = new Player();
-                avg2022First = avg2022First / 3;
-                //avg2022First = Math.Truncate(avg2022First);
-                newKtc.Name = "2022 1st";
-                newKtc.Value = Convert.ToString(avg2022First);
-                newKtc.Position = "PI";
-                newKtc.Team = "NA";
-                newKtc.IsRookie = "NA";
-                ktcList.Add(newKtc);
+                //newKtc = new Player();
+                //avg2022First = avg2022First / 3;
+                ////avg2022First = Math.Truncate(avg2022First);
+                //newKtc.Name = "2022 1st";
+                //newKtc.Value = Convert.ToString(avg2022First);
+                //newKtc.Position = "PI";
+                //newKtc.Team = "NA";
+                //newKtc.IsRookie = "NA";
+                //ktcList.Add(newKtc);
 
-                newKtc = new Player();
-                avg2022Second = avg2022Second / 3;
-                //avg2022Second = Math.Truncate(avg2022Second);
-                newKtc.Name = "2022 2nd";
-                newKtc.Value = Convert.ToString(avg2022Second);
-                newKtc.Position = "PI";
-                newKtc.Team = "NA";
-                newKtc.IsRookie = "NA";
-                ktcList.Add(newKtc);
+                //newKtc = new Player();
+                //avg2022Second = avg2022Second / 3;
+                ////avg2022Second = Math.Truncate(avg2022Second);
+                //newKtc.Name = "2022 2nd";
+                //newKtc.Value = Convert.ToString(avg2022Second);
+                //newKtc.Position = "PI";
+                //newKtc.Team = "NA";
+                //newKtc.IsRookie = "NA";
+                //ktcList.Add(newKtc);
 
-                newKtc = new Player();
-                avg2022Third = avg2022Third / 3;
-                //avg2022Third = Math.Truncate(avg2022Third);
-                newKtc.Name = "2022 3rd";
-                newKtc.Value = Convert.ToString(avg2022Third);
-                newKtc.Position = "PI";
-                newKtc.Team = "NA";
-                newKtc.IsRookie = "NA";
-                ktcList.Add(newKtc);
+                //newKtc = new Player();
+                //avg2022Third = avg2022Third / 3;
+                ////avg2022Third = Math.Truncate(avg2022Third);
+                //newKtc.Name = "2022 3rd";
+                //newKtc.Value = Convert.ToString(avg2022Third);
+                //newKtc.Position = "PI";
+                //newKtc.Team = "NA";
+                //newKtc.IsRookie = "NA";
+                //ktcList.Add(newKtc);
 
-                newKtc = new Player();
-                avg2022Fourth = avg2022Fourth / 3;
-                //avg2022Fourth = Math.Truncate(avg2022Fourth);
-                newKtc.Name = "2022 4th";
-                newKtc.Value = Convert.ToString(avg2022Fourth);
-                newKtc.Position = "PI";
-                newKtc.Team = "NA";
-                newKtc.IsRookie = "NA";
-                ktcList.Add(newKtc);
+                //newKtc = new Player();
+                //avg2022Fourth = avg2022Fourth / 3;
+                ////avg2022Fourth = Math.Truncate(avg2022Fourth);
+                //newKtc.Name = "2022 4th";
+                //newKtc.Value = Convert.ToString(avg2022Fourth);
+                //newKtc.Position = "PI";
+                //newKtc.Team = "NA";
+                //newKtc.IsRookie = "NA";
+                //ktcList.Add(newKtc);
 
                 newKtc = new Player();
                 avg2023First = avg2023First / 3;
@@ -1444,41 +1444,41 @@ namespace DynastyRanker.Controllers
                     count++;
                 }
 
-                newKtc = new Player();
-                avg2022First = avg2022First / 3;
-                newKtc.Name = "2022 1st";
-                newKtc.Value = Convert.ToString(avg2022First);
-                newKtc.Position = "PI";
-                newKtc.Team = "NA";
-                newKtc.IsRookie = "NA";
-                ktcList.Add(newKtc);
+                //newKtc = new Player();
+                //avg2022First = avg2022First / 3;
+                //newKtc.Name = "2022 1st";
+                //newKtc.Value = Convert.ToString(avg2022First);
+                //newKtc.Position = "PI";
+                //newKtc.Team = "NA";
+                //newKtc.IsRookie = "NA";
+                //ktcList.Add(newKtc);
 
-                newKtc = new Player();
-                avg2022Second = avg2022Second / 3;
-                newKtc.Name = "2022 2nd";
-                newKtc.Value = Convert.ToString(avg2022Second);
-                newKtc.Position = "PI";
-                newKtc.Team = "NA";
-                newKtc.IsRookie = "NA";
-                ktcList.Add(newKtc);
+                //newKtc = new Player();
+                //avg2022Second = avg2022Second / 3;
+                //newKtc.Name = "2022 2nd";
+                //newKtc.Value = Convert.ToString(avg2022Second);
+                //newKtc.Position = "PI";
+                //newKtc.Team = "NA";
+                //newKtc.IsRookie = "NA";
+                //ktcList.Add(newKtc);
 
-                newKtc = new Player();
-                avg2022Third = avg2022Third / 3;
-                newKtc.Name = "2022 3rd";
-                newKtc.Value = Convert.ToString(avg2022Third);
-                newKtc.Position = "PI";
-                newKtc.Team = "NA";
-                newKtc.IsRookie = "NA";
-                ktcList.Add(newKtc);
+                //newKtc = new Player();
+                //avg2022Third = avg2022Third / 3;
+                //newKtc.Name = "2022 3rd";
+                //newKtc.Value = Convert.ToString(avg2022Third);
+                //newKtc.Position = "PI";
+                //newKtc.Team = "NA";
+                //newKtc.IsRookie = "NA";
+                //ktcList.Add(newKtc);
 
-                newKtc = new Player();
-                avg2022Fourth = avg2022Fourth / 3;
-                newKtc.Name = "2022 4th";
-                newKtc.Value = Convert.ToString(avg2022Fourth);
-                newKtc.Position = "PI";
-                newKtc.Team = "NA";
-                newKtc.IsRookie = "NA";
-                ktcList.Add(newKtc);
+                //newKtc = new Player();
+                //avg2022Fourth = avg2022Fourth / 3;
+                //newKtc.Name = "2022 4th";
+                //newKtc.Value = Convert.ToString(avg2022Fourth);
+                //newKtc.Position = "PI";
+                //newKtc.Team = "NA";
+                //newKtc.IsRookie = "NA";
+                //ktcList.Add(newKtc);
 
                 newKtc = new Player();
                 avg2023First = avg2023First / 3;
@@ -1971,10 +1971,10 @@ namespace DynastyRanker.Controllers
                     //    startingDraftPicks.Add("2021 3rd");
                     //    startingDraftPicks.Add("2021 4th");
                     //}
-                    startingDraftPicks.Add("2022 1st");
-                    startingDraftPicks.Add("2022 2nd");
-                    startingDraftPicks.Add("2022 3rd");
-                    startingDraftPicks.Add("2022 4th");
+                    //startingDraftPicks.Add("2022 1st");
+                    //startingDraftPicks.Add("2022 2nd");
+                    //startingDraftPicks.Add("2022 3rd");
+                    //startingDraftPicks.Add("2022 4th");
                     startingDraftPicks.Add("2023 1st");
                     startingDraftPicks.Add("2023 2nd");
                     startingDraftPicks.Add("2023 3rd");
@@ -1992,9 +1992,9 @@ namespace DynastyRanker.Controllers
                     //    startingDraftPicks.Add("2021 2nd");
                     //    startingDraftPicks.Add("2021 3rd");
                     //}
-                    startingDraftPicks.Add("2022 1st");
-                    startingDraftPicks.Add("2022 2nd");
-                    startingDraftPicks.Add("2022 3rd");
+                    //startingDraftPicks.Add("2022 1st");
+                    //startingDraftPicks.Add("2022 2nd");
+                    //startingDraftPicks.Add("2022 3rd");
                     startingDraftPicks.Add("2023 1st");
                     startingDraftPicks.Add("2023 2nd");
                     startingDraftPicks.Add("2023 3rd");
@@ -2009,8 +2009,8 @@ namespace DynastyRanker.Controllers
                     //    startingDraftPicks.Add("2021 1st");
                     //    startingDraftPicks.Add("2021 2nd");
                     //}
-                    startingDraftPicks.Add("2022 1st");
-                    startingDraftPicks.Add("2022 2nd");
+                    //startingDraftPicks.Add("2022 1st");
+                    //startingDraftPicks.Add("2022 2nd");
                     startingDraftPicks.Add("2023 1st");
                     startingDraftPicks.Add("2023 2nd");
                     startingDraftPicks.Add("2024 1st");
@@ -2023,7 +2023,7 @@ namespace DynastyRanker.Controllers
                     //{
                     //    startingDraftPicks.Add("2021 1st");
                     //}
-                    startingDraftPicks.Add("2022 1st");
+                    //startingDraftPicks.Add("2022 1st");
                     startingDraftPicks.Add("2023 1st");
                     startingDraftPicks.Add("2024 1st");
                 }
@@ -2036,10 +2036,10 @@ namespace DynastyRanker.Controllers
                     //    startingDraftPicks.Add("2021 3rd");
                     //    startingDraftPicks.Add("2021 4th");
                     //}
-                    startingDraftPicks.Add("2022 1st");
-                    startingDraftPicks.Add("2022 2nd");
-                    startingDraftPicks.Add("2022 3rd");
-                    startingDraftPicks.Add("2022 4th");
+                    //startingDraftPicks.Add("2022 1st");
+                    //startingDraftPicks.Add("2022 2nd");
+                    //startingDraftPicks.Add("2022 3rd");
+                    //startingDraftPicks.Add("2022 4th");
                     startingDraftPicks.Add("2023 1st");
                     startingDraftPicks.Add("2023 2nd");
                     startingDraftPicks.Add("2023 3rd");
