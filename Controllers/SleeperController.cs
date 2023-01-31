@@ -32,7 +32,7 @@ namespace DynastyRanker.Controllers
         public Dictionary<string, string> draftPickRankings = new Dictionary<string, string>();
         public Username currentUser = new Username();
         public bool includeDraftCapital = true;
-        public List<POR> topWaiverPlayers = new List<POR>(); 
+        public List<POR> topWaiverPlayers = new List<POR>();
         public List<SleeperMatchups> matchups = new List<SleeperMatchups>();
         public RankingLists rankingLists = new RankingLists();
 
@@ -67,13 +67,13 @@ namespace DynastyRanker.Controllers
 
                     //TODO Put the if condition here so we don't even have to go into the scrape functions
                     //ScrapeRankings(lastScrapeDate);
-                    //ScrapeSFRankings(lastScrapeDate);
+                    // ScrapeSFRankings(lastScrapeDate);
                     playerList = LoadRankings(playerList, keepTradeCutList, leagueInformation);
                     playerList = LoadFantasyProsProjections(playerList);
                     LinkUsersAndRosters(sleeperUsers, sleeperRosters);
 
                     // Check if the inputted league and see if it has a previous league ID, meaning that there is a draft order for the rookie draft.
-                    if(leagueInformation.PreviousLeagueID != "")
+                    if (leagueInformation.PreviousLeagueID != "")
                     {
                         try
                         {
@@ -299,9 +299,9 @@ namespace DynastyRanker.Controllers
             UserInfo leagueInfo = JsonConvert.DeserializeObject<UserInfo>(responseBody);
             bool isSuper = false;
 
-            foreach(string position in leagueInfo.LeagueRosterPositions)
+            foreach (string position in leagueInfo.LeagueRosterPositions)
             {
-                if(position == "QB")
+                if (position == "QB")
                 {
                     leagueInfo.QBCount++;
                     continue;
@@ -439,10 +439,10 @@ namespace DynastyRanker.Controllers
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
             List<Draft> drafts = JsonConvert.DeserializeObject<List<Draft>>(responseBody);
-            
+
             //This call returns a list of drafts, the only one we care about is the first in the list
             Draft draft = drafts.First();
-            
+
             return draft;
         }
 
@@ -463,7 +463,7 @@ namespace DynastyRanker.Controllers
                 string responseBody = await response.Content.ReadAsStringAsync();
                 List<SleeperMatchups> thisWeeksMatchups = JsonConvert.DeserializeObject<List<SleeperMatchups>>(responseBody);
                 SleeperMatchups matchup = new SleeperMatchups();
-                foreach(var m in thisWeeksMatchups)
+                foreach (var m in thisWeeksMatchups)
                 {
                     matchup.Week = i.ToString();
                     matchup.RosterId = m.RosterId;
@@ -511,11 +511,11 @@ namespace DynastyRanker.Controllers
         /// GetPlayersConcatenateName(Dictionary<string, PlayerData> players)
         /// Called from GetPlayers() to concatenate the FirstName and LastName variables for every player.
         /// We need this for LoadFantasyProsProjections
-        public Dictionary<string,PlayerData> GetPlayersConcatenateName(Dictionary<string, PlayerData> players)
+        public Dictionary<string, PlayerData> GetPlayersConcatenateName(Dictionary<string, PlayerData> players)
         {
             string tempName = "";
 
-            foreach(var player in players)
+            foreach (var player in players)
             {
                 tempName = player.Value.FirstName + " " + player.Value.LastName;
                 player.Value.FullName = tempName;
@@ -562,7 +562,7 @@ namespace DynastyRanker.Controllers
                 tempPORDict = new Dictionary<string, POR>();
 
                 //Ros.Bench contains all of the players on each roster
-                if(ros.Bench != null)
+                if (ros.Bench != null)
                 {
                     //foreach player on the team of the current roster
                     foreach (string p in ros.Bench)
@@ -593,7 +593,7 @@ namespace DynastyRanker.Controllers
                         }
                     }
                 }
-    
+
                 ros.PlayerNames = tempPlayersList;
                 ros.PlayerTradeValues = tempPlayerRankingsList;
                 ros.PlayersOnRoster = tempPORDict;
@@ -631,7 +631,7 @@ namespace DynastyRanker.Controllers
                     var line = reader.ReadLine();
                     var values = line.Split(',');
 
-                    if(values[0] == "" || values[1] == "" || values[2] == "" || values[3] == "")
+                    if (values[0] == "" || values[1] == "" || values[2] == "" || values[3] == "")
                     {
                         break;
                     }
@@ -641,9 +641,9 @@ namespace DynastyRanker.Controllers
                     playerPositionList.Add(values[1]);
                     playerTeamList.Add(values[2]);
                     playerKeepTradeCutList.Add(values[3]);
-                    
+
                     //Draft pick rankings have the position "PI"
-                    if(values[1] == "PI")
+                    if (values[1] == "PI")
                     {
                         draftPickRankings.Add(values[0], values[3]);
                     }
@@ -664,7 +664,7 @@ namespace DynastyRanker.Controllers
                     temp = temp.Remove(temp.Length - 1, 1);
 
                     //Edge Cases
-                    if(temp.Contains("Irv Smith") && !playerNameList.Contains(temp))
+                    if (temp.Contains("Irv Smith") && !playerNameList.Contains(temp))
                         temp = "Irv Smith Jr";
                     if (temp.Contains("Chris Herndon") && !playerNameList.Contains(temp))
                         temp = "Christopher Herndon";
@@ -703,7 +703,7 @@ namespace DynastyRanker.Controllers
             List<string> seenPlayers = new List<string>();
 
             sr = System.IO.Path.Combine(webRoot, "projections.csv");
-            
+
             using (var reader = new StreamReader(sr))
             {
                 while (!reader.EndOfStream)
@@ -720,7 +720,7 @@ namespace DynastyRanker.Controllers
                     tempValue = tempDouble.ToString();
 
                     //Edge Cases...
-                    if(tempName == "AJ Dillon")
+                    if (tempName == "AJ Dillon")
                         tempName = "A.J. Dillon";
                     if (tempName == "KJ Hamler")
                         tempName = "K.J. Hamler";
@@ -741,7 +741,7 @@ namespace DynastyRanker.Controllers
                     if (tempName == "DK Metcalf")
                         tempName = "D.K. Metcalf";
                     if (tempName == "DJ Chark Jr.")
-                        tempName = "D.J. Chark"; 
+                        tempName = "D.J. Chark";
                     if (tempName == "Mitch Trubisky")
                         tempName = "Mitchell Trubisky";
 
@@ -754,7 +754,7 @@ namespace DynastyRanker.Controllers
                         }
                         tempName = tempName.Trim();
                     }
-                    
+
 
                     //Get the player ID where the name from the projections csv matches in the players list
                     tempPlayerID = players.FirstOrDefault(x => x.Value.FullName == tempName).Key;
@@ -769,7 +769,7 @@ namespace DynastyRanker.Controllers
                         continue;
                     }
                     //These shouldn't apply here because FantasyPros uses II but we'll keep it here anyways
-                    else if(tempName.Contains("Jr.") || tempName.Contains("Sr."))
+                    else if (tempName.Contains("Jr.") || tempName.Contains("Sr."))
                     {
                         tempName = tempName.Replace("Jr.", String.Empty);
                         tempName = tempName.Trim();
@@ -788,7 +788,7 @@ namespace DynastyRanker.Controllers
                             continue;
                         }
                     }
-                    else if(tempName.Contains("."))
+                    else if (tempName.Contains("."))
                     {
                         tempName = tempName.Replace(".", String.Empty);
 
@@ -943,7 +943,7 @@ namespace DynastyRanker.Controllers
             string newScrapeDate = DateTime.Now.ToString("MM-dd-yyyy");
             var webRoot = _env.WebRootPath;
 
-            if (previousScrapeDate != newScrapeDate)
+            if (true)
             {
                 string url = "https://keeptradecut.com/dynasty-rankings?page=0&filters=QB|WR|RB|TE|RDP&format=1";
 
@@ -1087,7 +1087,7 @@ namespace DynastyRanker.Controllers
                     else
                         tempIsRookie = "NA";
 
-                    if(tempName.Contains("Colt"))
+                    if (tempName.Contains("Colt"))
                     {
 
                     }
@@ -1149,7 +1149,7 @@ namespace DynastyRanker.Controllers
                 ktcList.Add(newKtc);
 
                 newKtc = new Player();
-                avg2023Third= avg2023Third / 3;
+                avg2023Third = avg2023Third / 3;
                 //avg2023Third = Math.Truncate(avg2023Third);
                 newKtc.Name = "2023 3rd";
                 newKtc.Value = Convert.ToString(avg2023Third);
@@ -1268,7 +1268,7 @@ namespace DynastyRanker.Controllers
             var webRoot = _env.WebRootPath;
             string newScrapeDate = DateTime.Now.ToString("MM-dd-yyyy");
 
-            if (previousScrapeDate != newScrapeDate)
+            if (true)
             {
                 string url = "https://keeptradecut.com/dynasty-rankings?format=2";
 
@@ -1378,6 +1378,8 @@ namespace DynastyRanker.Controllers
                     positionList.Add(positionTemp);
                 }
 
+                //REMOVE: Why is this list one smaller
+                positionList.Add("NA");
 
                 string tempName, tempValue, tempPosition, tempTeam;
                 int count = 0;
@@ -1444,7 +1446,7 @@ namespace DynastyRanker.Controllers
                     newKtc.Team = tempTeam;
 
                     ktcList.Add(newKtc);
-           
+
                     count++;
                 }
 
@@ -1637,7 +1639,7 @@ namespace DynastyRanker.Controllers
                         startingPlayerNames.Add(player.Value.PORName);
 
                         positionCounter++;
-                        
+
                         //Once we reach the QBCount we set the positionCounter back to 0 and break into the RB foreach
                         if (positionCounter == leagueInfo.QBCount)
                         {
@@ -1659,7 +1661,7 @@ namespace DynastyRanker.Controllers
                         //For the FLEX players we need to be able to skip the players that have already been chosen for Starting Lineup total
                         skippedPlayerNames.Add(player.Value.PORName);
                         startingPlayerNames.Add(player.Value.PORName);
-                        
+
                         positionCounter++;
 
                         //Once we reach the RBCount we set the positionCounter back to 0 and break into the WR foreach
@@ -1742,7 +1744,7 @@ namespace DynastyRanker.Controllers
                             superflexAdded++;
 
                         positionCounter++;
-                        
+
                         //If the positionCounter is equal to the total amount of FLEX positions then we can break out. If not we add the player value and go to the next FLEX.
                         if (positionCounter == leagueInfo.FLEXCount + leagueInfo.RECFLEXCount + leagueInfo.SUPERFLEXCount)
                         {
@@ -1893,7 +1895,7 @@ namespace DynastyRanker.Controllers
         {
             POR unsignedPlayer = new POR();
             List<POR> unsignedPlayerList = new List<POR>();
-            
+
             //If the draft isn't complete we don't want rookie players to display here as they aren't available to be picked up yet
             if (draft.Status != "complete")
             {
@@ -1914,7 +1916,7 @@ namespace DynastyRanker.Controllers
                 }
             }
             //If the draft has been completed we can add the rookies back to the player pool as they're eligible for pick up now.
-            else 
+            else
             {
                 foreach (var p in players)
                 {
@@ -1969,7 +1971,7 @@ namespace DynastyRanker.Controllers
             foreach (Rosters ros in rosters)
             {
                 //If the total rounds are more than 4 we ignore them as only 4 rounds have values on KeepTradeCut
-                if(draft.Rounds >= 4)
+                if (draft.Rounds >= 4)
                 {
                     //If the draft isn't complete then this years picks are still eligible
                     //if(draft.Status != "complete")
@@ -2085,7 +2087,7 @@ namespace DynastyRanker.Controllers
                     tempPick = ros.DraftPicks[i];
 
                     //We only want to assign these values to 2021 picks as it's too far away to predict positioning of 2025/2023 picks
-                    if(tempPick.Contains("2023"))
+                    if (tempPick.Contains("2023"))
                     {
                         if (eml <= 0.34)
                         {
@@ -2124,14 +2126,14 @@ namespace DynastyRanker.Controllers
             foreach (var trade in tp)
             {
                 //We don't care about trades beyond 2023. TODO set variables so this isn't hard coded
-                if (trade.Season =="2023" || trade.Season == "2024" || trade.Season == "2025")
+                if (trade.Season == "2023" || trade.Season == "2024" || trade.Season == "2025")
                 {
                     //If the draft is finished and the trade is from 2021 the pick has already been used so it's irrelevant
                     //if (draft.Status == "complete" && trade.Season == "2021")
                     //    continue;
 
                     string tempPick = "";
-                    
+
                     originalOwnerRoster = rosters.FirstOrDefault(o => Int32.Parse(o.RosterID) == trade.RosterIDOriginalOwnerForDraftPosition);
                     newOwnerRoster = rosters.FirstOrDefault(o => Int32.Parse(o.RosterID) == trade.RosterIDOfCurrentOwner);
                     previousOwnerRoster = rosters.FirstOrDefault(o => Int32.Parse(o.RosterID) == trade.RosterIDOfPreviousOwner);
@@ -2140,7 +2142,7 @@ namespace DynastyRanker.Controllers
                     tempPick = trade.Season + " " + trade.Round;
                     if (trade.Round == 1)
                         tempPick = tempPick + "st";
-                    else if(trade.Round == 2)
+                    else if (trade.Round == 2)
                         tempPick = tempPick + "nd";
                     else if (trade.Round == 3)
                         tempPick = tempPick + "rd";
@@ -2178,7 +2180,7 @@ namespace DynastyRanker.Controllers
                     }
 
                     //If the pick exists on the roster we move it to the new roster
-                    if(pickFound == 1)
+                    if (pickFound == 1)
                     {
                         //Adding all of the picks that need to be removed to a list to be removed later because we may remove picks that get moved later on
                         picksToBeRemoved.Add(new KeyValuePair<string, string>(originalOwnerRoster.RosterID, tempPick));
@@ -2214,7 +2216,7 @@ namespace DynastyRanker.Controllers
 
             foreach (var ros in rosters)
             {
-                 foreach(var pick in ros.DraftPicks)
+                foreach (var pick in ros.DraftPicks)
                 {
                     //if(pick.Contains("202"))
                     //{
@@ -2234,11 +2236,11 @@ namespace DynastyRanker.Controllers
         public List<Rosters> GetStrengthOfSchedule(List<Rosters> rosters, List<SleeperMatchups> matchups)
         {
             Rosters matchupRoster = new Rosters();
-            foreach(var r in rosters)
+            foreach (var r in rosters)
             {
-                foreach(var m in matchups)
+                foreach (var m in matchups)
                 {
-                    if(m.RosterId == r.RosterID)
+                    if (m.RosterId == r.RosterID)
                     {
                         matchupRoster = rosters.Where(o => o.RosterID == m.MatchupId).First();
                         r.StrengthOfScheduleTotal += matchupRoster.TeamStartingTotal;
@@ -2259,7 +2261,7 @@ namespace DynastyRanker.Controllers
 
             //OrderBy for parameters that I've already ranked 1-12, OrderByDescending for summed values
             //QB Ranking
-            foreach(var ros in rosters.OrderBy(o=> o.QBRank))
+            foreach (var ros in rosters.OrderBy(o => o.QBRank))
             {
                 teamNames.Add(ros.DisplayName);
             }
@@ -2322,4 +2324,3 @@ namespace DynastyRanker.Controllers
         #endregion
     }
 }
-

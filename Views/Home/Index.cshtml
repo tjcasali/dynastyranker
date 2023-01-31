@@ -1,15 +1,9 @@
 ﻿@model DynastyRanker.Models.UserInfo
-
 <link href="~/css/site.css" rel="stylesheet" />
-
 <script type="text/javascript" src="~/scripts/JavaScript.js"></script>
-
 <body style="background-color:#18202F;">
-
     <div class="homePage">
-
         <div class="littleGap"></div>
-
         <div class="infobox-container">
             <div class="infobox-child">
 
@@ -17,14 +11,22 @@
                 <p>
                     The offseason requires some work from me to make sure everything is still working properly. If your league doesn't display properly or is unavailable please ensure
                     your league has been transitioned to 2023. If it's still not working, please reach out to me so I can get your league back up and running. Thanks for all the support in 2022!
-                    <br/>
+                    <br />
                     *NOTE* If your draft capital isn't displaying, please ensure that the 2023 draft order has been set for your league.
                 </p>
             </div>
         </div>
 
-        <div class="littleGap"></div>
 
+
+
+
+
+
+
+
+
+        <div class="littleGap"></div>
         <div class="infobox-container">
             <div class="infobox-child">
                 <div class="subtitle">Use the trade value chart at <a class="biggerA greenA" href="https://keeptradecut.com/">KeepTradeCut.com</a> to rank the teams in your Dynasty league. </div><br />
@@ -35,9 +37,7 @@
                 </p>
             </div>
         </div>
-
         <div class="littleGap"></div>
-
         <div class="sleeperIDBiggerPadding">
             <img alt="Sleeper Logo" class="sleeperMFLLogo" src="@Url.Content("~/Images/sleeperlogo_without_text.png")">
             <h1>Enter your Sleeper User Name.</h1><br />
@@ -45,14 +45,12 @@
             @using (Html.BeginForm("SelectLeague", "Sleeper"))
             {
                 @Html.TextBoxFor(m => m.UserName, new { @class = "sleeperIDField" })
-                <button type="submit" class="btn btn-info">Submit</button>            
+                <button type="submit" class="btn btn-info">Submit</button>
             }
         </div>
-
         <div class="tinyGap"></div>
         <div class="alignCenter">- OR -</div>
         <div class="tinyGap"></div>
-
         <div class="sleeperID">
             <img alt="Sleeper Logo" class="sleeperMFLLogo" src="@Url.Content("~/Images/sleeperlogo_without_text.png")">
             <h1>Enter your Sleeper League ID.</h1><br />
@@ -65,26 +63,20 @@
             </div>
             <img alt="Sleeper ID" src="@Url.Content("~/Images/SleeperLeagueID.png")" class="hideIf600">
         </div>
-
         <div class="tinyGap"></div>
         <div class="alignCenter">- OR -</div>
         <div class="tinyGap"></div>
-
         <div class="sleeperID">
             <img alt="Sleeper Logo" class="sleeperMFLLogo" src="@Url.Content("~/Images/mfl-cap.png")">
             <h1>Enter your MyFantasyLeague League ID.</h1><br />
-
             @using (Html.BeginForm("MFLDisplayLeague", "MFL"))
             {
                 @Html.TextBoxFor(m => m.LeagueID, new { @class = "sleeperIDField" })
-                <button type="submit" class="btn btn-info">Submit</button>            
+                <button type="submit" class="btn btn-info">Submit</button>
             }
             <img alt="Sleeper ID" src="@Url.Content("~/Images/MFLLeagueID.png")" class="hideIf600">
         </div>
-
         <div class="littleGap"></div>
-
         <img alt="Dynasty Ranker" src="@Url.Content("~/Images/DRHomepage6.png")" class="hideIf1200">
     </div>
 </body>
-

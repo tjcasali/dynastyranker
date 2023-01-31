@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <script type="text/javascript" src="~/scripts/JavaScript.js"></script>
 
-@{ 
+@{
     int count = 1;
     Dictionary<int, string> rankingsDict = new Dictionary<int, string>();
 
@@ -283,126 +283,126 @@
     <div class="rostersParent">
         @foreach (var roster in Model.Rosters)
         {
-        <div id="roster">
-            <div id=rosterBoldCenter>@rankingsDict[count] : @roster.DisplayName<br /></div>
+            <div id="roster">
+                <div id=rosterBoldCenter>@rankingsDict[count] : @roster.DisplayName<br /></div>
 
-            <div id=rosterBoldCenter>Team Total: @roster.TeamRankingTotal</div><br />
-            <div id=rosterBoldCenter>Best Starting Lineup:<br />@rankingsDict[roster.StartingTeamRank] <text>-</text> @Math.Floor(roster.TeamStartingTotal)</div><br />
+                <div id=rosterBoldCenter>Team Total: @roster.TeamRankingTotal</div><br />
+                <div id=rosterBoldCenter>Best Starting Lineup:<br />@rankingsDict[roster.StartingTeamRank] <text>-</text> @Math.Floor(roster.TeamStartingTotal)</div><br />
 
-            <div id=rosterBoldCenter>@*Strength of Schedule: @rankingsDict[roster.StrengthOfScheduleRank]*@</div><br />
+                <div id=rosterBoldCenter>@*Strength of Schedule: @rankingsDict[roster.StrengthOfScheduleRank]*@</div><br />
 
-            @*<div class="right-align">Proj</div>*@
-            <div class="position-rankings">QB Ranking: @rankingsDict[roster.QBRank] <text> - </text>@roster.QBRankingTotal</div>
-            @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "QB").OrderByDescending(o => o.Value.PORValue))
-            {
-                if (roster.StartingPlayerList.Contains(player.Value.PORName))
+                @*<div class="right-align">Proj</div>*@
+                <div class="position-rankings">QB Ranking: @rankingsDict[roster.QBRank] <text> - </text>@roster.QBRankingTotal</div>
+                @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "QB").OrderByDescending(o => o.Value.PORValue))
                 {
-                    <span>&#11088;</span>
+                    if (roster.StartingPlayerList.Contains(player.Value.PORName))
+                    {
+                        <span>&#11088;</span>
+                    }
+                    if (roster.StartingFlexList.Contains(player.Value.PORName))
+                    {
+                        <span>&#128170;</span>
+                    }
+                    @player.Value.PORName <text>: </text>
+                    @player.Value.PORValue
+                    @*<div class="right-align">@player.Value.PORProjection</div>*@
+                    <br />
                 }
-                if (roster.StartingFlexList.Contains(player.Value.PORName))
-                {
-                    <span>&#128170;</span>
-                }
-                @player.Value.PORName <text>: </text>
-                @player.Value.PORValue
-                @*<div class="right-align">@player.Value.PORProjection</div>*@
                 <br />
-            }
-            <br />
-            <div class="position-rankings">RB Ranking: @rankingsDict[roster.RBRank] <text> - </text>@roster.RBRankingTotal </div>
-            @*<div class="right-align">(Proj.)</div><br />*@
-            @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "RB").OrderByDescending(o => o.Value.PORValue))
-            {
-                if (roster.StartingPlayerList.Contains(player.Value.PORName))
+                <div class="position-rankings">RB Ranking: @rankingsDict[roster.RBRank] <text> - </text>@roster.RBRankingTotal </div>
+                @*<div class="right-align">(Proj.)</div><br />*@
+                @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "RB").OrderByDescending(o => o.Value.PORValue))
                 {
-                    <span>&#11088;</span>
-                }
-                if (roster.StartingFlexList.Contains(player.Value.PORName))
-                {
-                    <span>&#128170;</span>
-                }
-                @player.Value.PORName <text>: </text>
-                @player.Value.PORValue
-                @*<div class="right-align">@player.Value.PORProjection</div>*@
-                <br />
+                    if (roster.StartingPlayerList.Contains(player.Value.PORName))
+                    {
+                        <span>&#11088;</span>
+                    }
+                    if (roster.StartingFlexList.Contains(player.Value.PORName))
+                    {
+                        <span>&#128170;</span>
+                    }
+                    @player.Value.PORName <text>: </text>
+                    @player.Value.PORValue
+                    @*<div class="right-align">@player.Value.PORProjection</div>*@
+                    <br />
 
-            }
-            <br />
-            <div class="position-rankings">WR Ranking: @rankingsDict[roster.WRRank] <text> - </text>@roster.WRRankingTotal </div>
-            @*<div class="right-align">(Proj.)</div><br />*@
-            @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "WR").OrderByDescending(o => o.Value.PORValue))
-            {
-                if (roster.StartingPlayerList.Contains(player.Value.PORName))
-                {
-                    <span>&#11088;</span>
                 }
-                if (roster.StartingFlexList.Contains(player.Value.PORName))
-                {
-                    <span>&#128170;</span>
-                }
-                @player.Value.PORName <text>: </text>
-                @player.Value.PORValue
-                @*<div class="right-align">@player.Value.PORProjection</div>*@
                 <br />
-            }
-            <br />
-            <div class="position-rankings">TE Ranking: @rankingsDict[roster.TERank] <text> - </text>@roster.TERankingTotal </div>
-            @*<div class="right-align">(Proj.)</div><br />*@
-            @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "TE").OrderByDescending(o => o.Value.PORValue))
-            {
-                if (roster.StartingPlayerList.Contains(player.Value.PORName))
+                <div class="position-rankings">WR Ranking: @rankingsDict[roster.WRRank] <text> - </text>@roster.WRRankingTotal </div>
+                @*<div class="right-align">(Proj.)</div><br />*@
+                @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "WR").OrderByDescending(o => o.Value.PORValue))
                 {
-                    <span>&#11088;</span>
+                    if (roster.StartingPlayerList.Contains(player.Value.PORName))
+                    {
+                        <span>&#11088;</span>
+                    }
+                    if (roster.StartingFlexList.Contains(player.Value.PORName))
+                    {
+                        <span>&#128170;</span>
+                    }
+                    @player.Value.PORName <text>: </text>
+                    @player.Value.PORValue
+                    @*<div class="right-align">@player.Value.PORProjection</div>*@
+                    <br />
                 }
-                if (roster.StartingFlexList.Contains(player.Value.PORName))
-                {
-                    <span>&#128170;</span>
-                }
-                @player.Value.PORName <text>: </text>
-                @player.Value.PORValue
-                @*<div class="right-align">@player.Value.PORProjection</div>*@
                 <br />
-            }
-            <br />
-            @if (Model.IncludeDraftCapital == true)
-            {
-                <div class="position-rankings">Draft Capital: @roster.TotalDraftCapital</div>
-                if (Model.DraftInfo.Status != "complete")
+                <div class="position-rankings">TE Ranking: @rankingsDict[roster.TERank] <text> - </text>@roster.TERankingTotal </div>
+                @*<div class="right-align">(Proj.)</div><br />*@
+                @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "TE").OrderByDescending(o => o.Value.PORValue))
                 {
+                    if (roster.StartingPlayerList.Contains(player.Value.PORName))
+                    {
+                        <span>&#11088;</span>
+                    }
+                    if (roster.StartingFlexList.Contains(player.Value.PORName))
+                    {
+                        <span>&#128170;</span>
+                    }
+                    @player.Value.PORName <text>: </text>
+                    @player.Value.PORValue
+                    @*<div class="right-align">@player.Value.PORProjection</div>*@
+                    <br />
+                }
+                <br />
+                @if (Model.IncludeDraftCapital == true)
+                {
+                    <div class="position-rankings">Draft Capital: @roster.TotalDraftCapital</div>
+                    if (Model.DraftInfo.Status != "complete")
+                    {
+                        foreach (var pick in roster.DraftPicks.OrderByDescending(o => Int32.Parse(Model.DraftPickRankings[o])))
+                        {
+                            if (pick.Contains("2022"))
+                            {
+                                @pick <text>: </text>
+                                @Model.DraftPickRankings[pick]<br />
+                            }
+                        }
+                        <br />
+                    }
+
                     foreach (var pick in roster.DraftPicks.OrderByDescending(o => Int32.Parse(Model.DraftPickRankings[o])))
                     {
-                        if (pick.Contains("2022"))
+                        if (pick.Contains("2023"))
                         {
                             @pick <text>: </text>
                             @Model.DraftPickRankings[pick]<br />
                         }
                     }
                     <br />
-                }
-
-                foreach (var pick in roster.DraftPicks.OrderByDescending(o => Int32.Parse(Model.DraftPickRankings[o])))
-                {
-                    if (pick.Contains("2023"))
+                    foreach (var pick in roster.DraftPicks.OrderByDescending(o => Int32.Parse(Model.DraftPickRankings[o])))
                     {
-                        @pick <text>: </text>
-                        @Model.DraftPickRankings[pick]<br />
+                        if (pick.Contains("2024"))
+                        {
+                            @pick <text>: </text>
+                            @Model.DraftPickRankings[pick]<br />
+                        }
                     }
                 }
-                <br />
-                foreach (var pick in roster.DraftPicks.OrderByDescending(o => Int32.Parse(Model.DraftPickRankings[o])))
-                {
-                    if (pick.Contains("2024"))
-                    {
-                        @pick <text>: </text>
-                        @Model.DraftPickRankings[pick]<br />
-                    }
+                @{
+                    count++;
                 }
-            }
-            @{
-                count++;
-            }
-        </div>
-                }
+            </div>
+        }
     </div>
 
     <div class="rostersParent">
@@ -485,6 +485,5 @@
         </div>
 
     </div>
-        
-</body>
 
+</body>
