@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1704.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynastyRanker", "DynastyRanker.csproj", "{0BB2E3B1-7B3C-47CB-89AE-29BF9BD36517}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0BB2E3B1-7B3C-47CB-89AE-29BF9BD36517}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BB2E3B1-7B3C-47CB-89AE-29BF9BD36517}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BB2E3B1-7B3C-47CB-89AE-29BF9BD36517}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BB2E3B1-7B3C-47CB-89AE-29BF9BD36517}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DEF9654D-7E44-4C6B-B451-C45CDB01696D}
+	EndGlobalSection
+EndGlobal

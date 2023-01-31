@@ -132,7 +132,7 @@
         <div class="infobox2-child">
             <p>
                 <div class="alignCenter"><text class="boldText">Team Total</text> ranks the rosters by the owners that hold the most trade value using KeepTradeCut.<br /></div>
-                <div class="alignCenter"><text class="boldText">Best Starting Lineup</text> ranks the rosters based on the team's best starting lineup using 2022 projections from FantasyPros.<br /></div>
+                @*<div class="alignCenter"><text class="boldText">Best Starting Lineup</text> ranks the rosters based on the team's best starting lineup using 2022 projections from FantasyPros.<br /></div>*@
                 <div class="alignCenter">
                     All values are based on 12 team 0.5 PPR
                     @if (Model.UserInfo.SuperFlex == true)
@@ -142,7 +142,7 @@
                 </div><br />
                 <div class="alignCenter"><text class="boldText">Rankings Last Updated: </text>@Model.LastScrapeDate<br /></div>
                 <div class="legend">&#11088; : Starters  &#128170; : Best Flex Options @*<br /> Proj : FantasyPros 2021 Projection*@ </div>
-                <div class="alignCenter"><a class="btn btn-info btn-sm" href="@Url.Action("DisplayLeagueByStarting", "Sleeper", new { leagueID = Model.LeagueID })">Sort by Starting Lineup Ranking</a><br /></div>
+                @*<div class="alignCenter"><a class="btn btn-info btn-sm" href="@Url.Action("DisplayLeagueByStarting", "Sleeper", new { leagueID = Model.LeagueID })">Sort by Starting Lineup Ranking</a><br /></div>*@
             </p>
         </div>
     </div>
@@ -291,7 +291,7 @@
 
             <div id=rosterBoldCenter>@*Strength of Schedule: @rankingsDict[roster.StrengthOfScheduleRank]*@</div><br />
 
-            <div class="right-align">Proj</div>
+            @*<div class="right-align">Proj</div>*@
             <div class="position-rankings">QB Ranking: @rankingsDict[roster.QBRank] <text> - </text>@roster.QBRankingTotal</div>
             @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "QB").OrderByDescending(o => o.Value.PORValue))
             {
@@ -304,12 +304,13 @@
                     <span>&#128170;</span>
                 }
                 @player.Value.PORName <text>: </text>
-                @player.Value.PORValue <div class="right-align">@player.Value.PORProjection</div>
+                @player.Value.PORValue
+                @*<div class="right-align">@player.Value.PORProjection</div>*@
                 <br />
             }
             <br />
             <div class="position-rankings">RB Ranking: @rankingsDict[roster.RBRank] <text> - </text>@roster.RBRankingTotal </div>
-            <div class="right-align">(Proj.)</div><br />
+            @*<div class="right-align">(Proj.)</div><br />*@
             @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "RB").OrderByDescending(o => o.Value.PORValue))
             {
                 if (roster.StartingPlayerList.Contains(player.Value.PORName))
@@ -321,13 +322,14 @@
                     <span>&#128170;</span>
                 }
                 @player.Value.PORName <text>: </text>
-                @player.Value.PORValue <div class="right-align">@player.Value.PORProjection</div>
+                @player.Value.PORValue
+                @*<div class="right-align">@player.Value.PORProjection</div>*@
                 <br />
 
             }
             <br />
             <div class="position-rankings">WR Ranking: @rankingsDict[roster.WRRank] <text> - </text>@roster.WRRankingTotal </div>
-            <div class="right-align">(Proj.)</div><br />
+            @*<div class="right-align">(Proj.)</div><br />*@
             @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "WR").OrderByDescending(o => o.Value.PORValue))
             {
                 if (roster.StartingPlayerList.Contains(player.Value.PORName))
@@ -339,12 +341,13 @@
                     <span>&#128170;</span>
                 }
                 @player.Value.PORName <text>: </text>
-                @player.Value.PORValue <div class="right-align">@player.Value.PORProjection</div>
+                @player.Value.PORValue
+                @*<div class="right-align">@player.Value.PORProjection</div>*@
                 <br />
             }
             <br />
             <div class="position-rankings">TE Ranking: @rankingsDict[roster.TERank] <text> - </text>@roster.TERankingTotal </div>
-            <div class="right-align">(Proj.)</div><br />
+            @*<div class="right-align">(Proj.)</div><br />*@
             @foreach (var player in roster.PlayersOnRoster.Where(o => o.Value.PORPosition == "TE").OrderByDescending(o => o.Value.PORValue))
             {
                 if (roster.StartingPlayerList.Contains(player.Value.PORName))
@@ -356,7 +359,8 @@
                     <span>&#128170;</span>
                 }
                 @player.Value.PORName <text>: </text>
-                @player.Value.PORValue <div class="right-align">@player.Value.PORProjection</div>
+                @player.Value.PORValue
+                @*<div class="right-align">@player.Value.PORProjection</div>*@
                 <br />
             }
             <br />
