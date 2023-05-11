@@ -67,7 +67,7 @@ namespace DynastyRanker.Controllers
 
                     //TODO Put the if condition here so we don't even have to go into the scrape functions
                     //ScrapeRankings(lastScrapeDate);
-                    // ScrapeSFRankings(lastScrapeDate);
+                    //ScrapeSFRankings(lastScrapeDate);
                     playerList = LoadRankings(playerList, keepTradeCutList, leagueInformation);
                     playerList = LoadFantasyProsProjections(playerList);
                     LinkUsersAndRosters(sleeperUsers, sleeperRosters);
@@ -676,6 +676,12 @@ namespace DynastyRanker.Controllers
                         temp = "Will Fuller";
                     if (temp.Contains("Isaih Pacheco") && !playerNameList.Contains(temp))
                         temp = "Isiah Pacheco";
+                    if (temp.Contains("Calvin Austin III") && !playerNameList.Contains(temp))
+                        temp = "Calvin Austin";
+                    if (temp.Contains("Tank Dell") && !playerNameList.Contains(temp))
+                        temp = "Nathaniel Dell";
+                    if (temp.Contains("Gabe Davis") && !playerNameList.Contains(temp))
+                        temp = "Gabriel Davis";
 
                     //If the player is in the Sleeper GetPlayerList add the KTC value to the player
                     if (playerNameList.Contains(temp))
@@ -1924,6 +1930,12 @@ namespace DynastyRanker.Controllers
                         continue;
 
                     if (p.Value.FullName == "Kenneth Walker")
+                        continue;
+
+                    if (p.Value.FullName == "Najee Harris")
+                        continue;
+
+                    if (p.Value.FullName == "Mike Williams")
                         continue;
 
                     //If the player isn't on a roster, is one of the eligible positions, and has a value

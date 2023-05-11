@@ -1,15 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "m/3JDkvQvlZ4xWjn8TwM+jQN8G9P2ZAQ9C1ZlYoGtKFCll9ReWwnVd93JY3/YxeL4oVA9WOxGMBQ6Wtbg3qyIQ==",
+  "dgSpecHash": "T8/ilJEBV6zPpmVxUsLk1Uut44ZdcACO9T/0y8C/dhcEwJgODBtjO4P65FaRz6F7QNvhZxutdY0mx1ene9mMyA==",
   "success": true,
-  "projectFilePath": "/Users/timcasali/dev/dynastyranker/DynastyRanker.csproj",
+  "projectFilePath": "E:\\projects\\DynastyRanker\\DynastyRanker\\DynastyRanker.csproj",
   "expectedPackageFiles": [
-    "/Users/timcasali/.nuget/packages/htmlagilitypack/1.11.31/htmlagilitypack.1.11.31.nupkg.sha512",
-    "/Users/timcasali/.nuget/packages/microsoft.visualstudio.azure.containers.tools.targets/1.10.13/microsoft.visualstudio.azure.containers.tools.targets.1.10.13.nupkg.sha512",
-    "/Users/timcasali/.nuget/packages/newtonsoft.json/12.0.3/newtonsoft.json.12.0.3.nupkg.sha512",
-    "/Users/timcasali/.nuget/packages/microsoft.aspnetcore.app.ref/3.1.10/microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
-    "/Users/timcasali/.nuget/packages/microsoft.netcore.app.host.osx-x64/3.1.32/microsoft.netcore.app.host.osx-x64.3.1.32.nupkg.sha512",
-    "/Users/timcasali/.nuget/packages/microsoft.netcore.app.ref/3.1.0/microsoft.netcore.app.ref.3.1.0.nupkg.sha512"
+    "C:\\Users\\timca\\.nuget\\packages\\htmlagilitypack\\1.11.31\\htmlagilitypack.1.11.31.nupkg.sha512",
+    "C:\\Users\\timca\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.13\\microsoft.visualstudio.azure.containers.tools.targets.1.10.13.nupkg.sha512",
+    "C:\\Users\\timca\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\timca\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.25\\microsoft.netcore.app.host.win-x64.3.1.25.nupkg.sha512"
   ],
   "logs": []
 }
